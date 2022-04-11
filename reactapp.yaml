@@ -34,4 +34,4 @@ spec:
   ports:
   - name: http
     targetPort: 3000
-    port: 8020
+    port: 3000 
