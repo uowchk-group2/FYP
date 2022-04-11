@@ -35,29 +35,3 @@ spec:
   - name: http
     targetPort: 3000
     port: 3000 
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: echo
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
-spec:
-  backend:
-    serviceName: default-http-backend
-    servicePort: 80
-  rules:
-  - host: mini-echo.io
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: echoserver
-          servicePort: 8080
-  - host: mini-web.io
-    http:
-      paths:
-      - path: /echo
-        backend:
-          serviceName: echoserver
-          servicePort: 8080
