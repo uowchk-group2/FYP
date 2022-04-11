@@ -30,7 +30,7 @@ metadata:
 spec:
   selector:
     app: fyp-frontend
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: http
     targetPort: 3000
