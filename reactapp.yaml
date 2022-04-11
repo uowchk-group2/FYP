@@ -1,0 +1,37 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fyp-frontend
+  namespace: default
+  labels:
+    app: fyp-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fyp-frontend
+  template:
+    metadata:
+      labels:
+        app: fyp-frontend
+    spec:
+      containers:
+      - name: fyp-frontend
+        image: "unclechuen/fyp-frontend"
+        ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fyp-frontend
+  namespace: default
+spec:
+  selector:
+    app: fyp-frontend
+  type: LoadBalancer
+  ports:
+  - name: http
+    targetPort: 3000
+    port: 80
