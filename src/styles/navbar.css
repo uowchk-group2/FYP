@@ -2,3 +2,14 @@
     background:"#e7f5ff",
     
 }
+
+th{
+    text-align: right;
+    font-size: 20;
+}
+
+td{
+    text-align: right;
+    font-size: 15;
+
+}
