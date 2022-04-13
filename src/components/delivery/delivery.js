@@ -52,10 +52,10 @@ const Delivery = (props) => {
                     <ActionIcon variant='transparent'>
                         <Plus color="white" />
                     </ActionIcon>
-                    New Delivery
+                    New Delivery Note
                 </Button>
             </Link>
-            <span style={{ fontSize: 18 }}> Delivery created: 10/100</span>
+            <span style={{ fontSize: 18 }}> Delivery Notes Created: 10/100</span>
             <br/><br/>
             <Table style={tableStyle} highlightOnHover striped >
                 <thead>

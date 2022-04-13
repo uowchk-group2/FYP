@@ -47,7 +47,7 @@ const OrderPage = (props) => {
                 </Tabs.Tab>
 
                 <Tabs.Tab
-                    label="Delivery"
+                    label="Delivery Notes"
                     icon={<TruckDelivery size={20} />}
                 >
                     <Delivery data={data}/>
