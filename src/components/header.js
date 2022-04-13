@@ -6,17 +6,33 @@ import '../styles/mainStyle.css'
 const Header = () => {
     return (
         <header>
-            <h2>This is header.</h2>
+            <h2>This is icon.</h2>
 
-            <Group>
-                <Link to="/">
-                    <Button >Home</Button>
+            <div style={{ fontSize: 22, textAlign: 'right' }}>
+                Hi, user.<br />
+                <Link to="#">
+                    <Button>Logout</Button>
                 </Link>
-                <Link to="/login">
+            </div>
+
+            <div style={{ fontSize: 22, textAlign: 'right' }}>
+                Not signed in.<br/>
+                <Link to="/">
                     <Button>Login</Button>
                 </Link>
-            </Group>
+            </div>
 
+            <Group>
+                Demo: 
+                <Link to="/">
+                    <Button>Not sign in (Login page)</Button>
+                </Link>
+                <Link to="/home">
+                    <Button>Signed in (Homepage)</Button>
+                </Link>
+
+            </Group>
+            <hr/>
         </header>
     )
 }

@@ -16,15 +16,15 @@
 }
 
 body{
-    background-color: #F0FAEF;
+    background-color: #F6EFE1;
     margin-left: 10%;
     margin-right: 10%;
 }
 
 .horizontalTrim{
     width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .addPadding{
@@ -114,3 +114,5 @@ embed{
 .chatBubbleOthers{
     background-color: #f1f1f1;
 }
+
+
