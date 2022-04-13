@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {useState} from "react"
+import { useState } from "react"
 
 import {
     Navbar,
@@ -7,19 +7,20 @@ import {
     ActionIcon,
     UnstyledButton,
     Group,
-    Text
+    Text,
+    Table
 } from '@mantine/core';
 
 import { Plus } from 'tabler-icons-react';
 
-import "../../styles/navbar.css"
+import Styles from "../../styles/navbar.css"
 
 
 const NavBar = () => {
-    const [hovered,setHovered] = useState(false)
+    const [hovered, setHovered] = useState(false)
     const buttonStyle = {
-        width: "100%",
-        height:"100%",
+        // width: "100%",
+        height: "100%",
         textAlign: "left",
         padding: 15,
     }
@@ -47,16 +48,37 @@ const NavBar = () => {
             </Navbar.Section>
 
             <Navbar.Section >
-                <Button variant='subtle' style={buttonStyle}>
-                    <table>
-                        <tr>
-                            <th>Good</th>
-                            <td>Jewel</td>
-                        </tr>
-                        {/* Supplier: Johnny Co. <br />
+                <Button variant='subtle' style={buttonStyle} >
+                        <Table style={{ fontSize: 16, width: 265, textAlign: "left", color:"#A0A0A0" }} >
+                            <tr>
+                                <th>Good:</th>
+                                <td>Jewel</td>
+                            </tr>
+                            <tr>
+                                <th>Created Date:</th>
+                                <td>09-04-2022</td>
+                            </tr>
+                            <tr>
+                                <th>Supplier:</th>
+                                <td>Johnny Co. </td>
+                            </tr>
+                            <tr>
+                                <th>Distributor:</th>
+                                <td>Ivan Co.</td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>On the way</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >
+                                    <hr/>
+                                </td>
+                            </tr>
+                            {/* Supplier: Johnny Co. <br />
                         Supplier: Ivan Co. <br />
                         Status: On the way<br /> */}
-                    </table>
+                        </Table>
                 </Button>
             </Navbar.Section>
 
