@@ -10,12 +10,8 @@ import { Plus } from 'tabler-icons-react';
 import NavBarItem from "./navbarItem";
 
 
-const NavBar = () => {
-
-    const data = [
-        { good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", status: "On the way",delivered: 10, total:100, unit:"kg"},
-        { good: "Gold", date: "02-04-2022", supplier: "Oscar Co.", distributor: "Ivan Co.", status: "Delivered",delivered: 20, total:20,unit:"kg" }
-    ]
+const NavBar = (props) => {
+    let data = props.data
 
     return (
         <Navbar width={{ base: 300 }} >
@@ -33,8 +29,6 @@ const NavBar = () => {
             {[...data].map((item, i) => {
                 return <NavBarItem data={item} />
             })}
-
-
 
         </Navbar>
     )

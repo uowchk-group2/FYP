@@ -6,8 +6,6 @@ import {
     Table
 } from '@mantine/core';
 
-import Styles from "../../styles/navbar.css"
-
 const NavBarItem = (props) => {
     let item = props.data
 
@@ -22,8 +20,8 @@ const NavBarItem = (props) => {
         fontSize: 16,
         width: 265,
         textAlign: "left",
-        color: item.status == "Delivered" ? "#A0A0A0" : "black",
-        tableLayout: ""
+        color: item.chosen ? "white" : item.status === "Delivered" ? "#A0A0A0" : "black",
+        tableLayout: "",
     }
 
     console.log()
@@ -31,7 +29,7 @@ const NavBarItem = (props) => {
     return (
         <Navbar.Section >
             <Link to="/order/1">
-                <Button variant='subtle' style={buttonStyle} >
+                <Button variant={item.chosen ? "filled":"subtle"} style={buttonStyle} >
                     <Table style={tableStyle} >
                         <tr>
                             <th>Goods:</th>
