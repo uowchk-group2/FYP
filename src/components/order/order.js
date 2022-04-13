@@ -35,7 +35,7 @@ const OrderPage = (props) => {
         }
     }
 
-    const data = { good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", status: "On the way", delivered: 10, total: 100, unit: "kg" }
+    const data = {id:1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg" }
     return (
         <div>
             <Tabs tabPadding="md" active={activeTab} onTabChange={onTabChangeHandler}>
@@ -50,7 +50,7 @@ const OrderPage = (props) => {
                     label="Delivery"
                     icon={<TruckDelivery size={20} />}
                 >
-                    <Delivery />
+                    <Delivery data={data}/>
                 </Tabs.Tab>
 
                 <Tabs.Tab

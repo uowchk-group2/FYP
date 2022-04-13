@@ -34,8 +34,8 @@ const Home = (props) => {
     const param = { params: useParams() };
     const url = props.path
     let data = [
-        { good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", status: "On the way", delivered: 10, total: 100, unit: "kg", chosen: true },
-        { good: "Gold", date: "02-04-2022", supplier: "Oscar Co.", distributor: "Ivan Co.", status: "Delivered", delivered: 20, total: 20, unit: "kg", chosen: false }
+        {id:1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg", chosen: true },
+        {id:2, good: "Gold", date: "02-04-2022", supplier: "Oscar Co.", distributor: "Ivan Co.", delivered: 20, total: 20, unit: "kg", chosen: false }
     ]
 
     if (url !== "order") {

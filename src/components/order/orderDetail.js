@@ -17,6 +17,10 @@ const OrderDetail = (props) => {
             <Table verticalSpacing="lg" fontSize="md" >
                 <tbody>
                     <tr>
+                        <th>Order No.</th>
+                        <td>{item.id}</td>
+                    </tr>
+                    <tr>
                         <th>Goods:</th>
                         <td>{item.good}</td>
                     </tr>
@@ -31,10 +35,6 @@ const OrderDetail = (props) => {
                     <tr>
                         <th>Distributor:</th>
                         <td>{item.distributor}</td>
-                    </tr>
-                    <tr>
-                        <th>Status:</th>
-                        <td>{item.status}</td>
                     </tr>
                     <tr>
                         <th>Delivered/Total</th>

@@ -20,7 +20,7 @@ const NavBarItem = (props) => {
         fontSize: 16,
         width: 265,
         textAlign: "left",
-        color: item.chosen ? "white" : item.status === "Delivered" ? "#A0A0A0" : "black",
+        color: item.chosen ? "white" : item.delivered === item.total ? "#A0A0A0" : "black",
         tableLayout: "",
     }
 
@@ -29,8 +29,12 @@ const NavBarItem = (props) => {
     return (
         <Navbar.Section >
             <Link to="/order/1">
-                <Button variant={item.chosen ? "filled":"subtle"} style={buttonStyle} >
+                <Button variant={item.chosen ? "filled" : "subtle"} style={buttonStyle} >
                     <Table style={tableStyle} >
+                        <tr>
+                            <th>Order No.</th>
+                            <td>{item.id}</td>
+                        </tr>
                         <tr>
                             <th>Goods:</th>
                             <td>{item.good}</td>
@@ -46,10 +50,6 @@ const NavBarItem = (props) => {
                         <tr>
                             <th>Distributor:</th>
                             <td>{item.distributor}</td>
-                        </tr>
-                        <tr>
-                            <th>Status:</th>
-                            <td>{item.status}</td>
                         </tr>
                         <tr>
                             <th>Delivered/Total</th>
