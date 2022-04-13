@@ -12,18 +12,15 @@ import {
 } from '@mantine/core';
 
 import { Plus } from 'tabler-icons-react';
-
-import Styles from "../../styles/navbar.css"
+import NavBarItem from "./navbarItem";
 
 
 const NavBar = () => {
-    const [hovered, setHovered] = useState(false)
-    const buttonStyle = {
-        // width: "100%",
-        height: "100%",
-        textAlign: "left",
-        padding: 15,
-    }
+
+    const data = [
+        { good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", status: "On the way" },
+        { good: "Gold", date: "02-04-2022", supplier: "Oscar Co.", distributor: "Ivan Co.", status: "Delivered" }
+    ]
 
     return (
         <Navbar width={{ base: 300 }} >
@@ -36,51 +33,11 @@ const NavBar = () => {
                 </Button>
             </Navbar.Section>
 
-            <Navbar.Section >
-                <Button fullWidth variant='subtle' style={{ height: '100%', textAlign: "left" }}>
-                    <Text align="left">
-                        Good: Gold <br />
-                        Supplier: Johnny Co. <br />
-                        Distributor: Oscar Co.<br />
-                        Status: On the way<br />
-                    </Text>
-                </Button>
-            </Navbar.Section>
+            {[...data].map((item,i) =>{
+                return <NavBarItem data={item}/>
+            })}
 
-            <Navbar.Section >
-                <Button variant='subtle' style={buttonStyle} >
-                        <Table style={{ fontSize: 16, width: 265, textAlign: "left", color:"#A0A0A0" }} >
-                            <tr>
-                                <th>Good:</th>
-                                <td>Jewel</td>
-                            </tr>
-                            <tr>
-                                <th>Created Date:</th>
-                                <td>09-04-2022</td>
-                            </tr>
-                            <tr>
-                                <th>Supplier:</th>
-                                <td>Johnny Co. </td>
-                            </tr>
-                            <tr>
-                                <th>Distributor:</th>
-                                <td>Ivan Co.</td>
-                            </tr>
-                            <tr>
-                                <th>Status:</th>
-                                <td>On the way</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" >
-                                    <hr/>
-                                </td>
-                            </tr>
-                            {/* Supplier: Johnny Co. <br />
-                        Supplier: Ivan Co. <br />
-                        Status: On the way<br /> */}
-                        </Table>
-                </Button>
-            </Navbar.Section>
+
 
         </Navbar>
     )
