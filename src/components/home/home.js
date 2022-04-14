@@ -12,38 +12,30 @@ import NewOrder from '../order/newOrder'
 
 //Select what content to show in the main frame
 const PageContent = (props) => {
-    const url = props.url;
-    const param = props.param;
-    const tabOption = props.option;
+    const path = props.path;
+    
+    console.log("path: "+path)
 
-    if (url === "home") {
+    if (path === "home") {
         return <HomeContent />;
     }
-    if (url === "order") {
-        return <OrderPage id={param} tabOption={tabOption} />;
-    }
-    if (url === "newOrder") {
-        return <NewOrder />
-    }
-
+    if (path === "order") {
+        return <OrderPage  />;
+    }  
 
 }
 
 
 const Home = (props) => {
-    const param = { params: useParams() };
-    const url = props.path
+    const path = props.path
     let data = [
         {id:1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg", chosen: true },
         {id:2, good: "Gold", date: "02-04-2022", supplier: "Oscar Co.", distributor: "Ivan Co.", delivered: 20, total: 20, unit: "kg", chosen: false }
     ]
 
-    if (url !== "order") {
+    if (path !== "order") {
         data[0].chosen = false
     }
-    console.log("url: "+url)
-    console.log(param)
-
 
     return (
         <AppShell
@@ -54,7 +46,7 @@ const Home = (props) => {
             })}
         >
             {/* Your application here */}
-            <PageContent url={url} param={param} />
+            <PageContent path={path} />
         </AppShell>
     )
 }

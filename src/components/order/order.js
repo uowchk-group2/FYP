@@ -5,40 +5,18 @@ import { Tabs } from '@mantine/core'
 
 import { ReportAnalytics, FileDescription, TruckDelivery } from 'tabler-icons-react';
 
-
 import OrderDetail from './orderDetail'
 import Delivery from '../delivery/delivery'
 
 const OrderPage = (props) => {
     let navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState(1);
-    const tabOption = props.tabOption;
+    const [activeTab, setActiveTab] = useState(0);
 
-    if (tabOption === "delivery") {
-        setActiveTab(2)
-    }
-    if (tabOption === "docs") {
-        setActiveTab(2)
-    }
 
-    function onTabChangeHandler(tabValue) {
-        setActiveTab(tabValue)
-        
-        if (tabValue === 0){
-            navigate("/order/1")
-        }
-        if (tabValue === 1){
-            navigate("/order/1/delivery")
-        }
-        if (tabValue === 2){
-            navigate("/order/1/docs")
-        }
-    }
-
-    const data = {id:1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg" }
+    const data = { id: 1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg" }
     return (
         <div>
-            <Tabs tabPadding="md" active={activeTab} onTabChange={onTabChangeHandler}>
+            <Tabs tabPadding="md" active={activeTab} onTabChange={setActiveTab}>
                 <Tabs.Tab
                     label="Purchase Order"
                     icon={<ReportAnalytics size={20} />}
@@ -50,7 +28,7 @@ const OrderPage = (props) => {
                     label="Delivery Notes"
                     icon={<TruckDelivery size={20} />}
                 >
-                    <Delivery data={data}/>
+                    <Delivery data={data} />
                 </Tabs.Tab>
 
                 <Tabs.Tab

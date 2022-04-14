@@ -12,19 +12,19 @@ import { DatePicker } from '@mantine/dates';
 
 import '../../styles/mainStyle.css'
 
-const NewOrder = () => {
+const EditOrder = () => {
     const [loading, setLoading] = useState(false);
 
     return (
         <div style={{ paddingLeft: 30, paddingRight: 30 }}>
-            <h2 style={{ textAlign: 'center' }}>Create new Order</h2>
+            <h2 style={{ textAlign: 'center' }}>Edit Order</h2>
 
             <InputWrapper
                 required
                 label="Name of goods"
                 description="A short description about the goods of the order"
             >
-                <TextInput placeholder="Name of goods" />
+                <TextInput placeholder="Name of goods" value={"Jewel"}/>
             </InputWrapper> <br />
 
             <Select
@@ -37,25 +37,31 @@ const NewOrder = () => {
                     { value: 'user3', label: 'Company 3 (Name of user)' },
                     { value: 'user4', label: 'Company 4 (Name of user)' },
                 ]}
+                value={'user1'}
             /> <br />
 
             <DatePicker
                 placeholder="Order creation date"
                 label="Order creation date"
                 required
+                value={ new Date()}
             /> <br />
 
             <InputWrapper
                 required
                 label="Unit of goods"
             >
-                <TextInput placeholder="Eg: kg, grams, tons ..." />
+                <TextInput 
+                placeholder="Eg: kg, grams, tons ..." 
+                value="kg"
+                />
             </InputWrapper> <br />
 
             <NumberInput
                 defaultValue={0}
                 placeholder="Total order quantity"
                 label="Total order quantity"
+                value={100}
                 required
             /><br />
 
@@ -79,4 +85,4 @@ const NewOrder = () => {
     )
 }
 
-export default NewOrder;
+export default EditOrder;

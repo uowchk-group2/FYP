@@ -56,7 +56,7 @@ const NavBarItem = (props) => {
                             <td>{item.delivered} / {item.total} {item.unit}</td>
                         </tr>
                         <tr>
-                            <td colspan="2" >
+                            <td colSpan="2" >
                                 <hr />
                             </td>
                         </tr>

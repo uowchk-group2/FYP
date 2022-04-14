@@ -13,22 +13,30 @@ const DeliveryItem = (props) => {
         padding: 15,
     }
 
+    function deleteDelivery() {
+        if (window.confirm("Are you sure you want to delete this delivery?")) {
+            console.log("Confirmed")
+        }
+    }
 
     return (
-        <>
-            <tr>
-                <td>{data.id}</td>
-                <td>{data.createDate}</td>
-                <td>{data.from}</td>
-                <td>{data.to}</td>
-                <td>{data.quantity}</td>
-                <td>{data.status}</td>
-                <td>
-                    <Button>View</Button>
-                    <Button color="red">Remove</Button>
-                </td>
-            </tr>
-        </>
+        <tr>
+            <td>{data.id}</td>
+            <td>{data.createDate}</td>
+            <td>{data.from}</td>
+            <td>{data.to}</td>
+            <td>{data.quantity}</td>
+            <td>{data.status}</td>
+            <td>
+                <Button>View</Button>
+                <Button
+                    color="red"
+                    onClick={deleteDelivery}
+                >
+                    Delete
+                </Button>
+            </td>
+        </tr>
     )
 }
 
