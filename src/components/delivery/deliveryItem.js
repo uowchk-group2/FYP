@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { Link } from "react-router-dom";
-import { Button, Table } from '@mantine/core';
+import { Button, Modal } from '@mantine/core';
+
+import DeliveryDetailEdit from './detail/deliveryDetailEdit'
 
 const DeliveryItem = (props) => {
     const data = props.data
+    const isDetail = props.detail
+    const [editView, setEditView] = useState(false)
 
     const buttonStyle = {
         // width:"100%",
@@ -22,19 +27,46 @@ const DeliveryItem = (props) => {
     return (
         <tr>
             <td>{data.id}</td>
-            <td>{data.createDate}</td>
+            <td>{data.eta}</td>
             <td>{data.from}</td>
             <td>{data.to}</td>
-            <td>{data.quantity}</td>
+            <td>{data.quantity} kg</td>
             <td>{data.status}</td>
             <td>
-                <Button>View</Button>
+                {
+                    (isDetail ?
+                        <>
+                            <Button
+                                onClick={() => { setEditView(true) }}
+                            >
+                                Edit
+                            </Button>
+                        </> :
+                        <>
+                            <Link to={`/order/${data.orderId}/${data.id}`} >
+                                <Button>
+                                    View
+                                </Button>
+                            </Link>
+                        </>
+                    )
+                }
+
                 <Button
                     color="red"
                     onClick={deleteDelivery}
                 >
                     Delete
                 </Button>
+
+                <Modal
+                    size="xl"
+                    opened={editView}
+                    onClose={() => setEditView(false)}
+                >
+                    <DeliveryDetailEdit />
+                </Modal>
+
             </td>
         </tr>
     )

@@ -24,7 +24,8 @@ const Delivery = (props) => {
 
         {
             id: "1-1",
-            createDate: "14-04-2022",
+            orderId:"1",
+            eta: "14-04-2022",
             from: "Tsing Yi",
             to: "Mong Kok",
             quantity: 4,
@@ -32,7 +33,8 @@ const Delivery = (props) => {
         },
         {
             id: "1-2",
-            createDate: "11-04-2022",
+            orderId:"1",
+            eta: "11-04-2022",
             from: "Tsing Yi",
             to: "Prince Edward",
             quantity: 6,
@@ -57,13 +59,13 @@ const Delivery = (props) => {
                 </ActionIcon>
                 New Delivery Note
             </Button>
-            <span style={{ fontSize: 18 }}> Delivery Notes Created: 10/100 kg</span>
+            <span style={{ fontSize: 18 }}> Delivery Notes Created: 10 / 100 kg</span>
             <br /><br />
             <Table style={tableStyle} highlightOnHover striped >
                 <thead>
                     <tr>
                         <th>Delivery Note Id</th>
-                        <th>Create date</th>
+                        <th>Estimated Delivery Time</th>
                         <th>From</th>
                         <th>To</th>
                         <th>Quantity</th>
@@ -74,7 +76,7 @@ const Delivery = (props) => {
                 <tbody>
 
                     {[...deliveries].map((item, i) => {
-                        return <DeliveryItem data={item} />
+                        return <DeliveryItem data={item} detail={false} />
                     })}
 
 

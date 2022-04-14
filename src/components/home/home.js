@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom';
-
 import {
     AppShell,
 } from '@mantine/core';
@@ -8,7 +6,6 @@ import NavBar from './navbar'
 
 import HomeContent from './homeContent'
 import OrderPage from '../order/order'
-import NewOrder from '../order/newOrder'
 
 //Select what content to show in the main frame
 const PageContent = (props) => {

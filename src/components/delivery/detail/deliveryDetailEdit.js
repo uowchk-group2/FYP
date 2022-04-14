@@ -9,9 +9,7 @@ import {
 } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 
-import "../../styles/mainStyle.css"
-
-const NewDelivery = () => {
+const DeliveryDetailEdit = () => {
     const [loading, setLoading] = useState(false);
 
     return (
@@ -23,7 +21,7 @@ const NewDelivery = () => {
                 label="Origin"
                 description="Origin address"
             >
-                <TextInput placeholder="Origin" />
+                <TextInput placeholder="Origin" value="Tsing Yi" />
             </InputWrapper> <br />
 
             <InputWrapper
@@ -31,7 +29,7 @@ const NewDelivery = () => {
                 label="Destination"
                 description="Destination address"
             >
-                <TextInput placeholder="Destination" />
+                <TextInput placeholder="Destination" value="Mong Kok" />
             </InputWrapper> <br />
 
 
@@ -39,6 +37,7 @@ const NewDelivery = () => {
                 defaultValue={0}
                 placeholder="Quantity of delivery"
                 label="Quantity of delivery"
+                value={4}
                 required
             /><br />
 
@@ -46,11 +45,13 @@ const NewDelivery = () => {
                 required
                 placeholder="Estimated shipping date"
                 label="Estimated shipping date"
+                value={ new Date()}
             /> <br />
 
             <Select
                 label="Driver assignment"
                 placeholder="Driver"
+                value="driver1"
                 data={[
                     { value: 'driver1', label: 'Driver 1' },
                     { value: 'driver2', label: 'Driver 2' },
@@ -62,15 +63,10 @@ const NewDelivery = () => {
 
             <div className="center">
                 <Button
-                >
-                    Reset
-                </Button>
-
-                <Button
                     onClick={() => { setLoading(!loading); }}
                     loading={loading}
                 >
-                    Submit
+                    Update
                 </Button>
 
             </div>
@@ -80,4 +76,4 @@ const NewDelivery = () => {
     )
 }
 
-export default NewDelivery;
+export default DeliveryDetailEdit;
