@@ -2,23 +2,23 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: fyp-frontend
+  name: fyp-prototype
   namespace: default
   labels:
-    app: fyp-frontend
+    app: fyp-prototype
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fyp-frontend
+      app: fyp-prototype
   template:
     metadata:
       labels:
-        app: fyp-frontend
+        app: fyp-prototype
     spec:
       containers:
-      - name: fyp-frontend
-        image: "unclechuen/fyp-frontend"
+      - name: fyp-prototype
+        image: "unclechuen/fyp-prototype"
         ports:
           - containerPort: 3000
 ---
