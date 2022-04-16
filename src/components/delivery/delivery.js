@@ -21,10 +21,9 @@ const Delivery = (props) => {
     let [addNew, setAddNew] = useState(false)
     let data = props.data
     let deliveries = [
-
         {
             id: "1-1",
-            orderId:"1",
+            orderId: "1",
             eta: "14-04-2022",
             from: "Tsing Yi",
             to: "Mong Kok",
@@ -33,7 +32,7 @@ const Delivery = (props) => {
         },
         {
             id: "1-2",
-            orderId:"1",
+            orderId: "1",
             eta: "11-04-2022",
             from: "Tsing Yi",
             to: "Prince Edward",
@@ -86,7 +85,7 @@ const Delivery = (props) => {
             <Modal
                 size="xl"
                 opened={addNew}
-                onClose={() => {setAddNew(false)}}
+                onClose={() => { setAddNew(false) }}
             >
 
                 <NewDelivery />
