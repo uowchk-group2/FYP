@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 
-import "../../styles/mainStyle.css"
+// import "../../styles/mainStyle.css"
 
 const NewDelivery = () => {
     const [loading, setLoading] = useState(false);

@@ -18,6 +18,7 @@ const DeliveryTimeline = (props) => {
             {record.map((item, i) => {
                 return (
                     <Timeline.Item
+                        key={i}
                         title={
                             <Text size="xl" weight={700}>{item.status}</Text>
                         }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from 'next/link'
 
 import {
     Navbar,
@@ -6,60 +6,62 @@ import {
     Table
 } from '@mantine/core';
 
-const NavBarItem = (props) => {
-    let item = props.data
+const NavBardata = ({ data }) => {
 
     const buttonStyle = {
         // width: "100%",
         height: "100%",
         textAlign: "left",
-        padding: 15,
+        paddingLeft: 14,
+        paddingRight: 14,
+        paddingTop:10
     }
 
     const tableStyle = {
         fontSize: 16,
         width: 265,
         textAlign: "left",
-        color: item.chosen ? "white" : item.delivered === item.total ? "#A0A0A0" : "black",
-        tableLayout: "",
+        color: data.chosen ? "white" : data.delivered === data.total ? "#A0A0A0" : "black",
     }
 
-    console.log()
 
     return (
         <Navbar.Section >
-            <Link to="/order/1">
-                <Button variant={item.chosen ? "filled" : "subtle"} style={buttonStyle} >
+            <Link href="/order/1">
+                <Button variant={data.chosen ? "filled" : "subtle"} style={buttonStyle} >
                     <Table style={tableStyle} >
-                        <tr>
-                            <th>Order No.</th>
-                            <td>{item.id}</td>
-                        </tr>
-                        <tr>
-                            <th>Goods:</th>
-                            <td>{item.good}</td>
-                        </tr>
-                        <tr>
-                            <th>Created Date:</th>
-                            <td>{item.date}</td>
-                        </tr>
-                        <tr>
-                            <th>Supplier:</th>
-                            <td>{item.supplier}</td>
-                        </tr>
-                        <tr>
-                            <th>Distributor:</th>
-                            <td>{item.distributor}</td>
-                        </tr>
-                        <tr>
-                            <th>Delivered/Total</th>
-                            <td>{item.delivered} / {item.total} {item.unit}</td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2" >
-                                <hr />
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>Order No.</th>
+                                <th>{data.id}</th>
+                            </tr>
+                            <tr>
+                                <th>Goods:</th>
+                                <th>{data.good}</th>
+                            </tr>
+                            <tr>
+                                <th>Created Date:</th>
+                                <th>{data.date}</th>
+                            </tr>
+                            <tr>
+                                <th>Supplier:</th>
+                                <th>{data.supplier}</th>
+                            </tr>
+                            <tr>
+                                <th>Distributor:</th>
+                                <th>{data.distributor}</th>
+                            </tr>
+                            <tr>
+                                <th>Delivered/Total</th>
+                                <th>{data.delivered} / {data.total} {data.unit}</th>
+                            </tr>
+                            <tr>
+                                <th colSpan="2" >
+                                    <hr />
+                                </th>
+                            </tr>
+
+                        </tbody>
                     </Table>
                 </Button>
             </Link>
@@ -68,4 +70,4 @@ const NavBarItem = (props) => {
     )
 }
 
-export default NavBarItem;
+export default NavBardata;

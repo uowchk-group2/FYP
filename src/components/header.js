@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { Group, Button } from '@mantine/core';
 
-import '../styles/mainStyle.css'
 
 const Header = () => {
     return (
@@ -10,24 +9,24 @@ const Header = () => {
 
             <div style={{ fontSize: 22, textAlign: 'right' }}>
                 Hi, user.<br />
-                <Link to="#">
+                <Link href="#">
                     <Button>Logout</Button>
                 </Link>
             </div>
 
             <div style={{ fontSize: 22, textAlign: 'right' }}>
                 Not signed in.<br/>
-                <Link to="/">
+                <Link href="/">
                     <Button>Login</Button>
                 </Link>
             </div>
 
             <Group>
                 Demo: 
-                <Link to="/">
+                <Link href="/">
                     <Button>Not sign in (Login page)</Button>
                 </Link>
-                <Link to="/home">
+                <Link href="/home">
                     <Button>Signed in (Homepage)</Button>
                 </Link>
 

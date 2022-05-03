@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from 'next/link'
 import {
     Button,
     ActionIcon,
@@ -33,11 +33,9 @@ const DeliveryDetail = (props) => {
         <div>
             {/* Back button */}
             <div>
-                <Link to={`/order/${deliveryData.id}`} >
+                <Link href={`/order/${deliveryData.orderId}`} >
                     <Button>
-                        <ActionIcon variant='transparent'>
                             <ArrowBackUp color="white" />
-                        </ActionIcon>
                         Delivery Notes
                     </Button>
                 </Link>

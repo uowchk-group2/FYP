@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom";
+import Link from 'next/link'
 import { Button, Modal } from '@mantine/core';
 
 import DeliveryDetailEdit from './detail/deliveryDetailEdit'
@@ -43,7 +43,7 @@ const DeliveryItem = (props) => {
                             </Button>
                         </> :
                         <>
-                            <Link to={`/order/${data.orderId}/${data.id}`} >
+                            <Link href={`/order/${data.orderId}/${data.id}`} >
                                 <Button>
                                     View
                                 </Button>

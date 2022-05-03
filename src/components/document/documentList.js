@@ -28,9 +28,7 @@ const DocumentTable = () => {
                     onClick={() => { setNewFile(true) }}
                     style={{ textAlign: 'center' }}
                 >
-                    <ActionIcon variant='transparent'>
                         <FileUpload color="white" />
-                    </ActionIcon>
                     Upload New Document
                 </Button>
             </Center>
@@ -47,21 +45,17 @@ const DocumentTable = () => {
                 <tbody>
                     {[...documents].map((item, i) => {
                         return (
-                            <tr>
+                            <tr key={i}>
                                 <td>{item.description}</td>
                                 <td>{item.by}</td>
                                 <td>{item.time}</td>
                                 <td>
                                     <Button compact size="xs">
-                                        <ActionIcon variant='transparent'>
                                             <ExternalLink color="white" size={20} />
-                                        </ActionIcon>
                                     </Button>
 
                                     <Button compact size="xs" color="red">
-                                        <ActionIcon variant='transparent'>
                                             <Trash color="white" size={20} />
-                                        </ActionIcon>
                                     </Button>
 
                                 </td>

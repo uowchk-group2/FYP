@@ -33,7 +33,7 @@ const BlockchainTable = () => {
                 <tbody>
 
                     {[...data].map((item, i) => {
-                        return <BlockchainTableItem data={item}/>
+                        return <BlockchainTableItem key={i} data={item}/>
                     })}
 
                 </tbody>

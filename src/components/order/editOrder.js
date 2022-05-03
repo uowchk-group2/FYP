@@ -10,7 +10,7 @@ import {
 
 import { DatePicker } from '@mantine/dates';
 
-import '../../styles/mainStyle.css'
+// import '../../styles/mainStyle.css'
 
 const EditOrder = () => {
     const [loading, setLoading] = useState(false);

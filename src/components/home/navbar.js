@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom";
 
 import {
     Navbar,
@@ -13,9 +12,8 @@ import { Plus } from 'tabler-icons-react';
 import NavBarItem from "./navbarItem";
 import NewOrder from '../order/newOrder'
 
-const NavBar = (props) => {
-    const [addNew,setAddNew] = useState(false)
-    let data = props.data
+const NavBar = ({ data }) => {
+    const [addNew, setAddNew] = useState(false)
 
     return (
         <Navbar width={{ base: 300 }} >
@@ -24,15 +22,13 @@ const NavBar = (props) => {
                     variant='filled'
                     onClick={() => { setAddNew(true) }}
                 >
-                    <ActionIcon variant='transparent'>
-                        <Plus color="white" />
-                    </ActionIcon>
+                    <Plus color="white" />
                     Purchase Order
                 </Button>
             </Navbar.Section>
 
             {[...data].map((item, i) => {
-                return <NavBarItem data={item} />
+                return <NavBarItem key={i} data={item} />
             })}
 
 

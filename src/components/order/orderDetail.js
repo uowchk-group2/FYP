@@ -7,7 +7,7 @@ import {
 
 import EditOrder from './editOrder'
 
-import '../../styles/mainStyle.css'
+// import '../../styles/mainStyle.css'
 
 const OrderDetail = (props) => {
     const [editView, setEditView] = useState(false)

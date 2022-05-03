@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import {
     Navbar,
@@ -53,9 +53,7 @@ const Delivery = (props) => {
     return (
         <div>
             <Button variant='filled' onClick={() => { setAddNew(true); console.log("Clicked") }}>
-                <ActionIcon variant='transparent'>
                     <Plus color="white" />
-                </ActionIcon>
                 New Delivery Note
             </Button>
             <span style={{ fontSize: 18 }}> Delivery Notes Created: 10 / 100 kg</span>
@@ -75,7 +73,7 @@ const Delivery = (props) => {
                 <tbody>
 
                     {[...deliveries].map((item, i) => {
-                        return <DeliveryItem data={item} detail={false} />
+                        return <DeliveryItem key={i} data={item} detail={false} />
                     })}
 
 
