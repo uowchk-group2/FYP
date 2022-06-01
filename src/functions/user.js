@@ -1,6 +1,7 @@
 const axios = require('axios');
 
-export const login = () => {
+export const login = async (username, password) => {
+    let result = ""
     const config = {
         headers: {
 
@@ -8,26 +9,32 @@ export const login = () => {
     }
 
     let body = {
-        username: "johnny1",
-        password: "johnny"
+        username: username,
+        password: password
     }
 
-    axios.post('https://tomcat.johnnyip.com/fyp-backend/login', body, config)
+    await axios.post('https://tomcat.johnnyip.com/fyp-backend/login', body, config)
         .then((response) => {
             console.log(response)
             console.log(response.status)
             console.log(response.data)
-        })
-        .catch((err) => {
-            console.log(err)
-            if (err.code === "ERR_NETWORK") {
-                console.log("Server Error")
-            }else if (err.code === "ERR_BAD_REQUEST") {
-                console.log("Wrong Credential")
+            if (response.status == 200) {
+                result = response.data
+            } else {
+                result = "Server Error"
             }
         })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = "Wrong Username or password"
+            } else {
+                console.log("Server Error")
+                result = "Server Error: Failed to connect server"
+            }
 
+        })
 
+    return result
 
-    // fetch('https://tomcat.johnnyip.com/fyp-backend/login', requestOptions)
 }
