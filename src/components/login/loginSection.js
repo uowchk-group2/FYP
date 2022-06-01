@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment, incrementByAmount } from "../../redux/counter";
-import { login } from "../../functions/user"
+import { login, saveJWT, checkJWT } from "../../functions/user"
 
 import { Button, Input, PasswordInput, InputWrapper, Badge } from "@mantine/core";
 
@@ -41,6 +41,8 @@ const LoginSection = () => {
             setLoading(false)
         } else {
             console.log("OK")
+            saveJWT(returnedMessage)
+            window.location.href = "/home"
         }
     }
 

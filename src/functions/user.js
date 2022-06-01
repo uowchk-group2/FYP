@@ -3,9 +3,7 @@ const axios = require('axios');
 export const login = async (username, password) => {
     let result = ""
     const config = {
-        headers: {
-
-        }
+        headers: {}
     }
 
     let body = {
@@ -15,9 +13,6 @@ export const login = async (username, password) => {
 
     await axios.post('https://tomcat.johnnyip.com/fyp-backend/login', body, config)
         .then((response) => {
-            console.log(response)
-            console.log(response.status)
-            console.log(response.data)
             if (response.status == 200) {
                 result = response.data
             } else {
@@ -32,9 +27,36 @@ export const login = async (username, password) => {
                 console.log("Server Error")
                 result = "Server Error: Failed to connect server"
             }
-
         })
 
     return result
 
 }
+
+export const saveJWT = (token) => {
+    document.cookie = `JWT=${token}`;
+
+    if (getCookie("JWT") == ""){
+        alert("Cannot save cookie. Please allow it in browser setting.")
+    }
+}
+
+export const checkJWT = () => {
+    return getCookie("JWT")
+}
+
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}  
