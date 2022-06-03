@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react"
 import Link from 'next/link'
 import { Group, Button } from '@mantine/core';
-import { checkJWT } from "../functions/user"
+import { isLogined } from "../functions/user"
 
 const Header = () => {
+    const [signedIn, isSingedIn] = useState(false)
 
     const checkLoginStatus = () => {
         console.log("Header check")
-        let jwt = checkJWT()
-        if (jwt == "") {
-            console.log("Empty")
-        } else {
-            console.log(jwt)
-        }
+        isLogined()
+        // let jwt = checkJWT()
+        // if (jwt == "") {
+        //     console.log("Empty")
+        // } else {
+        //     console.log(jwt)
+        // }
     }
 
     useEffect(() => {
@@ -27,19 +29,22 @@ const Header = () => {
                 </a>
             </Link>
 
-            <div style={{ fontSize: 22, textAlign: 'right' }}>
-                Hi, user.<br />
-                <Link href="#">
-                    <Button>Logout</Button>
-                </Link>
-            </div>
+            {
+                (signedIn) ?
+                    <div style={{ fontSize: 22, textAlign: 'right' }}>
+                        Hi, user.<br />
+                        <Link href="#">
+                            <Button>Logout</Button>
+                        </Link>
+                    </div> :
 
-            <div style={{ fontSize: 22, textAlign: 'right' }}>
-                Not signed in.<br />
-                <Link href="/">
-                    <Button>Login</Button>
-                </Link>
-            </div>
+                    <div style={{ fontSize: 22, textAlign: 'right' }}>
+                        You are not signed in.<br />
+                    </div>
+
+            }
+
+
 
             <Group>
                 Demo:
