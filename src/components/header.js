@@ -1,24 +1,47 @@
 import { useEffect, useState } from "react"
 import Link from 'next/link'
 import { Group, Button } from '@mantine/core';
-import { isLogined } from "../functions/user"
+
+import { useSelector, useDispatch } from "react-redux";
+import { setUsername, setSignedIn } from '../redux/user'
+import { fetchUserFromJWT, saveJWT } from '../functions/user'
+
+export const fetch = async (dispatch, username, signedIn) => {
+    let data = await fetchUserFromJWT()
+    console.log(data.username)
+    if (data.username === undefined) {
+        data.username = "";
+    }
+
+    dispatch(setUsername(data.username))
+    dispatch(setSignedIn(data.username != ""))
+
+    console.log(window.location.pathname)
+
+    let path = window.location.pathname
+    console.log("signedIn: " + signedIn)
+}
+
 
 const Header = () => {
-    const [signedIn, isSingedIn] = useState(false)
+    const [fetched, setFetched] = useState(false)
 
-    const checkLoginStatus = () => {
-        console.log("Header check")
-        isLogined()
-        // let jwt = checkJWT()
-        // if (jwt == "") {
-        //     console.log("Empty")
-        // } else {
-        //     console.log(jwt)
-        // }
+    //Redux
+    const { username,signedIn } = useSelector((state) => state.user);
+    const dispatch = useDispatch()
+
+    const signOut = () => {
+        saveJWT("Bearer ")
+        dispatch(setUsername(""))
+        dispatch(setSignedIn(false))
     }
 
     useEffect(() => {
-        checkLoginStatus();
+        if (!fetched) {
+            fetch(dispatch,username, signedIn)
+                .catch(console.error)
+            setFetched(true)
+        }
     })
 
     return (
@@ -32,9 +55,10 @@ const Header = () => {
             {
                 (signedIn) ?
                     <div style={{ fontSize: 22, textAlign: 'right' }}>
-                        Hi, user.<br />
+                        Hi, {username}.<br />
                         <Link href="#">
-                            <Button>Logout</Button>
+                            <Button
+                                onClick={() => signOut()}>Logout</Button>
                         </Link>
                     </div> :
 
@@ -46,7 +70,7 @@ const Header = () => {
 
 
 
-            <Group>
+            {/* <Group>
                 Demo:
                 <Link href="/">
                     <Button>Not sign in (Login page)</Button>
@@ -55,7 +79,7 @@ const Header = () => {
                     <Button>Signed in (Homepage)</Button>
                 </Link>
 
-            </Group>
+            </Group> */}
             <hr />
         </header>
     )

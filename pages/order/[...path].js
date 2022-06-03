@@ -1,36 +1,32 @@
 import { useRouter } from 'next/router'
+import { useSelector, useDispatch } from "react-redux";
 
 import Header from '../../src/components/header'
 import Home from '../../src/components/home/home'
+import Login from '../../src/components/login/login'
 
 export default function Order() {
+    const { signedIn } = useSelector((state) => state.user);
+
     const router = useRouter()
     const path = router.query.path || []
 
     console.log(path)
 
-    if (path.length == 1) {
-        return (
-            <>
-                <Header />
-                <Home path="order" params={path}/>
-            </>
-        )
+    return (
+        <>
+            <Header />
+            {
+                (!signedIn) ?
+                    <Login /> :
+                    (path.length == 1) ?
+                        <Home path="order" params={path} /> :
+                        (path.length == 2) ? 
+                        <Home path="order" params={path} />:
+                        <h1>error</h1>
+            }
 
-    } else if (path.length == 2) {
-        return (
-            <>
-                <Header />
-                <Home path="order" params={path} />
-            </>
-        )
+        </>
+    )
 
-    } else {
-        return (
-            <>
-                <Header />
-                <h1>error</h1>
-            </>
-        )
-    }
 }

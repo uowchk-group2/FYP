@@ -3,20 +3,22 @@ import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment, incrementByAmount } from "../../redux/counter";
 import { login, saveJWT, checkJWT } from "../../functions/user"
+import { fetch } from '../../components/header'
 
 import { Button, Input, PasswordInput, InputWrapper, Badge } from "@mantine/core";
 
 
 
 const LoginSection = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("")
+    const [usernameInput, setUsernameInput] = useState("");
+    const [passwordInput, setPasswordInput] = useState("")
 
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
 
     const { count } = useSelector((state) => state.counter);
+    const { username,signedIn } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const onFormSubmit = (e) => {
@@ -25,13 +27,11 @@ const LoginSection = () => {
     }
 
     const signInHandler = async () => {
-        console.log(username)
-        console.log(password)
 
         //Lodaing
         setLoading(true)
         setError(false)
-        let returnedMessage = await login(username, password);
+        let returnedMessage = await login(usernameInput, passwordInput);
         setMessage(returnedMessage)
 
         //Result
@@ -42,21 +42,20 @@ const LoginSection = () => {
         } else {
             console.log("OK")
             saveJWT(returnedMessage)
-            window.location.href = "/home"
+            fetch(dispatch, )
         }
     }
-
 
     return (
         <div>
             <form onSubmit={onFormSubmit}>
                 <h2>Sign In</h2>
                 <InputWrapper label="Username">
-                    <Input placeholder="Username" onChange={(value) => { setUsername(value.target.value) }} />
+                    <Input placeholder="Username" onChange={(value) => { setUsernameInput(value.target.value) }} />
                 </InputWrapper> <br />
 
                 <InputWrapper label="Password">
-                    <PasswordInput required placeholder="Password" onChange={(value) => { setPassword(value.target.value) }} />
+                    <PasswordInput required placeholder="Password" onChange={(value) => { setPasswordInput(value.target.value) }} />
                 </InputWrapper> <br />
 
                 <br />

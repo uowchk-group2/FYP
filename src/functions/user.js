@@ -33,35 +33,35 @@ export const login = async (username, password) => {
 
 }
 
-export const isLogined = async function () {
+export const fetchUserFromJWT = async () => {
     let tokenValue = checkJWT();
-    console.log("value: " + tokenValue)
+    let result = {};
+
+    // console.log("value: " + tokenValue)
     if (tokenValue === "") {
-        return "";
+        return result;
     }
 
-    const config = {
-        headers: {
-            'Authorization': Buffer.from(`${tokenValue}`, 'utf8').toString('base64')
-        }
-    }
+    axios.defaults.headers.common['Authorization'] = tokenValue
 
-    let body = {}
-
-    await axios.get('https://tomcat.johnnyip.com/fyp-backend/api/user/status', body, config)
+    // await axios.get('http://localhost:8080/api/user/status', body, config)
+    await axios.get('https://tomcat.johnnyip.com/fyp-backend/api/user/status')
         .then((response) => {
-            console.log(response);
+            let userJSON = response.data
+            // console.log(response.data);
 
             if (response.status == 200) {
-                result = response.data
+                // console.log(userJSON)
+                result = userJSON;
             } else {
-                result = "Server Error"
+                result = {};
             }
         })
         .catch((err) => {
             console.log(err)
+            result = {};
         })
-
+    return result;
 }
 
 export const saveJWT = (token) => {
