@@ -67,7 +67,6 @@ const Delivery = (props) => {
                         <th>To</th>
                         <th>Quantity</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

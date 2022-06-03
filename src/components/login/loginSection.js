@@ -18,7 +18,7 @@ const LoginSection = () => {
     const [error, setError] = useState(false);
 
     const { count } = useSelector((state) => state.counter);
-    const { username,signedIn } = useSelector((state) => state.user);
+    const { username, signedIn } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const onFormSubmit = (e) => {
@@ -42,7 +42,7 @@ const LoginSection = () => {
         } else {
             console.log("OK")
             saveJWT(returnedMessage)
-            fetch(dispatch, )
+            fetch(dispatch,)
         }
     }
 
@@ -59,7 +59,9 @@ const LoginSection = () => {
                 </InputWrapper> <br />
 
                 <br />
-                <Button type="submit" uppercase onClick={() => { signInHandler() }} loading={loading} >Sign In</Button>
+                <div style={{ textAlign: 'center' }}>
+                    <Button type="submit" uppercase onClick={() => { signInHandler() }} loading={loading} >Sign In</Button>
+                </div>
                 <br /><br />
                 {error ?
                     <Badge color="pink" variant="outline" size="lg">{message}</Badge>

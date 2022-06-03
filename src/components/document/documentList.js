@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { 
-    Table, 
-    Button, 
+import {
+    Table,
+    Button,
     ActionIcon,
     Modal,
     Center
@@ -20,7 +20,7 @@ const DocumentTable = () => {
 
 
     return (
-        
+
         <div>
 
             <Center>
@@ -28,7 +28,7 @@ const DocumentTable = () => {
                     onClick={() => { setNewFile(true) }}
                     style={{ textAlign: 'center' }}
                 >
-                        <FileUpload color="white" />
+                    <FileUpload color="white" />
                     Upload New Document
                 </Button>
             </Center>
@@ -49,13 +49,10 @@ const DocumentTable = () => {
                                 <td>{item.description}</td>
                                 <td>{item.by}</td>
                                 <td>{item.time}</td>
-                                <td>
-                                    <Button compact size="xs">
-                                            <ExternalLink color="white" size={20} />
-                                    </Button>
-
-                                    <Button compact size="xs" color="red">
-                                            <Trash color="white" size={20} />
+                                <td >
+                                    <Button compact size=""  style={{ fontSize:13}}>
+                                        
+                                        <ExternalLink color="white" size={30} />View In New Tab
                                     </Button>
 
                                 </td>

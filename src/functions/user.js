@@ -44,7 +44,6 @@ export const fetchUserFromJWT = async () => {
 
     axios.defaults.headers.common['Authorization'] = tokenValue
 
-    // await axios.get('http://localhost:8080/api/user/status', body, config)
     await axios.get('https://tomcat.johnnyip.com/fyp-backend/api/user/status')
         .then((response) => {
             let userJSON = response.data

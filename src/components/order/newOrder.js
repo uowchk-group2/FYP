@@ -61,6 +61,7 @@ const NewOrder = () => {
 
             <div className="center">
                 <Button
+                    color="gray"
                 >
                     Reset
                 </Button>

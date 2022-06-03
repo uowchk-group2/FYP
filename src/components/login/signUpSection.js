@@ -10,8 +10,23 @@ import {
 } from "@mantine/core";
 
 const SignupSection = () => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordConfirm, setPasswordConfirm] = useState("")
     const [role, setRole] = useState('');
+    const [name, setName] = useState("")
+    const [companyName, setCompanyName] = useState("")
 
+    //For showing errors
+    const [invUsername, setInvUsername] = useState(false)
+    const [invPassword, setInvPassword] = useState(false)
+    const [invPasswordConfirm, setInvPasswordConfirm] = useState(false)
+    const [invRole, setInvRole] = useState(false)
+    const [invName, setInvName] = useState(false)
+    const [invCompanyName, setInvCompanyName] = useState(false)
+
+
+    const [submittable, setSubmittable] = useState(false);
 
 
     return (
@@ -19,49 +34,88 @@ const SignupSection = () => {
             <h2>Sign Up</h2>
             <InputWrapper
                 required
-                error="Username already exist."
+                error={invUsername ? "Username already exist." : ""}
                 label="Username">
-                <Input placeholder="Username" />
+                <Input
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    invalid={invUsername}
+                />
             </InputWrapper> <br />
 
             <InputWrapper
                 required
-                error="Password must not be empty"
                 label="Password">
-                <PasswordInput required placeholder="Password" />
+                <PasswordInput
+                    required
+                    placeholder="Password"
+                    error={invPassword ? "Password must not be empty" : ""}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
             </InputWrapper> <br />
 
             <InputWrapper
                 required
-                error="Two passwords do not match"
                 label="Re-enter password">
-                <PasswordInput required placeholder="Re-enter password" />
+                <PasswordInput
+                    required
+                    error={invPasswordConfirm ? "Two passwords do not match." : ""}
+                    placeholder="Re-enter password"
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    invalid={invPasswordConfirm}
+
+                />
             </InputWrapper> <br />
 
             <Select
                 label="Choose your role"
                 placeholder="Select User Role"
+                error={invRole ? "You must select one role." : ""}
                 onChange={setRole}
                 required
                 data={['Supplier', 'Distributor', 'Driver']}
+                invalid={invRole}
             /><br />
 
             <InputWrapper
                 description="For display purpose"
                 required
-                label="Your Name">
-                <Input placeholder="Company Name" />
+                error={invName ? "This field must not be empty." : ""}
+                label="Your Name"
+            >
+                <Input
+                    placeholder="Company Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    invalid={invName}
+                />
             </InputWrapper> <br />
 
             <InputWrapper
                 description="For display purpose"
                 required
-                label="Company Name">
-                <Input placeholder="Company Name" />
+                label="Company Name"
+                error={invCompanyName ? "This field must not be empty." : ""}
+            >
+                <Input
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    invalid={invCompanyName}
+                    placeholder="Company Name"
+                />
             </InputWrapper> <br />
 
 
-            <Button uppercase>Sign Up</Button>
+            <div style={{ textAlign: 'center' }}>
+                <Button
+                    disabled={!submittable}
+                    uppercase>
+                    Sign Up
+                </Button>
+            </div>
 
         </div>
     )

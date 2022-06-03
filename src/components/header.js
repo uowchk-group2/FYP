@@ -55,16 +55,18 @@ const Header = () => {
 
     return (
         <header>
-            <Link href="/">
-                <a>
-                    <img src="/images/logo.jpg" height="150" />
-                </a>
-            </Link>
+            <div style={{display: 'flex', padding:20}}>
+                <Link href="/">
+                    <a>
+                        <img src="/images/logo.jpg" height="150" />
+                    </a>
+                </Link>
 
-            <div style={{ fontSize: 22 }}>
-                Server Status:
-                <Badge color={backendIsUp ? "green" : "red"} size="xl" variant="dot">Backend Database</Badge>
-                <Badge color={blockchainIsUp ? "green" : "red"} size="xl" variant="dot">Blockchain ( Under development )</Badge>
+                <div style={{ fontSize: 22,display: "inline-block", alignSelf: "flex-end", paddingLeft:50,   }}>
+                    Server Status:
+                    <Badge color={backendIsUp ? "green" : "red"} size="xl" variant="dot">Backend Database</Badge>
+                    <Badge color={blockchainIsUp ? "green" : "red"} size="xl" variant="dot">Blockchain ( Under development )</Badge>
+                </div>
             </div>
 
             {
@@ -75,12 +77,7 @@ const Header = () => {
                             <Button
                                 onClick={() => signOut()}>Logout</Button>
                         </Link>
-                    </div> :
-
-                    <div style={{ fontSize: 22, textAlign: 'right' }}>
-                        You are not signed in.<br />
-                    </div>
-
+                    </div> : <></>
             }
             <hr />
         </header>

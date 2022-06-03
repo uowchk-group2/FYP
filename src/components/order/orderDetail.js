@@ -5,12 +5,10 @@ import {
     Modal
 } from '@mantine/core';
 
-import EditOrder from './editOrder'
 
 // import '../../styles/mainStyle.css'
 
 const OrderDetail = (props) => {
-    const [editView, setEditView] = useState(false)
     let item = props.data
 
     function deleteOrder() {
@@ -22,17 +20,6 @@ const OrderDetail = (props) => {
         <div className="horizontalTrim">
             <h2 className="center">Order Detail</h2>
             <div style={{ textAlign: 'right' }}>
-                <Button
-                    onClick={() => { setEditView(true) }}
-                >
-                    Edit
-                </Button>
-                <Button
-                    color="red"
-                    onClick={deleteOrder}
-                >
-                    Delete
-                </Button>
             </div>
             <Table verticalSpacing="lg" fontSize="md" >
                 <tbody>
@@ -68,16 +55,6 @@ const OrderDetail = (props) => {
 
                 </tbody>
             </Table>
-
-            <Modal
-                size="xl"
-                opened={editView}
-                onClose={() => { setEditView(false) }}
-            >
-
-                <EditOrder />
-            </Modal>
-
 
         </div>
     )
