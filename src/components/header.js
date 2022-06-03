@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import Link from 'next/link'
-import { Group, Button } from '@mantine/core';
+import { Group, Button, Badge } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
 import { setUsername, setSignedIn } from '../redux/user'
 import { fetchUserFromJWT, saveJWT } from '../functions/user'
+import { backendStatus } from '../functions/serverStatus'
 
 export const fetch = async (dispatch, username, signedIn) => {
     let data = await fetchUserFromJWT()
@@ -25,9 +26,11 @@ export const fetch = async (dispatch, username, signedIn) => {
 
 const Header = () => {
     const [fetched, setFetched] = useState(false)
+    const [backendIsUp, setBackendIsUp] = useState(false)
+    const [blockchainIsUp, setBlockchainIsUp] = useState(false)
 
     //Redux
-    const { username,signedIn } = useSelector((state) => state.user);
+    const { username, signedIn } = useSelector((state) => state.user);
     const dispatch = useDispatch()
 
     const signOut = () => {
@@ -37,8 +40,14 @@ const Header = () => {
     }
 
     useEffect(() => {
+        const checkStatus = async () => {
+            setBackendIsUp(await backendStatus())
+
+        }
+
         if (!fetched) {
-            fetch(dispatch,username, signedIn)
+            checkStatus()
+            fetch(dispatch, username, signedIn)
                 .catch(console.error)
             setFetched(true)
         }
@@ -51,6 +60,12 @@ const Header = () => {
                     <img src="/images/logo.jpg" height="150" />
                 </a>
             </Link>
+
+            <div style={{ fontSize: 22 }}>
+                Server Status:
+                <Badge color={backendIsUp ? "green" : "red"} size="xl" variant="dot">Backend Database</Badge>
+                <Badge color={blockchainIsUp ? "green" : "red"} size="xl" variant="dot">Blockchain ( Under development )</Badge>
+            </div>
 
             {
                 (signedIn) ?
@@ -67,19 +82,6 @@ const Header = () => {
                     </div>
 
             }
-
-
-
-            {/* <Group>
-                Demo:
-                <Link href="/">
-                    <Button>Not sign in (Login page)</Button>
-                </Link>
-                <Link href="/home">
-                    <Button>Signed in (Homepage)</Button>
-                </Link>
-
-            </Group> */}
             <hr />
         </header>
     )
