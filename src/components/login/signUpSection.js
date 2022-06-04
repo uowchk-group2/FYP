@@ -27,6 +27,7 @@ const SignupSection = () => {
     const [invCompanyName, setInvCompanyName] = useState(false)
 
     const [submittable, setSubmittable] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false)
 
     //Redux
@@ -45,6 +46,7 @@ const SignupSection = () => {
             if (companyName === "") { setInvCompanyName(true) }
         } else {
             // alert("Submitted.")
+            setSubmitted(true)
             await signUp(username, password, role, name, companyName)
             let returnedMessage = await login(username, password);
 
@@ -77,32 +79,34 @@ const SignupSection = () => {
             setInvUsername(result)
         }
 
-        //Check username
-        if (username != "") {
-            // setInvUsername(false)
-            checkUsername().catch(console.error)
+        if (!submitted) {
+            //Check username
+            if (username != "") {
+                // setInvUsername(false)
+                checkUsername().catch(console.error)
+            }
+
+            //Check password
+            if (password != "") { setInvPassword(false) }
+
+            //Check passwordConfirm
+            if (passwordConfirm != "" && password != passwordConfirm) {
+                setInvPasswordConfirm(true)
+            } else if (passwordConfirm != "" && password === passwordConfirm) {
+                setInvPasswordConfirm(false)
+            }
+
+            //Check role
+            if (role != "") { setInvRole(false) }
+
+            //Check Name
+            if (name != "") { setInvName(false) }
+
+            //Check CompanyName
+            if (companyName != "") { setInvCompanyName(false) }
+
+            checkSubmittable()
         }
-
-        //Check password
-        if (password != "") { setInvPassword(false) }
-
-        //Check passwordConfirm
-        if (passwordConfirm != "" && password != passwordConfirm) {
-            setInvPasswordConfirm(true)
-        } else if (passwordConfirm != "" && password === passwordConfirm) {
-            setInvPasswordConfirm(false)
-        }
-
-        //Check role
-        if (role != "") { setInvRole(false) }
-
-        //Check Name
-        if (name != "") { setInvName(false) }
-
-        //Check CompanyName
-        if (companyName != "") { setInvCompanyName(false) }
-
-        checkSubmittable()
     })
 
     return (
