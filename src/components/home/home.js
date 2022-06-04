@@ -1,39 +1,42 @@
-import {
-    AppShell,
-    Tabs
-} from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { AppShell, Tabs } from '@mantine/core';
 import { BuildingSkyscraper, Dna } from 'tabler-icons-react';
+import { useSelector, useDispatch } from "react-redux";
 
+import { retrieveOrders, retrieveCompanyName } from '../../functions/order'
+import { setOrders, setAdditional } from '../../redux/order'
+
+//Components
 import NavBar from './navbar'
-
 import HomeContent from './homeContent'
 import OrderPage from '../order/order'
 import Blockchain from '../blockchain/blockchain'
 
-//Select what content to show in the main frame
-const PageContent = ({ path, params }) => {
-
-    console.log("path: " + path)
-    console.log("params: " + params)
-
-
-
-}
 
 const Home = (props) => {
     const path = props.path
     const params = props.params
-    console.log("props1")
-    console.log(params)
 
-    let data = [
-        { id: 1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg", chosen: true },
-        { id: 2, good: "Gold", date: "02-04-2022", supplier: "Oscar Co.", distributor: "Ivan Co.", delivered: 20, total: 20, unit: "kg", chosen: false }
-    ]
+    //States
+    const [ordersLoaded, setOrdersLoaded] = useState(false)
 
-    if (path !== "order") {
-        data[0].chosen = false
-    }
+    //Redux
+    const { orders } = useSelector((state) => state.order);
+    const { userId, username } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            let ordersRetrieved = await retrieveOrders(userId)
+            dispatch(setOrders(ordersRetrieved))
+        }
+
+        if (!ordersLoaded) {
+            fetchOrders()
+            setOrdersLoaded(true)
+        }
+
+    })
 
     return (
         <Tabs variant="outline">
@@ -43,7 +46,7 @@ const Home = (props) => {
             >
                 <AppShell
                     padding="md"
-                    navbar={<NavBar data={data} />}
+                    navbar={<NavBar data={orders} />}
                     styles={(theme) => ({
                         main: { backgroundColor: theme.colors.gray[0] },
                     })}

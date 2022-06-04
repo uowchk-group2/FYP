@@ -1,10 +1,8 @@
+import { useState } from 'react'
 import Link from 'next/link'
+import { Navbar, Button, Table } from '@mantine/core';
 
-import {
-    Navbar,
-    Button,
-    Table
-} from '@mantine/core';
+import { useSelector, useDispatch } from "react-redux";
 
 const NavBardata = ({ data }) => {
 
@@ -14,7 +12,7 @@ const NavBardata = ({ data }) => {
         textAlign: "left",
         paddingLeft: 14,
         paddingRight: 14,
-        paddingTop:10
+        paddingTop: 10
     }
 
     const tableStyle = {
@@ -37,7 +35,7 @@ const NavBardata = ({ data }) => {
                             </tr>
                             <tr>
                                 <th>Goods:</th>
-                                <th>{data.good}</th>
+                                <th>{data.goods}</th>
                             </tr>
                             <tr>
                                 <th>Created Date:</th>
@@ -52,8 +50,8 @@ const NavBardata = ({ data }) => {
                                 <th>{data.distributor}</th>
                             </tr>
                             <tr>
-                                <th>Delivered/Total</th>
-                                <th>{data.delivered} / {data.total} {data.unit}</th>
+                                <th>Ordered / Total</th>
+                                <th>{data.delivered} / {data.deliveryTotal} {data.deliveryUnit}</th>
                             </tr>
                             <tr>
                                 <th colSpan="2" >

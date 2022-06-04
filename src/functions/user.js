@@ -38,9 +38,6 @@ export const signUp = async (username, password, role, name, companyName) => {
     
     //Translate role
     role = "ROLE_"+role.toUpperCase()
-    // if (role === "Supplier"){}
-    // if (role === "Distributor"){}
-    // if (role === "Driver"){}
 
 
     let body = {

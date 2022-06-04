@@ -3,24 +3,17 @@ import Link from 'next/link'
 import { Button, Badge } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
-import { setUsername, setSignedIn } from '../redux/user'
+import { setUserInfo } from '../redux/user'
 import { fetchUserFromJWT, saveJWT } from '../functions/user'
 import { backendStatus } from '../functions/checkStatus'
 
-export const fetch = async (dispatch, username, signedIn) => {
+export const fetch = async (dispatch, username, signedIn, userId) => {
     let data = await fetchUserFromJWT()
-    console.log(data.username)
     if (data.username === undefined) {
         data.username = "";
     }
-
-    dispatch(setUsername(data.username))
-    dispatch(setSignedIn(data.username != ""))
-
-    console.log(window.location.pathname)
-
-    let path = window.location.pathname
-    console.log("signedIn: " + signedIn)
+    data.signedIn = (data.username != "")
+    dispatch(setUserInfo(data))
 }
 
 

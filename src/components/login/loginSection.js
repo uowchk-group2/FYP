@@ -16,7 +16,7 @@ const LoginSection = () => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
 
-    const { count } = useSelector((state) => state.counter);
+    //Redux
     const dispatch = useDispatch();
 
     const onFormSubmit = (e) => {
