@@ -14,10 +14,12 @@ import DeliveryDetail from '../delivery/detail/deliveryDetail'
 import DocumentList from '../document/documentList'
 
 const OrderPage = (props) => {
+
+
     //States
     const [ordersLoaded, setOrdersLoaded] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({});
-    const [url, setUrl] = useState("")
+    const [url, setUrl] = useState([])
 
     //Redux
     const { orders } = useSelector((state) => state.order);
@@ -30,8 +32,14 @@ const OrderPage = (props) => {
     function tabChangeHandler(props) {
         setActiveTab(props)
     }
+    
+    console.log("orders")
+    console.log(orders)
+    
+
 
     useEffect(() => {
+        console.log("Fetching:")
         const fetchOrders = async () => {
             let ordersRetrieved = await retrieveOrders(userId)
             dispatch(setOrders(ordersRetrieved))
@@ -41,16 +49,16 @@ const OrderPage = (props) => {
                     setCurrentOrder(item)
                 }
             }
-
         }
 
-        if (!ordersLoaded) {
+        if (orders.length === 0 || !ordersLoaded) {
             fetchOrders()
             setOrdersLoaded(true)
         }
 
         if (url != params){
             fetchOrders()
+            setOrdersLoaded(true)
             setUrl(params)
         }
 
@@ -71,9 +79,9 @@ const OrderPage = (props) => {
                     label="Delivery Notes"
                     icon={<TruckDelivery size={20} />}
                 >
-                    {(params.length == 2) ?
-                        <DeliveryDetail data={data} /> :
-                        <Delivery data={data} />
+                    {(orders.length === 0) ? <></>:(params.length == 2 ) ?
+                        <DeliveryDetail data={currentOrder} params={params} /> :
+                        <Delivery data={currentOrder} />
                     }
 
                 </Tabs.Tab>

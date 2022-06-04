@@ -12,6 +12,22 @@ import DocumentTable from '../../document/documentList'
 
 
 const DeliveryDetail = (props) => {
+    console.log("props.data.notes")
+    console.log(props.params)
+    let noteId = props.params[1]
+    let orderData = props.data.notes
+    let noteItem = {}
+    if (orderData != undefined) {
+        for (let note of orderData) {
+            if (note.id === parseInt(noteId)) {
+                noteItem = note
+            }
+        }
+    }
+
+
+
+
     let deliveryData = {
         id: "1-1",
         orderId: "1",
@@ -29,52 +45,58 @@ const DeliveryDetail = (props) => {
         { sequence: 1, description: "The driver has collected the goods from sender.", status: "Goods Collected", time: "14-04-2022 12:00", location: "Mong Kok" },
     ]
 
-    return (
-        <div>
-            {/* Back button */}
+    if (orderData != undefined) {
+
+
+        return (
             <div>
-                <Link href={`/order/${deliveryData.orderId}`} >
-                    <Button>
+                {/* Back button */}
+                <div>
+                    <Link href={`/order/${deliveryData.orderId}`} >
+                        <Button>
                             <ArrowBackUp color="white" />
-                        Delivery Notes
-                    </Button>
-                </Link>
-            </div>
+                            Delivery Notes
+                        </Button>
+                    </Link>
+                </div>
 
-            {/* Page Detail */}
-            <Table>
-                <thead>
+                {/* Page Detail */}
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>Delivery Note Id</th>
+                            <th>Estimated Delivery Time</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <DeliveryItem orderData={orderData} data={noteItem} detail={true} />
+                    </tbody>
+                </Table>
+                <hr />
+                <table width="100%" >
                     <tr>
-                        <th>Delivery Note Id</th>
-                        <th>Estimated Delivery Time</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
+                        <td width="50%">
+                            <h2 style={{ textAlign: 'center' }}>Status</h2>
+                            <DeliveryTimeline data={deliveryRecords} />
+
+                        </td>
+                        <td style={{ verticalAlign: 'top' }} width="50%">
+                            <h2 style={{ textAlign: 'center', width: '100%' }}>Documents</h2>
+                            <DocumentTable />
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <DeliveryItem data={deliveryData} detail={true} />
-                </tbody>
-            </Table>
-            <hr />
-            <table width="100%" >
-                <tr>
-                    <td width="50%">
-                        <h2 style={{ textAlign: 'center' }}>Status</h2>
-                        <DeliveryTimeline data={deliveryRecords} />
+                </table>
 
-                    </td>
-                    <td style={{ verticalAlign: 'top' }} width="50%">
-                        <h2 style={{ textAlign: 'center', width: '100%' }}>Documents</h2>
-                        <DocumentTable />
-
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    )
+            </div>
+        )
+    }else{
+        return(<></>)
+    }
 }
 
 export default DeliveryDetail

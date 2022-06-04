@@ -19,27 +19,11 @@ import NewDelivery from './newDelivery'
 
 const Delivery = (props) => {
     let [addNew, setAddNew] = useState(false)
-    let data = props.data
-    let deliveries = [
-        {
-            id: "1-1",
-            orderId: "1",
-            eta: "14-04-2022",
-            from: "Tsing Yi",
-            to: "Mong Kok",
-            quantity: 4,
-            status: "Delivered",
-        },
-        {
-            id: "1-2",
-            orderId: "1",
-            eta: "11-04-2022",
-            from: "Tsing Yi",
-            to: "Prince Edward",
-            quantity: 6,
-            status: "On the way",
-        },
-    ]
+    let orderData = props.data
+    let deliveries = orderData.notes
+
+    console.log("deliveries")
+    console.log(deliveries)
 
     const tableStyle = {
         left: 0,
@@ -48,7 +32,6 @@ const Delivery = (props) => {
 
     }
 
-    let totalQuant = 10;
 
     return (
         <div>
@@ -56,13 +39,13 @@ const Delivery = (props) => {
                     <Plus color="white" />
                 New Delivery Note
             </Button>
-            <span style={{ fontSize: 18 }}> Delivery Notes Created: 10 / 100 kg</span>
+            <span style={{ fontSize: 18 }}> Delivery Notes Created: {orderData.ordered} / {orderData.deliveryTotal} {orderData.deliveryUnit}</span>
             <br /><br />
             <Table style={tableStyle} highlightOnHover striped >
                 <thead>
                     <tr>
                         <th>Delivery Note Id</th>
-                        <th>Estimated Delivery Time</th>
+                        <th>Shipping Date</th>
                         <th>From</th>
                         <th>To</th>
                         <th>Quantity</th>
@@ -72,7 +55,7 @@ const Delivery = (props) => {
                 <tbody>
 
                     {[...deliveries].map((item, i) => {
-                        return <DeliveryItem key={i} data={item} detail={false} />
+                        return <DeliveryItem key={i} orderData={orderData} data={item} detail={false} />
                     })}
 
 

@@ -27,3 +27,31 @@ export const retrieveDeliveryNotes = async (orderId) => {
     return result
 
 }
+
+export const retrieveDeliveryStatus = async (deliveryNoteId) => {
+    let result = []
+    const config = { headers: {} }
+    let body = {}
+
+    await axios.get(`https://tomcat.johnnyip.com/fyp-backend/api/delivery/status/${deliveryNoteId}`, body, config)
+        .then((response) => {
+            if (response.status == 200) {
+                result = response.data
+                console.log(result)
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log("Server Error")
+                result = []
+            }
+        })
+
+    return result
+
+}
