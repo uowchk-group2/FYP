@@ -19,7 +19,7 @@ const NavBardata = ({ data }) => {
         fontSize: 16,
         width: 265,
         textAlign: "left",
-        color: data.chosen ? "white" : data.delivered === data.total ? "#A0A0A0" : "black",
+        color: data.chosen ? "white" : data.ordered === data.total ? "#A0A0A0" : "black",
     }
 
 
@@ -51,7 +51,7 @@ const NavBardata = ({ data }) => {
                             </tr>
                             <tr>
                                 <th>Ordered / Total</th>
-                                <th>{data.delivered} / {data.deliveryTotal} {data.deliveryUnit}</th>
+                                <th>{data.ordered} / {data.deliveryTotal} {data.deliveryUnit}</th>
                             </tr>
                             <tr>
                                 <th colSpan="2" >

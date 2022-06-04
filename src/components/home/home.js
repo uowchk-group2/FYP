@@ -3,8 +3,8 @@ import { AppShell, Tabs } from '@mantine/core';
 import { BuildingSkyscraper, Dna } from 'tabler-icons-react';
 import { useSelector, useDispatch } from "react-redux";
 
-import { retrieveOrders, retrieveCompanyName } from '../../functions/order'
-import { setOrders, setAdditional } from '../../redux/order'
+import { retrieveOrders } from '../../functions/order'
+import { setOrders } from '../../redux/order'
 
 //Components
 import NavBar from './navbar'
@@ -22,7 +22,7 @@ const Home = (props) => {
 
     //Redux
     const { orders } = useSelector((state) => state.order);
-    const { userId, username } = useSelector((state) => state.user);
+    const { userId } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {

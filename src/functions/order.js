@@ -21,7 +21,7 @@ export const retrieveOrders = async (userId) => {
                     for (let note of deliveryNotes) {
                         totalQty += note.quantity
                     }
-                    item.delivered = totalQty
+                    item.ordered = totalQty
                 }
             } else {
                 result = []

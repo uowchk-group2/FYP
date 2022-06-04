@@ -1,25 +1,53 @@
-import { useState } from 'react';
-// import { useParams, useNavigate } from "react-router-dom";
-import { useRouter } from 'next/router'
-
-import { MantineProvider, Tabs } from '@mantine/core'
+import { useEffect, useState } from 'react';
+import { Tabs } from '@mantine/core'
+import { useSelector, useDispatch } from "react-redux";
 
 import { ReportAnalytics, FileDescription, TruckDelivery } from 'tabler-icons-react';
 
+import { retrieveOrders } from '../../functions/order'
+import { setOrders } from '../../redux/order'
+
+//Component
 import OrderDetail from './orderDetail'
 import Delivery from '../delivery/delivery'
 import DeliveryDetail from '../delivery/detail/deliveryDetail'
 import DocumentList from '../document/documentList'
 
 const OrderPage = (props) => {
+    //States
+    const [ordersLoaded, setOrdersLoaded] = useState(false)
+    const [currentOrder, setCurrentOrder] = useState({});
+
+    //Redux
+    const { orders } = useSelector((state) => state.order);
+    const { userId } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
     let params = props.params;
-    console.log("props")
-    console.log(props)
     const [activeTab, setActiveTab] = useState(params.length == 2 ? 1 : 0);
 
     function tabChangeHandler(props) {
         setActiveTab(props)
     }
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            let ordersRetrieved = await retrieveOrders(userId)
+            dispatch(setOrders(ordersRetrieved))
+
+            for (let item of ordersRetrieved) {
+                if (item.id === parseInt(params)) {
+                    setCurrentOrder(item)
+                }
+            }
+
+        }
+
+        if (!ordersLoaded) {
+            fetchOrders()
+            setOrdersLoaded(true)
+        }
+    })
 
     const data = { id: 1, orderId: 1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg" }
     return (
@@ -29,7 +57,7 @@ const OrderPage = (props) => {
                     label="Purchase Order"
                     icon={<ReportAnalytics size={20} />}
                 >
-                    <OrderDetail data={data} />
+                    <OrderDetail data={currentOrder} />
                 </Tabs.Tab>
 
                 <Tabs.Tab

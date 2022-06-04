@@ -11,11 +11,6 @@ import {
 const OrderDetail = (props) => {
     let item = props.data
 
-    function deleteOrder() {
-        if ( window.confirm("Are you sure you want to delete this order?") ) {
-            console.log("Confirmed")
-        }
-    }
     return (
         <div className="horizontalTrim">
             <h2 className="center">Order Detail</h2>
@@ -29,7 +24,7 @@ const OrderDetail = (props) => {
                     </tr>
                     <tr>
                         <th>Goods:</th>
-                        <td>{item.good}</td>
+                        <td>{item.goods}</td>
                     </tr>
                     <tr>
                         <th>Created Date:</th>
@@ -44,8 +39,8 @@ const OrderDetail = (props) => {
                         <td>{item.distributor}</td>
                     </tr>
                     <tr>
-                        <th>Delivered/Total</th>
-                        <td>{item.delivered} / {item.total} {item.unit}</td>
+                        <th>Ordered / Total</th>
+                        <td>{item.ordered} / {item.deliveryTotal} {item.deliveryUnit}</td>
                     </tr>
                     <tr>
                         <td colSpan="2" >
