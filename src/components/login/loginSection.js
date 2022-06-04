@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment, incrementByAmount } from "../../redux/counter";
 import { login, saveJWT, checkJWT } from "../../functions/user"
@@ -18,7 +18,6 @@ const LoginSection = () => {
     const [error, setError] = useState(false);
 
     const { count } = useSelector((state) => state.counter);
-    const { username, signedIn } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const onFormSubmit = (e) => {
@@ -42,7 +41,7 @@ const LoginSection = () => {
         } else {
             console.log("OK")
             saveJWT(returnedMessage)
-            fetch(dispatch,)
+            fetch(dispatch)
         }
     }
 
@@ -64,7 +63,9 @@ const LoginSection = () => {
                 </div>
                 <br /><br />
                 {error ?
-                    <Badge color="pink" variant="outline" size="lg">{message}</Badge>
+                    <div style={{ textAlign: 'center' }}>
+                        <Badge color="pink" variant="outline" size="lg">{message}</Badge>
+                    </div>
                     : <></>
                 }
 

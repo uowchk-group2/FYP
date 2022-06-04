@@ -5,7 +5,7 @@ import { Group, Button, Badge } from '@mantine/core';
 import { useSelector, useDispatch } from "react-redux";
 import { setUsername, setSignedIn } from '../redux/user'
 import { fetchUserFromJWT, saveJWT } from '../functions/user'
-import { backendStatus } from '../functions/serverStatus'
+import { backendStatus } from '../functions/checkStatus'
 
 export const fetch = async (dispatch, username, signedIn) => {
     let data = await fetchUserFromJWT()

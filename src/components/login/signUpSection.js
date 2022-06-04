@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Button, Input, PasswordInput, InputWrapper, Select } from "@mantine/core";
+import { useDispatch } from "react-redux";
 
-import {
-    Button,
-    Input,
-    PasswordInput,
-    InputWrapper,
-    Select
 
-} from "@mantine/core";
+import { usernameStatus } from '../../functions/checkStatus'
+import { signUp } from '../../functions/user'
+import { login, saveJWT, checkJWT } from "../../functions/user"
+import { fetch } from '../../components/header'
+
 
 const SignupSection = () => {
+    //State of form
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirm, setPasswordConfirm] = useState("")
@@ -25,22 +26,97 @@ const SignupSection = () => {
     const [invName, setInvName] = useState(false)
     const [invCompanyName, setInvCompanyName] = useState(false)
 
-
     const [submittable, setSubmittable] = useState(false);
+    const [loading, setLoading] = useState(false)
 
+    //Redux
+    const dispatch = useDispatch();
+
+    const submit = async () => {
+        setLoading(true)
+        await checkSubmittable()
+        if (!submittable) {
+            // alert("There are some errors in the form.")
+            if (username === "") { setInvUsername(true) }
+            if (password === "") { setInvPassword(true) }
+            if (passwordConfirm === "") { setInvPasswordConfirm(true) }
+            if (role === "") { setInvRole(true) }
+            if (name === "") { setInvName(true) }
+            if (companyName === "") { setInvCompanyName(true) }
+        } else {
+            // alert("Submitted.")
+            await signUp(username, password, role, name, companyName)
+            let returnedMessage = await login(username, password);
+
+            if (returnedMessage != "Wrong Username or password" && returnedMessage != "Server Error: Failed to connect server") {
+                console.log("Signed in")
+                saveJWT(returnedMessage)
+                fetch(dispatch)
+            }
+
+        }
+        setLoading(false)
+    }
+
+
+    const checkSubmittable = async () => {
+        if (!invUsername && !invPassword && !invPasswordConfirm && !invRole && !invName && !invCompanyName &&
+            username != "" && password != "" && passwordConfirm != "" && role != "" && name != "" && companyName != "") {
+            setSubmittable(true)
+        } else {
+            console.log("Cannot submit")
+            setSubmittable(false)
+        }
+
+    }
+
+    useEffect(() => {
+        const checkUsername = async () => {
+            let result = await usernameStatus(username).catch(console.error);
+            console.log(result);
+            setInvUsername(result)
+        }
+
+        //Check username
+        if (username != "") {
+            // setInvUsername(false)
+            checkUsername().catch(console.error)
+        }
+
+        //Check password
+        if (password != "") { setInvPassword(false) }
+
+        //Check passwordConfirm
+        if (passwordConfirm != "" && password != passwordConfirm) {
+            setInvPasswordConfirm(true)
+        } else if (passwordConfirm != "" && password === passwordConfirm) {
+            setInvPasswordConfirm(false)
+        }
+
+        //Check role
+        if (role != "") { setInvRole(false) }
+
+        //Check Name
+        if (name != "") { setInvName(false) }
+
+        //Check CompanyName
+        if (companyName != "") { setInvCompanyName(false) }
+
+        checkSubmittable()
+    })
 
     return (
         <div>
             <h2>Sign Up</h2>
             <InputWrapper
                 required
-                error={invUsername ? "Username already exist." : ""}
+                error={invUsername ? username === "" ? "Password must not be empty" : `Username ${username} already exist.` : ""}
                 label="Username">
                 <Input
                     placeholder="Username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    invalid={invUsername}
+                    onChange={(e) => { setUsername(e.target.value) }}
+                    invalid={(invUsername)}
                 />
             </InputWrapper> <br />
 
@@ -111,7 +187,9 @@ const SignupSection = () => {
 
             <div style={{ textAlign: 'center' }}>
                 <Button
-                    disabled={!submittable}
+                    // disabled={!submittable}
+                    onClick={() => submit()}
+                    loading={loading}
                     uppercase>
                     Sign Up
                 </Button>

@@ -2,9 +2,7 @@ const axios = require('axios');
 
 export const login = async (username, password) => {
     let result = ""
-    const config = {
-        headers: {}
-    }
+    const config = { headers: {} }
 
     let body = {
         username: username,
@@ -31,6 +29,53 @@ export const login = async (username, password) => {
 
     return result
 
+}
+
+export const signUp = async (username, password, role, name, companyName) => {
+    //Signup part
+    let result = ""
+    const config = { headers: {} }
+    
+    //Translate role
+    role = "ROLE_"+role.toUpperCase()
+    // if (role === "Supplier"){}
+    // if (role === "Distributor"){}
+    // if (role === "Driver"){}
+
+
+    let body = {
+        id:0,
+        username: username,
+        password: password,
+        role: role,
+        fullname: name,
+        company: companyName
+    }
+
+    await axios.post('https://tomcat.johnnyip.com/fyp-backend/api/user/newUser', body, config)
+        .then((response) => {
+            if (response.status == 200) {
+                result = response.data
+            } else {
+                result = "Server Error"
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = "Wrong Username or password"
+            } else {
+                console.log("Server Error")
+                result = "Server Error: Failed to connect server"
+            }
+        })
+        
+        console.log("result: "+result)
+
+        //Login
+        if (result === "Done"){
+            await login(username,password)
+        }
 }
 
 export const fetchUserFromJWT = async () => {
@@ -74,7 +119,6 @@ export const saveJWT = (token) => {
 export const checkJWT = () => {
     return getCookie("JWT")
 }
-
 
 function getCookie(cname) {
     let name = cname + "=";
