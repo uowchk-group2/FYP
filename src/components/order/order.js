@@ -17,6 +17,7 @@ const OrderPage = (props) => {
     //States
     const [ordersLoaded, setOrdersLoaded] = useState(false)
     const [currentOrder, setCurrentOrder] = useState({});
+    const [url, setUrl] = useState("")
 
     //Redux
     const { orders } = useSelector((state) => state.order);
@@ -47,6 +48,12 @@ const OrderPage = (props) => {
             fetchOrders()
             setOrdersLoaded(true)
         }
+
+        if (url != params){
+            fetchOrders()
+            setUrl(params)
+        }
+
     })
 
     const data = { id: 1, orderId: 1, good: "Jewel", date: "09-04-2022", supplier: "Johnny Co.", distributor: "Ivan Co.", delivered: 10, total: 100, unit: "kg" }

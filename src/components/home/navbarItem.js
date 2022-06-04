@@ -22,10 +22,9 @@ const NavBardata = ({ data }) => {
         color: data.chosen ? "white" : data.ordered === data.total ? "#A0A0A0" : "black",
     }
 
-
     return (
         <Navbar.Section >
-            <Link href="/order/1">
+            <Link href={`/order/${data.id}`}>
                 <Button variant={data.chosen ? "filled" : "subtle"} style={buttonStyle} >
                     <Table style={tableStyle} >
                         <tbody>
