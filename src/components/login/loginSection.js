@@ -1,8 +1,7 @@
 
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment, incrementByAmount } from "../../redux/counter";
-import { login, saveJWT, checkJWT } from "../../functions/user"
+import { login, saveJWT } from "../../functions/user"
 import { fetch } from '../../components/header'
 
 import { Button, Input, PasswordInput, InputWrapper, Badge } from "@mantine/core";

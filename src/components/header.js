@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Link from 'next/link'
-import { Group, Button, Badge } from '@mantine/core';
+import { Button, Badge } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
 import { setUsername, setSignedIn } from '../redux/user'
@@ -54,31 +54,54 @@ const Header = () => {
     })
 
     return (
-        <header>
-            <div style={{display: 'flex', padding:20}}>
-                <Link href="/">
-                    <a>
-                        <img src="/images/logo.jpg" height="150" />
-                    </a>
-                </Link>
+        <header style={{ width: '100%' }}>
 
-                <div style={{ fontSize: 22,display: "inline-block", alignSelf: "flex-end", paddingLeft:50,   }}>
-                    Server Status:
-                    <Badge color={backendIsUp ? "green" : "red"} size="xl" variant="dot">Backend Database</Badge>
-                    <Badge color={blockchainIsUp ? "green" : "red"} size="xl" variant="dot">Blockchain ( Under development )</Badge>
-                </div>
-            </div>
+            <table style={{ width: '100%' }}>
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        {/* Logo */}
+                        <td>
+                            <div>
+                                <Link href="/">
+                                    <a>
+                                        <img src="/images/logo.jpg" height="150" />
+                                    </a>
+                                </Link>
 
-            {
-                (signedIn) ?
-                    <div style={{ fontSize: 22, textAlign: 'right' }}>
-                        Hi, {username}.<br />
-                        <Link href="#">
-                            <Button
-                                onClick={() => signOut()}>Logout</Button>
-                        </Link>
-                    </div> : <></>
-            }
+                            </div>
+                        </td>
+
+                        {/* Server status */}
+                        <td style={{ width: '30%', borderRadius: 20 }}>
+                            <div style={{ fontSize: 22, display: "inline-block", alignSelf: "flex-end", paddingLeft: 50, paddingRight: 50 }}>
+                                <div style={{ textAlign: "center" }} s>
+                                    <Badge color="gray" size="xl" radius="sm" variant="filled" >Server Status</Badge>
+                                </div>
+                                <br />
+                                <Badge color={backendIsUp ? "green" : "red"} style={{ backgroundColor: backendIsUp ? "#B6F3B8" : "#FCB2B2" }} size="xl" variant="dot">Backend Database</Badge><br />
+                                <Badge color={blockchainIsUp ? "green" : "red"} style={{ backgroundColor: blockchainIsUp ? "#B6F3B8" : "#FCB2B2" }} size="xl" variant="dot">Blockchain ( Under development )</Badge>
+                            </div>
+
+                        </td>
+
+                        {/* Login status */}
+                        <td style={{ width: '30%' }}>
+                            {
+                                (signedIn) ?
+                                    <div style={{ fontSize: 22, textAlign: 'right' }}>
+                                        Hi, {username}.<br />
+                                        <Link href="#">
+                                            <Button
+                                                onClick={() => signOut()}>Logout</Button>
+                                        </Link>
+                                    </div> : <></>
+                            }
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <hr />
         </header>
     )

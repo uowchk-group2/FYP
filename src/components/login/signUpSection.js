@@ -83,6 +83,7 @@ const SignupSection = () => {
             //Check username
             if (username != "") {
                 // setInvUsername(false)
+                setUsername(username.replace(/\W/g,'').toLowerCase())
                 checkUsername().catch(console.error)
             }
 
