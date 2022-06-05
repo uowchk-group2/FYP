@@ -33,13 +33,10 @@ const OrderPage = (props) => {
         setActiveTab(props)
     }
     
-    console.log("orders")
-    console.log(orders)
     
 
 
     useEffect(() => {
-        console.log("Fetching:")
         const fetchOrders = async () => {
             let ordersRetrieved = await retrieveOrders(userId)
             dispatch(setOrders(ordersRetrieved))

@@ -16,8 +16,6 @@ const DeliveryTimeline = (props) => {
             >
 
                 {record.slice(0).reverse().map((item, i) => {
-                    console.log(item)
-
                     return (
                         <Timeline.Item
                             key={i}

@@ -28,7 +28,6 @@ export const usernameStatus = async (username) => {
         await axios.get(`https://tomcat.johnnyip.com/fyp-backend/api/user/exist/${username}`)
             .then((response) => {
                 console.log(response)
-                console.log(username + " " + response.data + " " + (response.data === true));
                 if (response.status === 200) {
                     result = response.data
                 } else {

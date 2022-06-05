@@ -51,7 +51,6 @@ const SignupSection = () => {
             let returnedMessage = await login(username, password);
 
             if (returnedMessage != "Wrong Username or password" && returnedMessage != "Server Error: Failed to connect server") {
-                console.log("Signed in")
                 saveJWT(returnedMessage)
                 fetch(dispatch)
             }
@@ -66,7 +65,6 @@ const SignupSection = () => {
             username != "" && password != "" && passwordConfirm != "" && role != "" && name != "" && companyName != "") {
             setSubmittable(true)
         } else {
-            console.log("Cannot submit")
             setSubmittable(false)
         }
 
@@ -75,7 +73,6 @@ const SignupSection = () => {
     useEffect(() => {
         const checkUsername = async () => {
             let result = await usernameStatus(username).catch(console.error);
-            console.log(result);
             setInvUsername(result)
         }
 

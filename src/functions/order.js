@@ -13,7 +13,6 @@ export const retrieveOrders = async (userId) => {
             if (response.status == 200) {
                 result = response.data
                 for (let item of result) {
-                    item.chosen = false
                     item.supplier = await retrieveCompanyName(item.supplierId)
                     item.distributor = await retrieveCompanyName(item.distributorId)
 

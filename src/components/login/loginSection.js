@@ -38,7 +38,6 @@ const LoginSection = () => {
             setMessage(returnedMessage)
             setLoading(false)
         } else {
-            console.log("OK")
             saveJWT(returnedMessage)
             fetch(dispatch)
         }

@@ -12,8 +12,6 @@ import DocumentTable from '../../document/documentList'
 
 
 const DeliveryDetail = (props) => {
-    console.log("props.data.notes")
-    console.log(props.params)
     let noteId = props.params[1]
     
     let orderData = props.data
@@ -28,8 +26,6 @@ const DeliveryDetail = (props) => {
         }
     }
 
-    // console.log("Detail================================")
-    // console.log(noteItem)
 
     if (orderData != undefined) {
         return (

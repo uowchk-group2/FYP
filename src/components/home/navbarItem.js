@@ -4,7 +4,7 @@ import { Navbar, Button, Table } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
 
-const NavBardata = ({ data }) => {
+const NavBardata = ({ data, chosen }) => {
 
     const buttonStyle = {
         // width: "100%",
@@ -19,13 +19,13 @@ const NavBardata = ({ data }) => {
         fontSize: 16,
         width: 265,
         textAlign: "left",
-        color: data.chosen ? "white" : data.ordered === data.total ? "#A0A0A0" : "black",
+        color: chosen ? "white" : data.ordered === data.total ? "#A0A0A0" : "black",
     }
 
     return (
         <Navbar.Section >
             <Link href={`/order/${data.id}`}>
-                <Button variant={data.chosen ? "filled" : "subtle"} style={buttonStyle} >
+                <Button variant={chosen ? "filled" : "subtle"} style={buttonStyle} >
                     <Table style={tableStyle} >
                         <tbody>
                             <tr>

@@ -46,7 +46,7 @@ const Home = (props) => {
             >
                 <AppShell
                     padding="md"
-                    navbar={<NavBar data={orders} />}
+                    navbar={<NavBar data={orders} params={params} />}
                     styles={(theme) => ({
                         main: { backgroundColor: theme.colors.gray[0] },
                     })}

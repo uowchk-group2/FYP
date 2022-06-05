@@ -11,7 +11,6 @@ export default function Order() {
     const router = useRouter()
     const path = router.query.path || []
 
-    console.log(path)
 
     return (
         <>

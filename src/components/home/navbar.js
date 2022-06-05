@@ -1,19 +1,17 @@
 import { useState } from 'react'
 
-import {
-    Navbar,
-    Button,
-    ActionIcon,
-    Modal
-} from '@mantine/core';
+import { Navbar, Button, Modal } from '@mantine/core';
 
 import { Plus } from 'tabler-icons-react';
 
 import NavBarItem from "./navbarItem";
 import NewOrder from '../order/newOrder'
 
-const NavBar = ({ data }) => {
+const NavBar = ({ data, params }) => {
     const [addNew, setAddNew] = useState(false)
+
+    console.log("params")
+    console.log(params)
 
     return (
         <Navbar width={{ base: 300 }} >
@@ -28,7 +26,9 @@ const NavBar = ({ data }) => {
             </Navbar.Section>
 
             {[...data].map((item, i) => {
-                return <NavBarItem key={i} data={item} />
+                let chosen = false;
+                if (params != undefined && item.id === parseInt(params[0])) { chosen = true }
+                return <NavBarItem key={i} data={item} chosen={chosen} />
             })}
 
 

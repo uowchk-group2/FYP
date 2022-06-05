@@ -22,8 +22,6 @@ const Delivery = (props) => {
     let orderData = props.data
     let deliveries = orderData.notes
 
-    console.log("deliveries")
-    console.log(deliveries)
 
     const tableStyle = {
         left: 0,
@@ -35,7 +33,7 @@ const Delivery = (props) => {
 
     return (
         <div>
-            <Button variant='filled' onClick={() => { setAddNew(true); console.log("Clicked") }}>
+            <Button variant='filled' onClick={() => { setAddNew(true); }}>
                     <Plus color="white" />
                 New Delivery Note
             </Button>

@@ -67,8 +67,6 @@ export const signUp = async (username, password, role, name, companyName) => {
             }
         })
         
-        console.log("result: "+result)
-
         //Login
         if (result === "Done"){
             await login(username,password)
@@ -89,10 +87,8 @@ export const fetchUserFromJWT = async () => {
     await axios.get('https://tomcat.johnnyip.com/fyp-backend/api/user/status')
         .then((response) => {
             let userJSON = response.data
-            // console.log(response.data);
 
             if (response.status == 200) {
-                // console.log(userJSON)
                 result = userJSON;
             } else {
                 result = {};

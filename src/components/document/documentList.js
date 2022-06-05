@@ -8,12 +8,9 @@ import { convertToTimeString } from '../../functions/date'
 import NewDocument from '../document/newDocument'
 
 const DocumentTable = (props) => {
-    console.log("Document================================")
-    console.log(props.data)
     let noteId = "";
     if (props.params.length == 2) { noteId = props.params[1] }
 
-    console.log("noteId: " + noteId)
     let orderData = props.data
 
     const [newFile, setNewFile] = useState(false);
