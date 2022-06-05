@@ -89,6 +89,7 @@ export const fetchUserFromJWT = async () => {
 
             if (response.status == 200) {
                 result = userJSON;
+                console.log(result)
             } else {
                 result = {};
             }

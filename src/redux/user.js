@@ -16,6 +16,10 @@ export const userSlice = createSlice({
       state.username = action.payload.username
       state.signedIn = action.payload.signedIn
       state.userId = action.payload.id
+      state.company = action.payload.company
+      
+      let role = action.payload.role.substring(5)
+      state.role = role.at(0) + role.substring(1).toLowerCase()
     },
   },
 })

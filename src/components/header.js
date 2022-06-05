@@ -23,7 +23,7 @@ const Header = () => {
     const [blockchainIsUp, setBlockchainIsUp] = useState(false)
 
     //Redux
-    const { username, signedIn } = useSelector((state) => state.user);
+    const { username, signedIn,company, role } = useSelector((state) => state.user);
     const dispatch = useDispatch()
 
     const signOut = () => {
@@ -82,8 +82,10 @@ const Header = () => {
                         <td style={{ width: '30%' }}>
                             {
                                 (signedIn) ?
-                                    <div style={{ fontSize: 22, textAlign: 'right' }}>
-                                        Hi, {username}.<br />
+                                    <div style={{ fontSize: 20, textAlign: 'right' }}>
+                                        Hi, {username}<br />
+                                        Role: {role}<br/>
+                                        Company: {company}<br/>
                                         <Link href="#">
                                             <Button
                                                 onClick={() => signOut()}>Logout</Button>
