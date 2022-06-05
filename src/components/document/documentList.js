@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Table, Button, ActionIcon, Modal, Center } from '@mantine/core';
 import { ExternalLink, Trash, FileUpload } from 'tabler-icons-react';
 
@@ -12,14 +12,22 @@ const DocumentTable = (props) => {
     if (props.params.length == 2) { noteId = props.params[1] }
 
     let orderData = props.data
+    let showAll = props.all
 
     const [newFile, setNewFile] = useState(false);
+
 
     let documents = []
 
     if (orderData.documents != undefined) {
+
+        console.log("Doc")
+        console.log(orderData)
+        console.log("noteId: " + noteId)
         for (let doc of orderData.documents) {
-            if (doc.deliveryNoteId == noteId || noteId === "") {
+            console.log("doc.deliveryNoteId: " + doc.deliveryNoteId)
+            console.log("doc.deliveryNoteId === 0 " + (parseInt(doc.deliveryNoteId) === 0))
+            if ((showAll || (parseInt(doc.deliveryNoteId) === parseInt(noteId) || (parseInt(doc.deliveryNoteId) === 0)))) {
                 documents.push(doc)
             }
         }

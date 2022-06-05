@@ -9,7 +9,6 @@ export const retrieveDocuments = async (orderId) => {
         .then((response) => {
             if (response.status == 200) {
                 result = response.data
-                console.log(result)
             } else {
                 result = []
             }

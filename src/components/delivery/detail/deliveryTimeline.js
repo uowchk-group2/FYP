@@ -20,7 +20,7 @@ const DeliveryTimeline = (props) => {
                         <Timeline.Item
                             key={i}
                             title={
-                                <Text size="xl" weight={700}>{item.status}</Text>
+                                <Text size="xl" weight={700}>{item.title}</Text>
                             }
                         >
                             <Text><i>{item.location}</i></Text>
