@@ -16,12 +16,14 @@ import { Plus } from 'tabler-icons-react';
 
 import DeliveryItem from './deliveryItem'
 import NewDelivery from './newDelivery'
-
+ 
 const Delivery = (props) => {
     let [addNew, setAddNew] = useState(false)
     let orderData = props.data
     let deliveries = orderData.notes
 
+    console.log("OrderData================================")
+    console.log(orderData)
 
     const tableStyle = {
         left: 0,

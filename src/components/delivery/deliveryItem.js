@@ -6,6 +6,11 @@ const DeliveryItem = (props) => {
     const data = props.data
     const orderData = props.orderData
     const isDetail = props.detail
+
+    console.log("================================")
+    console.log(data)
+    console.log(data.status)
+    console.log(Object.keys(data).length)
         
     if (Object.keys(orderData).length > 0 && Object.keys(data).length > 0) {
         return (
@@ -15,7 +20,7 @@ const DeliveryItem = (props) => {
                 <td>{data.origin}</td>
                 <td>{data.destination}</td>
                 <td>{data.quantity} {orderData.deliveryUnit}</td>
-                <td>{data.status[data.status.length - 1].title}</td>
+                <td>{(data.status.length != 0) ? data.status[data.status.length - 1].title:"N/A"}</td>
                 <td>
                     {
                         (isDetail ?

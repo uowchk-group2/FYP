@@ -19,7 +19,7 @@ const DocumentTable = (props) => {
 
     if (orderData.documents != undefined) {
         for (let doc of orderData.documents) {
-            if (doc.deliveryNoteId == noteId) {
+            if (doc.deliveryNoteId == noteId || noteId === "") {
                 documents.push(doc)
             }
         }
