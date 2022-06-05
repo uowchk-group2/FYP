@@ -77,7 +77,6 @@ export const fetchUserFromJWT = async () => {
     let tokenValue = checkJWT();
     let result = {};
 
-    // console.log("value: " + tokenValue)
     if (tokenValue === "") {
         return result;
     }

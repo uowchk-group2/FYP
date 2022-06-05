@@ -10,8 +10,6 @@ import NewOrder from '../order/newOrder'
 const NavBar = ({ data, params }) => {
     const [addNew, setAddNew] = useState(false)
 
-    console.log("params")
-    console.log(params)
 
     return (
         <Navbar width={{ base: 300 }} >

@@ -3,7 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   username: "",
   signedIn: false,
-  userId: 0
+  userId: 0,
+  company:"",
+  role:""
 }
 
 export const userSlice = createSlice({
@@ -11,7 +13,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserInfo: (state, action) => {
-      console.log(action.payload)
       state.username = action.payload.username
       state.signedIn = action.payload.signedIn
       state.userId = action.payload.id

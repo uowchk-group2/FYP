@@ -22,8 +22,6 @@ const Delivery = (props) => {
     let orderData = props.data
     let deliveries = orderData.notes
 
-    console.log("OrderData================================")
-    console.log(orderData)
 
     const tableStyle = {
         left: 0,

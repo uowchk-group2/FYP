@@ -44,7 +44,6 @@ export const retrieveOrders = async (userId) => {
                 result = []
             }
         })
-    console.log(result)
     return result
 
 }

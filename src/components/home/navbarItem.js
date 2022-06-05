@@ -36,7 +36,7 @@ const NavBardata = ({ data, chosen }) => {
                                 <th>Goods:</th>
                                 <th>{data.goods}</th>
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <th>Created Date:</th>
                                 <th>{data.date}</th>
                             </tr>
@@ -47,9 +47,9 @@ const NavBardata = ({ data, chosen }) => {
                             <tr>
                                 <th>Distributor:</th>
                                 <th>{data.distributor}</th>
-                            </tr>
+                            </tr> */}
                             <tr>
-                                <th>Ordered / Total</th>
+                                <th>Created / Total</th>
                                 <th>{data.ordered} / {data.deliveryTotal} {data.deliveryUnit}</th>
                             </tr>
                             <tr>

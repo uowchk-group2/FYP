@@ -9,7 +9,6 @@ export const retrieveDeliveryNotes = async (orderId) => {
         .then((response) => {
             if (response.status == 200) {
                 result = response.data
-                console.log(result)
             } else {
                 result = []
             }
@@ -37,7 +36,6 @@ export const retrieveDeliveryStatus = async (deliveryNoteId) => {
         .then((response) => {
             if (response.status == 200) {
                 result = response.data
-                console.log(result)
             } else {
                 result = []
             }

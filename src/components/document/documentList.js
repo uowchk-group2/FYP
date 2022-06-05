@@ -21,12 +21,7 @@ const DocumentTable = (props) => {
 
     if (orderData.documents != undefined) {
 
-        console.log("Doc")
-        console.log(orderData)
-        console.log("noteId: " + noteId)
         for (let doc of orderData.documents) {
-            console.log("doc.deliveryNoteId: " + doc.deliveryNoteId)
-            console.log("doc.deliveryNoteId === 0 " + (parseInt(doc.deliveryNoteId) === 0))
             if ((showAll || (parseInt(doc.deliveryNoteId) === parseInt(noteId) || (parseInt(doc.deliveryNoteId) === 0)))) {
                 documents.push(doc)
             }
@@ -52,6 +47,7 @@ const DocumentTable = (props) => {
                     <tr>
                         <th>Description</th>
                         <th>Time</th>
+                        {showAll ? <th>Delivery Note Id</th> : <></>}
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -61,6 +57,11 @@ const DocumentTable = (props) => {
                             <tr key={i}>
                                 <td>{item.description}</td>
                                 <td>{convertToTimeString(item.time)}</td>
+                                {showAll ?
+                                    <td>
+                                        {item.deliveryNoteId != 0 ? item.deliveryNoteId : "N/A"}
+                                    </td>
+                                    : <></>}
                                 <td >
                                     <Button compact size="" style={{ fontSize: 13 }}>
 

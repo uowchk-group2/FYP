@@ -39,7 +39,7 @@ const OrderDetail = (props) => {
                         <td>{item.distributor}</td>
                     </tr>
                     <tr>
-                        <th>Ordered / Total</th>
+                        <th>Created / Total</th>
                         <td>{item.ordered} / {item.deliveryTotal} {item.deliveryUnit}</td>
                     </tr>
                     <tr>
