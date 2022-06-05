@@ -1,23 +1,32 @@
 import { useState } from 'react'
-
-import {
-    Table,
-    Button,
-    ActionIcon,
-    Modal,
-    Center
-} from '@mantine/core';
+import { Table, Button, ActionIcon, Modal, Center } from '@mantine/core';
 import { ExternalLink, Trash, FileUpload } from 'tabler-icons-react';
+
+import { convertToTimeString } from '../../functions/date'
+
+//Components
 import NewDocument from '../document/newDocument'
 
-const DocumentTable = () => {
+const DocumentTable = (props) => {
+    console.log("Document================================")
+    console.log(props.data)
+    let noteId = "";
+    if (props.params.length == 2) { noteId = props.params[1] }
+
+    console.log("noteId: " + noteId)
+    let orderData = props.data
+
     const [newFile, setNewFile] = useState(false);
 
-    let documents = [
-        { description: 'Signature of receipient', by: 'James (Driver)', time: '14-04-2022 14:01' },
-        { description: 'Delivery Note', by: 'Jacky (Distributor)', time: '14-04-2022 14:01' }
-    ];
+    let documents = []
 
+    if (orderData.documents != undefined) {
+        for (let doc of orderData.documents) {
+            if (doc.deliveryNoteId == noteId) {
+                documents.push(doc)
+            }
+        }
+    }
 
     return (
 
@@ -37,7 +46,6 @@ const DocumentTable = () => {
                 <thead>
                     <tr>
                         <th>Description</th>
-                        <th>By</th>
                         <th>Time</th>
                         <th>Action</th>
                     </tr>
@@ -47,11 +55,10 @@ const DocumentTable = () => {
                         return (
                             <tr key={i}>
                                 <td>{item.description}</td>
-                                <td>{item.by}</td>
-                                <td>{item.time}</td>
+                                <td>{convertToTimeString(item.time)}</td>
                                 <td >
-                                    <Button compact size=""  style={{ fontSize:13}}>
-                                        
+                                    <Button compact size="" style={{ fontSize: 13 }}>
+
                                         <ExternalLink color="white" size={30} />View In New Tab
                                     </Button>
 

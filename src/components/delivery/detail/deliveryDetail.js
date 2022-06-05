@@ -15,44 +15,28 @@ const DeliveryDetail = (props) => {
     console.log("props.data.notes")
     console.log(props.params)
     let noteId = props.params[1]
-    let orderData = props.data.notes
+    
+    let orderData = props.data
+    let noteData = props.data.notes
+    //Current selected note item
     let noteItem = {}
-    if (orderData != undefined) {
-        for (let note of orderData) {
+    if (noteData != undefined) {
+        for (let note of noteData) {
             if (note.id === parseInt(noteId)) {
                 noteItem = note
             }
         }
     }
 
-
-
-
-    let deliveryData = {
-        id: "1-1",
-        orderId: "1",
-        eta: "14-04-2022",
-        from: "Tsing Yi",
-        to: "Mong Kok",
-        quantity: 4,
-        status: "Delivered",
-    }
-
-    let deliveryRecords = [
-        { sequence: 4, description: "The driver has uploaded a document.", status: "Document Uploaded", time: "14-04-2022 14:01", location: "Mong Kok" },
-        { sequence: 3, description: "The goods has delivered to customer.", status: "Delivered", time: "14-04-2022 14:00", location: "Mong Kok" },
-        { sequence: 2, description: "The driver is on the way to destination.", status: "On The Way", time: "14-04-2022 13:00", location: "Mong Kok" },
-        { sequence: 1, description: "The driver has collected the goods from sender.", status: "Goods Collected", time: "14-04-2022 12:00", location: "Mong Kok" },
-    ]
+    // console.log("Detail================================")
+    // console.log(noteItem)
 
     if (orderData != undefined) {
-
-
         return (
             <div>
                 {/* Back button */}
                 <div>
-                    <Link href={`/order/${deliveryData.orderId}`} >
+                    <Link href={`/order/${noteItem.orderId}`} >
                         <Button>
                             <ArrowBackUp color="white" />
                             Delivery Notes
@@ -81,12 +65,12 @@ const DeliveryDetail = (props) => {
                     <tr>
                         <td width="50%">
                             <h2 style={{ textAlign: 'center' }}>Status</h2>
-                            <DeliveryTimeline data={deliveryRecords} />
+                            <DeliveryTimeline data={noteItem.status} />
 
                         </td>
                         <td style={{ verticalAlign: 'top' }} width="50%">
                             <h2 style={{ textAlign: 'center', width: '100%' }}>Documents</h2>
-                            <DocumentTable />
+                            <DocumentTable params={props.params} data={orderData}/>
 
                         </td>
                     </tr>

@@ -88,9 +88,9 @@ const OrderPage = (props) => {
 
                 <Tabs.Tab
                     label="Documents"
-                    icon={<FileDescription size={20} />}
+                    icon={<FileDescription size={20}  />}
                 >
-                    <DocumentList />
+                    <DocumentList params={params} data={currentOrder}/>
                 </Tabs.Tab>
 
 

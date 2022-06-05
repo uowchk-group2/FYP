@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 import { retrieveDeliveryNotes, retrieveDeliveryStatus } from './delivery'
+import { retrieveDocuments } from './document'
 
 export const retrieveOrders = async (userId) => {
     let result = []
@@ -16,14 +17,20 @@ export const retrieveOrders = async (userId) => {
                     item.supplier = await retrieveCompanyName(item.supplierId)
                     item.distributor = await retrieveCompanyName(item.distributorId)
 
+                    //get all delivery notes of order
                     let deliveryNotes = await retrieveDeliveryNotes(item.id)
                     item.notes = deliveryNotes
+
+                    //Calculate total qty
                     let totalQty = 0;
                     for (let note of deliveryNotes) {
                         totalQty += note.quantity
+                        //get all status of devliery note
                         note.status = await retrieveDeliveryStatus(note.id)
                     }
                     item.ordered = totalQty
+
+                    item.documents = await retrieveDocuments(item.id)
                 }
             } else {
                 result = []
