@@ -1,4 +1,5 @@
-.center, .center>tr {
+.center,
+.center>tr {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -7,26 +8,37 @@
 
 }
 
-.left{
+.left {
     text-align: left;
 }
 
-.right{
+.right {
     text-align: right
 }
 
-body{
+body {
     background-color: #F6EFE1;
     margin-left: 10%;
     margin-right: 10%;
 }
 
-.horizontalTrim{
+.horizontalTrim {
     width: 60%;
     margin-left: 15%;
     margin-right: 15%;
 }
 
-img{
-    border-radius:7%;
+img {
+    border-radius: 7%;
+}
+
+.mantine-Timeline-itemActive>.mantine-Timeline-itemBullet {
+    animation: blinker 1s linear infinite;
+}
+
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }

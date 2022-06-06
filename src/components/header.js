@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button, Badge } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
-import { setUserInfo,clearAll } from '../redux/user'
+import { setUserInfo, clearAll } from '../redux/user'
 import { fetchUserFromJWT, saveJWT } from '../functions/user'
 import { backendStatus } from '../functions/checkStatus'
 
@@ -23,7 +23,7 @@ const Header = () => {
     const [blockchainIsUp, setBlockchainIsUp] = useState(false)
 
     //Redux
-    const { username, signedIn,company, role } = useSelector((state) => state.user);
+    const { username, signedIn, company, role } = useSelector((state) => state.user);
     const dispatch = useDispatch()
 
     const signOut = () => {
@@ -47,6 +47,7 @@ const Header = () => {
 
     return (
         <header style={{ width: '100%' }}>
+
 
             <table style={{ width: '100%' }}>
                 <thead></thead>
@@ -83,8 +84,8 @@ const Header = () => {
                                 (signedIn) ?
                                     <div style={{ fontSize: 20, textAlign: 'right' }}>
                                         Hi, {username}<br />
-                                        Role: {role}<br/>
-                                        Company: {company}<br/>
+                                        Role: {role}<br />
+                                        Company: {company}<br />
                                         <Link href="#">
                                             <Button
                                                 onClick={() => signOut()}>Logout</Button>
