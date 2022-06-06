@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button, Badge } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
-import { setUserInfo } from '../redux/user'
+import { setUserInfo,clearAll } from '../redux/user'
 import { fetchUserFromJWT, saveJWT } from '../functions/user'
 import { backendStatus } from '../functions/checkStatus'
 
@@ -28,8 +28,7 @@ const Header = () => {
 
     const signOut = () => {
         saveJWT("Bearer ")
-        dispatch(setUsername(""))
-        dispatch(setSignedIn(false))
+        dispatch(clearAll())
     }
 
     useEffect(() => {
