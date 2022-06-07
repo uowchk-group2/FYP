@@ -9,6 +9,14 @@ const DeliveryItem = (props) => {
 
         
     if (Object.keys(orderData).length > 0 && Object.keys(data).length > 0) {
+        let lastObject = {}
+        // console.log("Looping")
+        for (let statusItem of data.status){
+            // console.log(statusItem)
+            if (statusItem.arrivalActual != null){
+                lastObject = statusItem
+            }
+        }
         return (
             <tr>
                 <td>{data.id}</td>
@@ -16,7 +24,7 @@ const DeliveryItem = (props) => {
                 <td>{data.origin}</td>
                 <td>{data.destination}</td>
                 <td>{data.quantity} {orderData.deliveryUnit}</td>
-                <td>{(data.status.length != 0) ? data.status[data.status.length - 1].title:"Not Started"}</td>
+                <td>{(Object.keys(lastObject).length != 0) ? lastObject.title:"Not Started"}</td>
                 <td>
                     {
                         (isDetail ?

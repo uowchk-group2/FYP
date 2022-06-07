@@ -4,7 +4,7 @@ import { Button, Table } from '@mantine/core';
 import { ArrowBackUp } from 'tabler-icons-react';
 
 //Function
-import { getCheckpoints } from '../../../functions/maps'
+import { getCheckpoints,saveCheckpointUpdate } from '../../../functions/maps'
 import { retrieveDeliveryStatus } from '../../../functions/delivery'
 
 //Component
@@ -15,11 +15,10 @@ import RouteMap from './map'
 
 
 const DeliveryDetail = (props) => {
-    const [routeCreated, setRouteCreated] = useState(false)
     const [checkPoints, setCheckPoints] = useState([])
     const [noteItem, setNoteItem] = useState({})
     const [loading, setLoading] = useState(false)
-
+    const [loading2, setLoading2] = useState(false)
 
     let noteId = props.params[1]
     let orderData = props.data
@@ -28,7 +27,7 @@ const DeliveryDetail = (props) => {
 
     useEffect(() => {
         //Current selected note item
-        if (noteData != undefined && Object.keys(noteItem).length === 0  ) {
+        if (noteData != undefined && Object.keys(noteItem).length === 0) {
             console.log("Checking")
             for (let note of noteData) {
                 if (note.id === parseInt(noteId)) {
@@ -36,10 +35,10 @@ const DeliveryDetail = (props) => {
 
                     console.log("note.status")
                     console.log(note.status)
-                    if (checkPoints.length === 0){
+                    if (checkPoints.length === 0) {
                         setCheckPoints(note.status)
                     }
-                    
+
                 }
             }
         }
@@ -48,15 +47,38 @@ const DeliveryDetail = (props) => {
 
     // console.log(noteItem)
 
+    const updateStatusItem = (route) => {
+        let tmpNoteItem = Object.assign({}, noteItem)
+        tmpNoteItem.status = route
+        setNoteItem(tmpNoteItem)
+    }
+
     const startDelivery = async () => {
         setLoading(true)
 
         let route = await getCheckpoints(noteItem.origin, noteItem.destination, noteItem.id)
-        console.log(route)
-        setCheckPoints(route)
-        // setRouteCreated(true)
+        updateStatusItem(route)
         setLoading(false)
+    }
 
+    const nextCheckpoint = async () => {
+        let statuses = [...noteItem.status]
+        // statuses = noteItem.status;
+        console.log(statuses)
+        let found = false
+        for (let i = 0; i < statuses.length; i++) {
+            if (!found && statuses[i].arrivalActual === null) {
+                let tmpItem = Object.assign({}, statuses[i])
+                tmpItem.arrivalActual = tmpItem.arrivalExpected
+                found = true
+                //Put new status into tmp array
+                statuses[i] = tmpItem
+                updateStatusItem(statuses) //Update
+                await saveCheckpointUpdate(tmpItem)
+            }
+        }
+
+        
     }
 
 
@@ -107,7 +129,15 @@ const DeliveryDetail = (props) => {
                                 Get Routes
                             </Button>
 
-                            <DeliveryTimeline data={checkPoints} />
+                            <Button
+                                style={{ textAlign: 'center' }}
+                                onClick={() => { nextCheckpoint() }}
+                                loading={loading2}
+                            >
+                                Next Checkpoint
+                            </Button>
+
+                            <DeliveryTimeline data={noteItem.status} />
                         </td>
 
                         <td style={{ verticalAlign: 'top' }} width="50%">

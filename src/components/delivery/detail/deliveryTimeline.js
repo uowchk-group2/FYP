@@ -27,7 +27,7 @@ const DeliveryTimeline = (props) => {
                                 key={i}
                                 title={
                                     <Text size="xl" weight={700}>
-                                        {i}
+                                        {item.title}
                                     </Text>
                                 }
                             >

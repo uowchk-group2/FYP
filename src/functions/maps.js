@@ -51,7 +51,7 @@ export const getCheckpoints = async (orig, dest, noteId) => {
                     //Normal checkpoints
                     result.push({
                         id: 0,
-                        title: (i === checkpoints.length - 1) ? `Checkpoint ${i + 1}/${checkpoints.length}` : `Goods Delivered`,
+                        title: (i === checkpoints.length - 1) ? `Goods Delivered` : `Checkpoint ${i + 1}/${checkpoints.length-1}`,
                         deliveryNoteId: noteId,
                         lat: data.end_location.lat,
                         lng: data.end_location.lng,
@@ -62,8 +62,7 @@ export const getCheckpoints = async (orig, dest, noteId) => {
                 }
                 console.log("progress: ")
                 console.log(result)
-            
-                console.log()
+
             } else {
                 result = []
             }
@@ -80,13 +79,8 @@ export const getCheckpoints = async (orig, dest, noteId) => {
 
 
     if (result != []) {
-        result = await saveNewCheckpoints(result)
-        console.log("Save: ")
-        console.log(result)
-    
+        result = await saveNewCheckpoints(result)    
     }
-    console.log("Final: ")
-    console.log(result)
 
     return result
 }
