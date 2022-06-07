@@ -17,7 +17,6 @@ const DeliveryTimeline = (props) => {
             if (item.arrivalActual != null) showAllCount++;
         })
 
-        console.log(record)
         return (
             <Timeline
                 active={showAll ? showAllCount : 0}  //-1 if all done
@@ -27,10 +26,7 @@ const DeliveryTimeline = (props) => {
             >
 
                 {record.map((item, i) => {
-                    console.log(i + ": ")
-                    console.log((i === record.length - 1))
-                    console.log(item)
-                    if (showAll || item.arrivalActual != null  || ( record[i + 1].arrivalActual !== null)) {
+                    if (showAll || item.arrivalActual != null || (record[i + 1].arrivalActual !== null)) {
                         return (
                             <Timeline.Item
                                 className='blink_me'
@@ -42,7 +38,7 @@ const DeliveryTimeline = (props) => {
                                     </Text>
                                 }
                             >
-                                <Text size="xs" mt={4}>
+                                <Text size="s" mt={4}>
 
                                     {
                                         (i != record.length - 1) ?
@@ -54,8 +50,20 @@ const DeliveryTimeline = (props) => {
 
 
                                     {(item.arrivalActual != null) ?
-                                        <><b>Actual:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            {convertToTimeString(item.arrivalActual)}</>
+                                        <>
+                                            <b>Actual:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {convertToTimeString(item.arrivalActual)}&nbsp;
+
+                                            <span
+                                                style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
+                                                <b>
+                                                    ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
+                                                        "+" + ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " seconds" :
+                                                        "-" + ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " seconds"
+                                                    })
+                                                </b>
+                                            </span>
+                                        </>
                                         : <></>
                                     }
                                 </Text>

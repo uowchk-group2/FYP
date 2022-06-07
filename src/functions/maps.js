@@ -7,30 +7,12 @@ export const getCheckpoints = async (orig, dest, noteId) => {
 
     await axios.get(`https://api.johnnyip.com/fyp?orig=${orig}&dest=${dest}`, body, config)
         .then(async (response) => {
-            // console.log(response.data)
-            if (response.status == 200) {
-                let responseData = response.data
-
-                // console.log(responseData)
-                // result.center = {
-                //     lat: ((responseData[0].bounds.northeast.lat + responseData[0].bounds.southwest.lat) / 2),
-                //     lng: ((responseData[0].bounds.northeast.lng + responseData[0].bounds.southwest.lng) / 2),
-                // }
-                // result.distance = legs.distance
-                // result.duration = legs.duration
-                // result.orig = legs.start_location
-                // result.orig.name = legs.start_address
-                // result.dest = legs.end_location
-                // result.dest.name = legs.end_address
-                //  = legs.steps
-
+            if (response.status == 200) {                
                 let checkpoints = response.data[0].legs[0].steps
 
                 //Convert to database format
                 let date = Date.now()
-                console.log(checkpoints.length)
                 for (let i = 0; i < checkpoints.length; i++) {
-                    // console.log(checkpoints[i])
                     let data = checkpoints[i]
                     date += data.duration.value * 1000
 
@@ -60,8 +42,6 @@ export const getCheckpoints = async (orig, dest, noteId) => {
                         arrivalActual: null
                     })
                 }
-                console.log("progress: ")
-                console.log(result)
 
             } else {
                 result = []

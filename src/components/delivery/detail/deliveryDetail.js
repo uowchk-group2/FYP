@@ -30,14 +30,10 @@ const DeliveryDetail = (props) => {
     useEffect(() => {
         //Current selected note item
         if (noteData != undefined && Object.keys(noteItem).length === 0) {
-            console.log("Checking")
             for (let note of noteData) {
                 if (note.id === parseInt(noteId)) {
                     setNoteItem(note)
 
-                    console.log("note.status")
-                    console.log(note.status)
-                    console.log(note.status.length)
                     if (checkPoints.length === 0) {
                         setCheckPoints(note.status)
                     }
@@ -73,12 +69,21 @@ const DeliveryDetail = (props) => {
     const nextCheckpoint = async () => {
         let statuses = [...noteItem.status]
         // statuses = noteItem.status;
-        console.log(statuses)
         let found = false
         for (let i = 0; i < statuses.length; i++) {
             if (!found && statuses[i].arrivalActual === null) {
                 let tmpItem = Object.assign({}, statuses[i])
-                tmpItem.arrivalActual = tmpItem.arrivalExpected
+
+                let expected = new Date(tmpItem.arrivalExpected).getTime()
+                console.log("expected")
+                
+                if (i % 2 == 1){expected += 5000}
+                else{expected -= 5000}
+                // console.log(expected)
+                console.log(new Date(expected))
+
+                tmpItem.arrivalActual = new Date(expected)
+
                 found = true
                 //Put new status into tmp array
                 statuses[i] = tmpItem
@@ -92,8 +97,6 @@ const DeliveryDetail = (props) => {
 
 
     if (orderData != undefined) {
-        console.log("noteItem.status")
-        console.log(noteItem.status)
         return (
             <div>
                 {/* Back button */}
@@ -184,7 +187,7 @@ const DeliveryDetail = (props) => {
                     onClose={() => { setViewFullCheckpoints(false) }}
                 >
 
-                    <DeliveryTimeline data={noteItem.status} showAll={true}/>
+                    <DeliveryTimeline data={noteItem.status} showAll={true} />
 
                 </Modal>
 

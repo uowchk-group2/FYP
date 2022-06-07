@@ -45,23 +45,30 @@ const RouteMap = (props) => {
     useEffect(() => {
         if (checkpoints != undefined && checkpoints.length !== 0) {
             let newAutoPoint = {}
+            let checkPointSet = false
             for (let point of checkpoints) {
                 if (point.arrivalActual === null) {
-                    setChosenCheckpoint(point)
+                    if (Object.keys(chosenCheckpoint).length === 0) {
+                        checkPointSet = true
+                        setChosenCheckpoint(point)
+                    }
                     newAutoPoint = point
                     break;
                 }
             }
-            if (Object.keys(chosenCheckpoint).length === 0) {
+            if (Object.keys(chosenCheckpoint).length === 0 && !checkPointSet) {
                 setChosenCheckpoint(checkpoints[checkpoints.length - 1])
             }
 
             if (Object.keys(newAutoPoint).length != 0) {
-                if (Object.keys(autoPoint).length === 0) {
+                if (Object.keys(autoPoint).length === 0) { //If first time
                     setAutoPoint(newAutoPoint)
+
                 } else if ((Object.keys(autoPoint).length != 0)) {
                     if (autoPoint.title != newAutoPoint.title) {
+                        //If new checkpoint clicked
                         setChosenCheckpoint(newAutoPoint)
+                        setAutoPoint(newAutoPoint)
                     }
                 }
             }
@@ -99,11 +106,12 @@ const RouteMap = (props) => {
                     zoom={15}
                 >
                     {[...checkpoints].map((item, i) => {
-                        console.log(item)
                         return (
                             <Marker
                                 label={i}
-                                icon={(item.arrivalActual === null) ? grayMark : greenMark}
+                                icon={(item.arrivalActual === null) ? grayMark :
+                                    (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? redMark : greenMark
+                                }
                                 position={{ lat: item.lat, lng: item.lng }}
                                 onClick={() => { changeInfoWindow(item) }} >
                                 {
@@ -112,9 +120,28 @@ const RouteMap = (props) => {
                                             position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
                                         >
                                             <div style={divStyle}>
-                                                <h2>Next: {chosenCheckpoint.title}</h2>
+                                                <h2>{item.arrivalActual === null ? "Next:" : ""} {chosenCheckpoint.title}</h2>
                                                 <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
+                                                {(item.arrivalActual != null) ?
+                                                    <h3>
+                                                        <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        {convertToTimeString(item.arrivalActual)}&nbsp;
+
+                                                        <span
+                                                            style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
+                                                            <b>
+                                                                ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
+                                                                    "+" + ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " seconds" :
+                                                                    "-" + ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " seconds"
+                                                                })
+                                                            </b>
+                                                        </span>
+                                                    </h3>
+                                                    : <></>
+                                                }
                                                 <h3>Distance to go: {chosenCheckpoint.prevDistance / 1000} km</h3>
+
+
                                             </div>
                                         </InfoWindow>
                                         : <></>
@@ -123,20 +150,6 @@ const RouteMap = (props) => {
                             </Marker>
                         )
                     })}
-
-
-
-                    {/* <InfoWindow
-                        position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
-                    >
-                        <div style={divStyle}>
-                            <h2>Next: {chosenCheckpoint.title}</h2>
-                            <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
-                            <h3>Distance to go: {chosenCheckpoint.prevDistance / 1000} km</h3>
-                        </div>
-                    </InfoWindow> */}
-
-
 
                 </GoogleMap>
             </LoadScript>
