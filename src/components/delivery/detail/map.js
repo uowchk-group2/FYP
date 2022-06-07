@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { Button } from '@mantine/core';
+
+import { convertToTimeString } from '../../../functions/date'
 
 const divStyle = {
     background: `white`,
@@ -27,34 +30,61 @@ const greenMark = {
 
 
 const RouteMap = (props) => {
+    const checkpoints = props.data
+    const [latestCheckpoint, setLastCheckpoint] = useState({})
 
-    return (
-        <LoadScript
-            googleMapsApiKey="AIzaSyDQb2utsA9n51gCrgSHkl8yaRJR-myziXQ"
-        >
-            <GoogleMap
-                mapContainerStyle={{ width: '100%', height: '400px' }}
-                center={{ lat: 22.3203169, lng: 114.1695231 }}
-                zoom={10}
+    useEffect(() => {
+        if (checkpoints != undefined && checkpoints.length !== 0) {
+            for (let point of checkpoints) {
+                if (point.arrivalActual == null) {
+                    setLastCheckpoint(point)
+                    break;
+                }
+            }
+        }
+
+    })
+
+    if (checkpoints != undefined && checkpoints.length !== 0) {
+        const changeInfoWindow = (data) => {
+            setLastCheckpoint(data)
+        }
+        return (
+            <LoadScript
+                googleMapsApiKey="AIzaSyDQb2utsA9n51gCrgSHkl8yaRJR-myziXQ"
             >
-                { /* Child components, such as markers, info windows, etc. */}
-
-                <Marker  position={{ lat: 22.3203169, lng: 114.1695231 }} />
-                <Marker icon={grayMark} label="Hi" position={{ lat: 22.4788962, lng: 114.0456789 }} />
-                <Marker position={{ lat: 22.4713253, lng: 114.0547891 }} />
-                <InfoWindow
-                    position={{ lat: 22.4713253, lng: 114.0547891 }}
+                <GoogleMap
+                    mapContainerStyle={{ width: '100%', height: '400px' }}
+                    center={{ lat: latestCheckpoint.lat, lng: latestCheckpoint.lng }}
+                    zoom={15}
                 >
-                    <div style={divStyle}>
-                        <h1>InfoWindow</h1>
-                    </div>
-                </InfoWindow>
+                    {[...checkpoints].map((item, i) => {
+                        console.log(item)
+                        return <Marker
+                            icon={(item.arrivalActual != null) ? greenMark : grayMark}
+                            position={{ lat: item.lat, lng: item.lng }}
+                            onClick={() => { changeInfoWindow(item) }} />
+                    })}
 
 
 
-            </GoogleMap>
-        </LoadScript>
-    )
+                    <InfoWindow
+                        position={{ lat: latestCheckpoint.lat, lng: latestCheckpoint.lng }}
+                    >
+                        <div style={divStyle}>
+                            <h2>Next: {latestCheckpoint.title}</h2>
+                            <h3>Estimated Arrival time: {convertToTimeString(latestCheckpoint.arrivalExpected)}</h3>
+                            <h3>Distance to go: {latestCheckpoint.prevDistance/1000} km</h3>
+                        </div>
+                    </InfoWindow>
+
+
+
+                </GoogleMap>
+            </LoadScript>
+        )
+
+    }
 
 }
 

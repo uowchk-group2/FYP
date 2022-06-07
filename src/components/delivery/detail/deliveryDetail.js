@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Button, Table } from '@mantine/core';
+import { Button, Table, Modal } from '@mantine/core';
 import { ArrowBackUp } from 'tabler-icons-react';
 
 //Function
-import { getCheckpoints,saveCheckpointUpdate } from '../../../functions/maps'
+import { getCheckpoints, saveCheckpointUpdate } from '../../../functions/maps'
 import { retrieveDeliveryStatus } from '../../../functions/delivery'
 
 //Component
@@ -19,6 +19,8 @@ const DeliveryDetail = (props) => {
     const [noteItem, setNoteItem] = useState({})
     const [loading, setLoading] = useState(false)
     const [loading2, setLoading2] = useState(false)
+    const [finished, setFinished] = useState(true)
+    const [viewFullCheckpoints, setViewFullCheckpoints] = useState(false)
 
     let noteId = props.params[1]
     let orderData = props.data
@@ -35,6 +37,7 @@ const DeliveryDetail = (props) => {
 
                     console.log("note.status")
                     console.log(note.status)
+                    console.log(note.status.length)
                     if (checkPoints.length === 0) {
                         setCheckPoints(note.status)
                     }
@@ -43,9 +46,15 @@ const DeliveryDetail = (props) => {
             }
         }
 
-    })
+        if (noteItem != undefined && noteItem.status != undefined) {
+            if (noteItem.status.length != 0 && noteItem.status[noteItem.status.length - 1].arrivalActual != null) {
+                setFinished(true)
+            } else if (noteItem.status.length > 0) {
+                setFinished(false)
+            }
 
-    // console.log(noteItem)
+        }
+    })
 
     const updateStatusItem = (route) => {
         let tmpNoteItem = Object.assign({}, noteItem)
@@ -78,11 +87,13 @@ const DeliveryDetail = (props) => {
             }
         }
 
-        
+
     }
 
 
     if (orderData != undefined) {
+        console.log("noteItem.status")
+        console.log(noteItem.status)
         return (
             <div>
                 {/* Back button */}
@@ -114,30 +125,50 @@ const DeliveryDetail = (props) => {
                 <hr />
 
                 <div>
-                    <RouteMap ></RouteMap>
+                    <RouteMap data={noteItem.status}></RouteMap>
                 </div>
 
                 <table width="100%" >
                     <tr>
+
+
                         <td width="50%">
-                            <h2 style={{ textAlign: 'center' }}>Status</h2>
-                            <Button
-                                style={{ textAlign: 'center' }}
-                                onClick={() => { startDelivery() }}
-                                loading={loading}
-                            >
-                                Get Routes
-                            </Button>
+                            {(noteItem.status != undefined) ?
+                                <>
+                                    <h2 style={{ textAlign: 'center' }}>Status</h2>
+                                    <Button
+                                        style={{ textAlign: 'center' }}
+                                        onClick={() => { startDelivery() }}
+                                        loading={loading}
+                                        disabled={noteItem.status.length != 0}
+                                    >
+                                        Get Routes
+                                    </Button>
 
-                            <Button
-                                style={{ textAlign: 'center' }}
-                                onClick={() => { nextCheckpoint() }}
-                                loading={loading2}
-                            >
-                                Next Checkpoint
-                            </Button>
+                                    <Button
+                                        style={{ textAlign: 'center' }}
+                                        onClick={() => { nextCheckpoint() }}
+                                        loading={loading2}
+                                        disabled={finished}
+                                    >
+                                        Checkpoint Arrived
+                                    </Button>
 
-                            <DeliveryTimeline data={noteItem.status} />
+                                    <Button
+                                        onClick={() => { setViewFullCheckpoints(true) }}
+                                    >
+                                        View Full Checkpoints
+                                    </Button>
+
+
+
+
+                                    <br />
+                                    {(noteItem.status.length === 0) ? "Up to 10 seconds to generate" : ""}
+
+                                    <DeliveryTimeline data={noteItem.status} showAll={false} />
+                                </> : <></>}
+
                         </td>
 
                         <td style={{ verticalAlign: 'top' }} width="50%">
@@ -146,6 +177,17 @@ const DeliveryDetail = (props) => {
                         </td>
                     </tr>
                 </table>
+
+
+                <Modal
+                    size="xl"
+                    opened={viewFullCheckpoints}
+                    onClose={() => { setViewFullCheckpoints(false) }}
+                >
+
+                    <DeliveryTimeline data={noteItem.status} showAll={true}/>
+
+                </Modal>
 
             </div>
         )
