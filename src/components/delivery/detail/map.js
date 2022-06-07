@@ -32,14 +32,18 @@ const greenMark = {
 const RouteMap = (props) => {
     const checkpoints = props.data
     const [latestCheckpoint, setLastCheckpoint] = useState({})
+    const [currentTitle, setCurrentTitle] = useState("")
 
     useEffect(() => {
         if (checkpoints != undefined && checkpoints.length !== 0) {
             for (let point of checkpoints) {
-                if (point.arrivalActual == null) {
+                if (point.arrivalActual === null) {
                     setLastCheckpoint(point)
                     break;
                 }
+            }
+            if (Object.keys(latestCheckpoint).length === 0){
+                setLastCheckpoint(checkpoints[checkpoints.length - 1])
             }
         }
 
@@ -74,7 +78,7 @@ const RouteMap = (props) => {
                         <div style={divStyle}>
                             <h2>Next: {latestCheckpoint.title}</h2>
                             <h3>Estimated Arrival time: {convertToTimeString(latestCheckpoint.arrivalExpected)}</h3>
-                            <h3>Distance to go: {latestCheckpoint.prevDistance/1000} km</h3>
+                            <h3>Distance to go: {latestCheckpoint.prevDistance / 1000} km</h3>
                         </div>
                     </InfoWindow>
 
