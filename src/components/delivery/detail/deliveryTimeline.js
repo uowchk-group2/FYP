@@ -27,8 +27,10 @@ const DeliveryTimeline = (props) => {
             >
 
                 {record.map((item, i) => {
-                    console.log(i)
-                    if (showAll || item.arrivalActual != null || (i != 0 && record[i + 1].arrivalActual !== null)) {
+                    console.log(i + ": ")
+                    console.log((i === record.length - 1))
+                    console.log(item)
+                    if (showAll || item.arrivalActual != null  || ( record[i + 1].arrivalActual !== null)) {
                         return (
                             <Timeline.Item
                                 className='blink_me'

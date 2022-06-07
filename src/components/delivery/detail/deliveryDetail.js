@@ -156,11 +156,10 @@ const DeliveryDetail = (props) => {
 
                                     <Button
                                         onClick={() => { setViewFullCheckpoints(true) }}
+                                        disabled={noteItem.status.length === 0}
                                     >
                                         View Full Checkpoints
                                     </Button>
-
-
 
 
                                     <br />
