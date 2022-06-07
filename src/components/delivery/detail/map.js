@@ -102,7 +102,8 @@ const RouteMap = (props) => {
                         console.log(item)
                         return (
                             <Marker
-                                icon={(item.arrivalActual != null) ? greenMark : grayMark}
+                                label={i}
+                                icon={(item.arrivalActual === null) ? grayMark : greenMark}
                                 position={{ lat: item.lat, lng: item.lng }}
                                 onClick={() => { changeInfoWindow(item) }} >
                                 {
