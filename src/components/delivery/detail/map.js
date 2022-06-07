@@ -31,35 +31,51 @@ const greenMark = {
 
 const RouteMap = (props) => {
     const checkpoints = props.data
-    const [latestCheckpoint, setLastCheckpoint] = useState({})
-    const [currentTitle, setCurrentTitle] = useState("")
+    const [chosenCheckpoint, setChosenCheckpoint] = useState({})
+    const [autoPoint, setAutoPoint] = useState({})
 
     useEffect(() => {
         if (checkpoints != undefined && checkpoints.length !== 0) {
+            let newAutoPoint = {}
             for (let point of checkpoints) {
                 if (point.arrivalActual === null) {
-                    setLastCheckpoint(point)
+                    setChosenCheckpoint(point)
+                    newAutoPoint = point
                     break;
                 }
             }
-            if (Object.keys(latestCheckpoint).length === 0){
-                setLastCheckpoint(checkpoints[checkpoints.length - 1])
+            if (Object.keys(chosenCheckpoint).length === 0) {
+                setChosenCheckpoint(checkpoints[checkpoints.length - 1])
             }
+
+            if (Object.keys(newAutoPoint).length != 0) {
+                if (Object.keys(autoPoint).length === 0) {
+                    setAutoPoint(newAutoPoint)
+                } else if ((Object.keys(autoPoint).length != 0)) {
+                    if (autoPoint.title != newAutoPoint.title) {
+                        setChosenCheckpoint(newAutoPoint)
+                    }
+                }
+            }
+
+
+
         }
 
     })
 
     if (checkpoints != undefined && checkpoints.length !== 0) {
         const changeInfoWindow = (data) => {
-            setLastCheckpoint(data)
+            setChosenCheckpoint(data)
         }
+
         return (
             <LoadScript
                 googleMapsApiKey="AIzaSyDQb2utsA9n51gCrgSHkl8yaRJR-myziXQ"
             >
                 <GoogleMap
                     mapContainerStyle={{ width: '100%', height: '400px' }}
-                    center={{ lat: latestCheckpoint.lat, lng: latestCheckpoint.lng }}
+                    center={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
                     zoom={15}
                 >
                     {[...checkpoints].map((item, i) => {
@@ -67,20 +83,35 @@ const RouteMap = (props) => {
                         return <Marker
                             icon={(item.arrivalActual != null) ? greenMark : grayMark}
                             position={{ lat: item.lat, lng: item.lng }}
-                            onClick={() => { changeInfoWindow(item) }} />
+                            onClick={() => { changeInfoWindow(item) }} >
+                            {
+                                (item.title === chosenCheckpoint.title) ?
+                                    <InfoWindow
+                                        position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
+                                    >
+                                        <div style={divStyle}>
+                                            <h2>Next: {chosenCheckpoint.title}</h2>
+                                            <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
+                                            <h3>Distance to go: {chosenCheckpoint.prevDistance / 1000} km</h3>
+                                        </div>
+                                    </InfoWindow>
+                                    : <></>
+                            }
+
+                        </Marker>
                     })}
 
 
 
-                    <InfoWindow
-                        position={{ lat: latestCheckpoint.lat, lng: latestCheckpoint.lng }}
+                    {/* <InfoWindow
+                        position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
                     >
                         <div style={divStyle}>
-                            <h2>Next: {latestCheckpoint.title}</h2>
-                            <h3>Estimated Arrival time: {convertToTimeString(latestCheckpoint.arrivalExpected)}</h3>
-                            <h3>Distance to go: {latestCheckpoint.prevDistance / 1000} km</h3>
+                            <h2>Next: {chosenCheckpoint.title}</h2>
+                            <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
+                            <h3>Distance to go: {chosenCheckpoint.prevDistance / 1000} km</h3>
                         </div>
-                    </InfoWindow>
+                    </InfoWindow> */}
 
 
 
