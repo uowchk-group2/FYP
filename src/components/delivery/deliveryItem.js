@@ -13,7 +13,7 @@ const DeliveryItem = (props) => {
         // console.log("Looping")
         for (let statusItem of data.status){
             // console.log(statusItem)
-            if (statusItem.arrivalActual === null){
+            if (statusItem.arrivalActual != null){
                 lastObject = statusItem
             }
         }
