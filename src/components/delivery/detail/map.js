@@ -11,29 +11,29 @@ const divStyle = {
 }
 
 const grayMark = {
-    path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+    path: "M157.66667,86c0,39.57792 -32.08875,71.66667 -71.66667,71.66667c-39.57792,0 -71.66667,-32.08875 -71.66667,-71.66667c0,-39.57792 32.08875,-71.66667 71.66667,-71.66667c39.57792,0 71.66667,32.08875 71.66667,71.66667z",
     fillColor: "gray",
     fillOpacity: 1,
     strokeWeight: 0.0,
     rotation: 0,
-    scale: 1.5,
+    scale: 0.2,
 };
 
 const greenMark = {
-    path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+    path: "M157.66667,86c0,39.57792 -32.08875,71.66667 -71.66667,71.66667c-39.57792,0 -71.66667,-32.08875 -71.66667,-71.66667c0,-39.57792 32.08875,-71.66667 71.66667,-71.66667c39.57792,0 71.66667,32.08875 71.66667,71.66667z",
     fillColor: "green",
     fillOpacity: 1,
-    strokeWeight: 0.0,
+    strokeWeight: 0.2,
     rotation: 0,
-    scale: 1.5,
+    scale: 0.2,
 };
 const redMark = {
-    path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+    path: "M157.66667,86c0,39.57792 -32.08875,71.66667 -71.66667,71.66667c-39.57792,0 -71.66667,-32.08875 -71.66667,-71.66667c0,-39.57792 32.08875,-71.66667 71.66667,-71.66667c39.57792,0 71.66667,32.08875 71.66667,71.66667z",
     fillColor: "red",
     fillOpacity: 1,
     strokeWeight: 0.0,
     rotation: 0,
-    scale: 1.5,
+    scale: 0.2,
 };
 
 
@@ -137,19 +137,19 @@ const RouteMap = (props) => {
                                                 position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
                                             >
                                                 <div style={divStyle}>
-                                                    <h2>{item.arrivalActual === null ? "Next:" : ""} {chosenCheckpoint.title}</h2>
+                                                    <h2>{item.arrivalActual === null ?"[Upcoming] " : "[Arrived] "} {chosenCheckpoint.title}</h2>
                                                     <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
                                                     {(item.arrivalActual != null) ?
                                                         <h3>
-                                                            <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                             {convertToTimeString(item.arrivalActual)}&nbsp;
 
                                                             <span
                                                                 style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
                                                                 <b>
                                                                     ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
-                                                                        "+" + ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " seconds" :
-                                                                        "-" + ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " seconds"
+                                                                        ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " Seconds Late" :
+                                                                        ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " Seconds Early"
                                                                     })
                                                                 </b>
                                                             </span>

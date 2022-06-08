@@ -34,7 +34,7 @@ const DeliveryTimeline = (props) => {
                                 key={i}
                                 title={
                                     <Text size="xl" weight={700}>
-                                        {((item.arrivalActual != null) ? "" : "Next: ")}{item.title}
+                                        {((item.arrivalActual === null) ?  "[Upcoming] " : "[Arrived] ")}{item.title}
                                     </Text>
                                 }
                             >
@@ -51,15 +51,15 @@ const DeliveryTimeline = (props) => {
 
                                     {(item.arrivalActual != null) ?
                                         <>
-                                            <b>Actual:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <b>Actual:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             {convertToTimeString(item.arrivalActual)}&nbsp;
 
                                             <span
                                                 style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
                                                 <b>
                                                     ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
-                                                        "+" + ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " seconds" :
-                                                        "-" + ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " seconds"
+                                                        ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " Seconds Late" :
+                                                        ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " Seconds Early"
                                                     })
                                                 </b>
                                             </span>

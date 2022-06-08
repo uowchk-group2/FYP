@@ -145,7 +145,7 @@ const DeliveryDetail = (props) => {
                                         loading={loading}
                                         disabled={noteItem.status.length != 0}
                                     >
-                                        Get Routes
+                                        Goods Picked Up
                                     </Button>
 
                                     <Button
@@ -166,7 +166,7 @@ const DeliveryDetail = (props) => {
 
 
                                     <br />
-                                    {(noteItem.status.length === 0) ? "Up to 10 seconds to generate" : ""}
+                                    {(noteItem.status.length === 0) ? "May takes up to 10 seconds to generate route" : ""}
 
                                     <DeliveryTimeline data={noteItem.status} showAll={false} />
                                 </> : <></>}
