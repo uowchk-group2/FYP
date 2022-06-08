@@ -124,6 +124,7 @@ const RouteMap = (props) => {
                         {[...checkpoints].map((item, i) => {
                             return (
                                 <Marker
+                                    key={i}
                                     label={i.toString()}
                                     icon={(item.arrivalActual === null) ? grayMark :
                                         (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? redMark : greenMark
