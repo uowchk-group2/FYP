@@ -40,24 +40,29 @@ const redMark = {
 const RouteMap = (props) => {
     const checkpoints = props.data
     const [chosenCheckpoint, setChosenCheckpoint] = useState({})
+    const [chosenCheckpointIndex, setChosenCheckpointIndex] = useState(0)
     const [autoPoint, setAutoPoint] = useState({})
 
     useEffect(() => {
         if (checkpoints != undefined && checkpoints.length !== 0) {
             let newAutoPoint = {}
+            let newAutoPointIndex = 0
             let checkPointSet = false
-            for (let point of checkpoints) {
-                if (point.arrivalActual === null) {
+            for (let i = 0; i < checkpoints.length; i++) {
+                if (checkpoints[i].arrivalActual === null) {
                     if (Object.keys(chosenCheckpoint).length === 0) {
                         checkPointSet = true
-                        setChosenCheckpoint(point)
+                        setChosenCheckpoint(checkpoints[i])
+                        setChosenCheckpointIndex(i)
                     }
-                    newAutoPoint = point
+                    newAutoPoint = checkpoints[i]
+                    newAutoPointIndex = i
                     break;
                 }
             }
             if (Object.keys(chosenCheckpoint).length === 0 && !checkPointSet) {
                 setChosenCheckpoint(checkpoints[checkpoints.length - 1])
+                setChosenCheckpointIndex(checkpoints.length - 1)
             }
 
             if (Object.keys(newAutoPoint).length != 0) {
@@ -68,16 +73,26 @@ const RouteMap = (props) => {
                     if (autoPoint.title != newAutoPoint.title) {
                         //If new checkpoint clicked
                         setChosenCheckpoint(newAutoPoint)
+                        setChosenCheckpointIndex(newAutoPointIndex)
                         setAutoPoint(newAutoPoint)
                     }
                 }
             }
 
 
-
         }
 
     })
+
+    const jumpButton = (option) => {
+        if (option === "prev") {
+            setChosenCheckpoint(checkpoints[chosenCheckpointIndex - 1])
+            setChosenCheckpointIndex(chosenCheckpointIndex - 1)
+        } else {
+            setChosenCheckpoint(checkpoints[chosenCheckpointIndex + 1])
+            setChosenCheckpointIndex(chosenCheckpointIndex + 1)
+        }
+    }
 
     if (checkpoints != undefined && checkpoints.length !== 0) {
         const changeInfoWindow = (data) => {
@@ -85,74 +100,89 @@ const RouteMap = (props) => {
         }
 
         return (
-            <LoadScript
-                googleMapsApiKey="AIzaSyDQb2utsA9n51gCrgSHkl8yaRJR-myziXQ"
-            >
-                <GoogleMap
-                    mapContainerStyle={{ width: '100%', height: '400px' }}
-                    center={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
-                    clickableIcons={false}
-                    options={{
-                        styles: [
-                            {
-                                featureType: "poi",
-                                elementType: "labels",
-                                stylers: [
-                                    { visibility: "off" }
-                                ]
-                            }
-                        ]
-                    }}
-                    zoom={15}
+            <>
+                <LoadScript
+                    googleMapsApiKey="AIzaSyDQb2utsA9n51gCrgSHkl8yaRJR-myziXQ"
                 >
-                    {[...checkpoints].map((item, i) => {
-                        return (
-                            <Marker
-                                label={i}
-                                icon={(item.arrivalActual === null) ? grayMark :
-                                    (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? redMark : greenMark
-                                }
-                                position={{ lat: item.lat, lng: item.lng }}
-                                onClick={() => { changeInfoWindow(item) }} >
+                    <GoogleMap
+                        mapContainerStyle={{ width: '100%', height: '500px' }}
+                        center={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
+                        clickableIcons={false}
+                        options={{
+                            styles: [
                                 {
-                                    (item.title === chosenCheckpoint.title) ?
-                                        <InfoWindow
-                                            position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
-                                        >
-                                            <div style={divStyle}>
-                                                <h2>{item.arrivalActual === null ? "Next:" : ""} {chosenCheckpoint.title}</h2>
-                                                <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
-                                                {(item.arrivalActual != null) ?
-                                                    <h3>
-                                                        <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        {convertToTimeString(item.arrivalActual)}&nbsp;
-
-                                                        <span
-                                                            style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
-                                                            <b>
-                                                                ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
-                                                                    "+" + ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " seconds" :
-                                                                    "-" + ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " seconds"
-                                                                })
-                                                            </b>
-                                                        </span>
-                                                    </h3>
-                                                    : <></>
-                                                }
-                                                <h3>Distance to go: {chosenCheckpoint.prevDistance / 1000} km</h3>
-
-
-                                            </div>
-                                        </InfoWindow>
-                                        : <></>
+                                    featureType: "poi",
+                                    elementType: "labels",
+                                    stylers: [
+                                        { visibility: "off" }
+                                    ]
                                 }
+                            ]
+                        }}
+                        zoom={15}
+                    >
+                        {[...checkpoints].map((item, i) => {
+                            return (
+                                <Marker
+                                    label={i.toString()}
+                                    icon={(item.arrivalActual === null) ? grayMark :
+                                        (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? redMark : greenMark
+                                    }
+                                    position={{ lat: item.lat, lng: item.lng }}
+                                    onClick={() => { changeInfoWindow(item) }} >
+                                    {
+                                        (item.title === chosenCheckpoint.title) ?
+                                            <InfoWindow
+                                                position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
+                                            >
+                                                <div style={divStyle}>
+                                                    <h2>{item.arrivalActual === null ? "Next:" : ""} {chosenCheckpoint.title}</h2>
+                                                    <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
+                                                    {(item.arrivalActual != null) ?
+                                                        <h3>
+                                                            <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            {convertToTimeString(item.arrivalActual)}&nbsp;
 
-                            </Marker>
-                        )
-                    })}
+                                                            <span
+                                                                style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
+                                                                <b>
+                                                                    ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
+                                                                        "+" + ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " seconds" :
+                                                                        "-" + ((new Date(item.arrivalExpected).getTime() - new Date(item.arrivalActual).getTime()) / 1000) + " seconds"
+                                                                    })
+                                                                </b>
+                                                            </span>
+                                                        </h3>
+                                                        : <></>
+                                                    }
+                                                    <h3>Distance from previous checkpoint: {chosenCheckpoint.prevDistance / 1000} km</h3>
 
-                </GoogleMap>
-            </LoadScript>
+
+                                                </div>
+                                            </InfoWindow>
+                                            : <></>
+                                    }
+
+                                </Marker>
+                            )
+                        })}
+
+                    </GoogleMap>
+                </LoadScript>
+                <Button
+                    onClick={() => { jumpButton("prev") }}
+                    disabled={(chosenCheckpointIndex === 0) ? true : false}
+                >
+                    Previous Checkpoint
+                </Button>
+
+                <Button
+                    onClick={() => { jumpButton("next") }}
+                    disabled={(chosenCheckpointIndex === checkpoints.length - 1) ? true : false}
+                >
+                    Next Checkpoint
+                </Button>
+            </>
         )
 
     }
