@@ -9,7 +9,6 @@ import { setOrders } from '../../redux/order'
 const NewOrder = ({ closeFunction }) => {
     //Redux
     const { userId, role } = useSelector((state) => state.user);
-    const { orders } = useSelector((state) => state.order);
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false);
@@ -24,7 +23,7 @@ const NewOrder = ({ closeFunction }) => {
     const [distributor, setDistributor] = useState('');
     const [orderDate, setOrderDate] = useState(new Date())
     const [unit, setUnit] = useState("")
-    const [totalQty, setTotalQty] = useState(0)
+    const [totalQty, setTotalQty] = useState(1)
 
     const submitForm = async () => {
         setLoading(true)
@@ -44,7 +43,7 @@ const NewOrder = ({ closeFunction }) => {
         console.log(orderResult)
         let fullOrders = await retrieveOrders(userId)
         dispatch(setOrders(fullOrders));
-        window.location.href = '/order/'+orderResult.id
+        window.location.href = '/order/' + orderResult.id
 
         setLoading(false)
         closeFunction(false)
@@ -54,9 +53,12 @@ const NewOrder = ({ closeFunction }) => {
         console.log(value)
         console.log(value === undefined)
         if (value === "" || value === undefined) {
-            setTotalQty(0)
+            setTotalQty(1)
         } else {
             setTotalQty(parseInt(value.toString().replace(/\Dw/g, '')))
+            if (totalQty <= 0) {
+                setTotalQty(1)
+            }
         }
     }
 
@@ -79,8 +81,8 @@ const NewOrder = ({ closeFunction }) => {
     useEffect(() => {
         const fetchUserList = async () => {
             // console.log(await retrieveUsersWithRole("ROLE_DISTRIBUTOR"))
-            setSupplierList(await retrieveUsersWithRole("ROLE_SUPPLIER"), userId)
-            setDistributorList(await retrieveUsersWithRole("ROLE_DISTRIBUTOR"), userId)
+            setSupplierList(await retrieveUsersWithRole("ROLE_SUPPLIER"))
+            setDistributorList(await retrieveUsersWithRole("ROLE_DISTRIBUTOR"))
         }
 
         //Check fields
@@ -166,7 +168,7 @@ const NewOrder = ({ closeFunction }) => {
             </InputWrapper> <br />
 
             <NumberInput
-                defaultValue={0}
+                defaultValue={1}
                 placeholder="Total order quantity"
                 label="Total order quantity"
                 required
@@ -177,7 +179,7 @@ const NewOrder = ({ closeFunction }) => {
             <div className="center">
                 <Button
                     color="gray"
-                    onClick={() => { reset() }}
+                    onClick={() => reset()}
                 >
                     Reset
                 </Button>
@@ -185,7 +187,7 @@ const NewOrder = ({ closeFunction }) => {
                 <Button
                     loading={loading}
                     disabled={!submittable}
-                    onClick={() => { submitForm() }}
+                    onClick={() => submitForm()}
                 >
                     Submit
                 </Button>

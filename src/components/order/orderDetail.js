@@ -1,58 +1,58 @@
-import { useState } from 'react'
-import {
-    Table,
-    Button,
-    Modal
-} from '@mantine/core';
+import { Table } from '@mantine/core';
+import { useSelector } from "react-redux";
 
 
-// import '../../styles/mainStyle.css'
+const OrderDetail = () => {
+    //Redux
+    const { currentOrder } = useSelector((state) => state.order);
 
-const OrderDetail = (props) => {
-    let item = props.data
+    if (currentOrder != undefined) {
 
-    return (
-        <div className="horizontalTrim">
-            <h2 className="center">Order Detail</h2>
-            <div style={{ textAlign: 'right' }}>
+        return (
+            <div className="horizontalTrim">
+                <h2 className="center">Order Detail</h2>
+                <div style={{ textAlign: 'right' }}>
+                </div>
+                <Table verticalSpacing="lg" fontSize="md" >
+                    <tbody>
+                        <tr>
+                            <th>Order No.</th>
+                            <td>{currentOrder.id}</td>
+                        </tr>
+                        <tr>
+                            <th>Goods:</th>
+                            <td>{currentOrder.goods}</td>
+                        </tr>
+                        <tr>
+                            <th>Created Date:</th>
+                            <td>{currentOrder.date}</td>
+                        </tr>
+                        <tr>
+                            <th>Supplier:</th>
+                            <td>{currentOrder.supplier}</td>
+                        </tr>
+                        <tr>
+                            <th>Distributor:</th>
+                            <td>{currentOrder.distributor}</td>
+                        </tr>
+                        <tr>
+                            <th>Created / Total</th>
+                            <td>{currentOrder.ordered} / {currentOrder.deliveryTotal} {currentOrder.deliveryUnit}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2" >
+                                <hr />
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </Table>
+
             </div>
-            <Table verticalSpacing="lg" fontSize="md" >
-                <tbody>
-                    <tr>
-                        <th>Order No.</th>
-                        <td>{item.id}</td>
-                    </tr>
-                    <tr>
-                        <th>Goods:</th>
-                        <td>{item.goods}</td>
-                    </tr>
-                    <tr>
-                        <th>Created Date:</th>
-                        <td>{item.date}</td>
-                    </tr>
-                    <tr>
-                        <th>Supplier:</th>
-                        <td>{item.supplier}</td>
-                    </tr>
-                    <tr>
-                        <th>Distributor:</th>
-                        <td>{item.distributor}</td>
-                    </tr>
-                    <tr>
-                        <th>Created / Total</th>
-                        <td>{item.ordered} / {item.deliveryTotal} {item.deliveryUnit}</td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2" >
-                            <hr />
-                        </td>
-                    </tr>
-
-                </tbody>
-            </Table>
-
-        </div>
-    )
+        )
+    } else {
+        return (<></>)
+    }
 }
 
 export default OrderDetail;

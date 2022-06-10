@@ -1,26 +1,20 @@
 import { useState } from 'react'
 // import { Link } from "react-router-dom";
 
-import {
-    Navbar,
-    Button,
-    ActionIcon,
-    Group,
-    Table,
-    Text,
-    Center,
-    Modal
-} from '@mantine/core';
-
+import { useSelector } from "react-redux";
+import { Button, Table, Modal } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 
 import DeliveryItem from './deliveryItem'
 import NewDelivery from './newDelivery'
- 
-const Delivery = (props) => {
+
+const Delivery = ({ orderId }) => {
+    //Redux
+    const { currentOrder } = useSelector((state) => state.order);
     let [addNew, setAddNew] = useState(false)
-    let orderData = props.data
-    let deliveries = orderData.notes
+
+    console.log("currentOrder")
+    console.log(currentOrder)
 
 
     const tableStyle = {
@@ -30,48 +24,68 @@ const Delivery = (props) => {
 
     }
 
-
-    return (
-        <div>
-            <Button variant='filled' onClick={() => { setAddNew(true); }}>
+    if (currentOrder != undefined) {
+        return (
+            <div>
+                <Button
+                    variant='filled'
+                    onClick={() => { setAddNew(true); }}
+                    disabled={currentOrder.deliveryTotal === currentOrder.ordered}
+                >
                     <Plus color="white" />
-                New Delivery Note
-            </Button>
-            <span style={{ fontSize: 18 }}> Delivery Notes Created: {orderData.ordered} / {orderData.deliveryTotal} {orderData.deliveryUnit}</span>
-            <br /><br />
-            <Table style={tableStyle} highlightOnHover striped >
-                <thead>
-                    <tr>
-                        <th>Delivery Note Id</th>
-                        <th>Shipping Date</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
+                    New Delivery Note
+                </Button>
+                <span style={{ fontSize: 18 }}>
 
-                    {[...deliveries].map((item, i) => {
-                        return <DeliveryItem key={i} orderData={orderData} data={item} detail={false} />
-                    })}
+                </span>
+                <span style={{ fontSize: 20 }}>
+                    {(currentOrder.deliveryTotal === currentOrder.ordered) ? " All the quantity of goods is ordered:" : ` Delivery Notes Created`}
+                    <b>{` ${currentOrder.ordered} / ${currentOrder.deliveryTotal} ${currentOrder.deliveryUnit}`}</b>
+                </span>
+                <br /><br />
 
 
-                </tbody>
-            </Table>
+                <Table style={tableStyle} highlightOnHover striped >
+                    <thead>
+                        <tr>
+                            <th>Delivery Note Id</th>
+                            <th>Shipping Date</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <Modal
-                size="xl"
-                opened={addNew}
-                onClose={() => { setAddNew(false) }}
-            >
+                        {
+                            (currentOrder.notes != undefined) ?
+                                [...currentOrder.notes].map((item, i) => {
+                                    return <DeliveryItem key={i} data={item} detail={false} />
+                                })
+                                : <></>
+                        }
 
-                <NewDelivery />
-            </Modal>
+
+                    </tbody>
+                </Table>
+
+                <Modal
+                    size="xl"
+                    opened={addNew}
+                    onClose={() => { setAddNew(false) }}
+                >
+
+                    <NewDelivery closeFunction={setAddNew} orderId={orderId} />
+                </Modal>
 
 
-        </div>
-    )
+            </div>
+        )
+
+    } else {
+        return <></>
+    }
 }
 
 export default Delivery;

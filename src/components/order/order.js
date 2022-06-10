@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReportAnalytics, FileDescription, TruckDelivery } from 'tabler-icons-react';
 
 import { retrieveOrders } from '../../functions/order'
-import { setOrders } from '../../redux/order'
+import { setOrders, setCurrentOrder } from '../../redux/order'
 
 //Component
 import OrderDetail from './orderDetail'
@@ -15,14 +15,12 @@ import DocumentList from '../document/documentList'
 
 const OrderPage = (props) => {
 
-
     //States
     const [ordersLoaded, setOrdersLoaded] = useState(false)
-    const [currentOrder, setCurrentOrder] = useState({});
     const [url, setUrl] = useState([])
 
     //Redux
-    const { orders } = useSelector((state) => state.order);
+    const { orders, currentOrder } = useSelector((state) => state.order);
     const { userId } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
@@ -32,18 +30,16 @@ const OrderPage = (props) => {
     function tabChangeHandler(props) {
         setActiveTab(props)
     }
-    
-    
-
 
     useEffect(() => {
         const fetchOrders = async () => {
             let ordersRetrieved = await retrieveOrders(userId)
             dispatch(setOrders(ordersRetrieved))
 
+
             for (let item of ordersRetrieved) {
                 if (item.id === parseInt(params)) {
-                    setCurrentOrder(item)
+                    dispatch(setCurrentOrder(item))
                 }
             }
         }
@@ -53,47 +49,50 @@ const OrderPage = (props) => {
             setOrdersLoaded(true)
         }
 
-        if (url != params){
+        if (url != params) {
             fetchOrders()
             setOrdersLoaded(true)
             setUrl(params)
         }
 
     })
+    if (currentOrder != undefined) {
+        return (
+            <div>
+                <Tabs tabPadding="md" active={activeTab} onTabChange={tabChangeHandler}>
+                    <Tabs.Tab
+                        label="Purchase Order"
+                        icon={<ReportAnalytics size={20} />}
+                    >
+                        <OrderDetail />
+                    </Tabs.Tab>
 
-    return (
-        <div>
-            <Tabs tabPadding="md" active={activeTab} onTabChange={tabChangeHandler}>
-                <Tabs.Tab
-                    label="Purchase Order"
-                    icon={<ReportAnalytics size={20} />}
-                >
-                    <OrderDetail data={currentOrder} />
-                </Tabs.Tab>
+                    <Tabs.Tab
+                        label="Delivery Notes"
+                        icon={<TruckDelivery size={20} />}
+                    >
+                        {(orders.length === 0) ? <></> : (params.length == 2) ?
+                            <DeliveryDetail data={currentOrder} params={params} /> :
+                            <Delivery orderId={params} />
+                        }
 
-                <Tabs.Tab
-                    label="Delivery Notes"
-                    icon={<TruckDelivery size={20} />}
-                >
-                    {(orders.length === 0) ? <></>:(params.length == 2 ) ?
-                        <DeliveryDetail data={currentOrder} params={params} /> :
-                        <Delivery data={currentOrder} />
-                    }
+                    </Tabs.Tab>
 
-                </Tabs.Tab>
-
-                <Tabs.Tab
-                    label="Documents"
-                    icon={<FileDescription size={20}  />}
-                >
-                    <DocumentList params={params} data={currentOrder} all={true}/>
-                </Tabs.Tab>
+                    <Tabs.Tab
+                        label="Documents"
+                        icon={<FileDescription size={20} />}
+                    >
+                        <DocumentList params={params} data={currentOrder} all={true} />
+                    </Tabs.Tab>
 
 
-            </Tabs>
+                </Tabs>
 
-        </div>
-    )
+            </div>
+        )
+    } else {
+        return (<></>)
+    }
 }
 
 export default OrderPage;

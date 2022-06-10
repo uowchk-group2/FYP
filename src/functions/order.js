@@ -68,6 +68,74 @@ export const retrieveOrders = async (userId) => {
 
 }
 
+export const retrieveSingleOrders = async (orderId) => {
+    let result = []
+    const config = { headers: {} }
+    let body = {}
+
+    await axios.get(`https://tomcat.johnnyip.com/fyp-backend/api/order/${orderId}`, body, config)
+        .then(async (response) => {
+            console.log("response")
+            console.log(response)
+            if (response.status == 200) {
+                result = response.data
+                result.supplier = await retrieveCompanyName(result.supplierId)
+                result.distributor = await retrieveCompanyName(result.distributorId)
+
+                //get all delivery notes of order
+                let deliveryNotes = await retrieveDeliveryNotes(result.id)
+                result.notes = deliveryNotes
+
+                //checkAllDelivered
+                let allDelivered = true
+
+                //Calculate total qty
+                let totalQty = 0;
+
+                if (deliveryNotes.length === 0) { allDelivered = false }
+                else {
+                    for (let note of deliveryNotes) {
+                        totalQty += note.quantity
+                        //get all status of devliery note
+                        note.status = await retrieveDeliveryStatus(note.id)
+                        console.log("note.status.length: " + note.status.length)
+                        if (note.status.length === 0) { allDelivered = false }
+                        else {
+                            for (let status of note.status) {
+                                if (status.arrivalActual === null) {
+                                    allDelivered = false
+                                }
+                            }
+                        }
+                    }
+                }
+                result.ordered = totalQty
+                console.log("retrieveDocuments")
+                result.documents = await retrieveDocuments(result.id)
+                console.log("retrieveDocuments")
+
+                if (totalQty < result.deliveryTotal) { allDelivered = false }
+
+                result.allDelivered = allDelivered
+
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log("Server Error")
+                result = []
+            }
+        })
+    return result
+
+}
+
+
 export const retrieveCompanyName = async (userId) => {
     let result = []
     const config = { headers: {} }
@@ -95,7 +163,7 @@ export const retrieveCompanyName = async (userId) => {
 
 }
 
-export const retrieveUsersWithRole = async (role, selfId) => {
+export const retrieveUsersWithRole = async (role) => {
     let result = []
     const config = { headers: {} }
     let body = {}
