@@ -1,14 +1,21 @@
 import { useState } from 'react'
+import { Button, Input, InputWrapper } from '@mantine/core';
 
-import {
-    Button,
-    Input,
-    InputWrapper
-} from '@mantine/core';
-
+import { uploadDocument } from '../../functions/document'
 
 const NewDocument = () => {
     const [loading, setLoading] = useState(false);
+
+    const upload = async () => {
+        setLoading(true);
+
+        let file = document.getElementById("docUpload").files[0]
+
+        uploadDocument(file)
+
+        setLoading(false);
+    }
+
 
     return (
         <div>
@@ -18,7 +25,7 @@ const NewDocument = () => {
                 required
                 label="Choose the file to upload"
             >
-                <input type="file" />
+                <input type="file" id="docUpload" accept="image/*,.pdf" />
             </InputWrapper><br />
 
             <InputWrapper
@@ -30,7 +37,7 @@ const NewDocument = () => {
 
             <div className="center">
                 <Button
-                    onClick={() => { setLoading(!loading); }}
+                    onClick={() => upload()}
                     loading={loading}
                 >
                     Upload
