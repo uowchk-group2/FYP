@@ -44,8 +44,9 @@ export const retrieveOrders = async (userId) => {
                         }
                     }
                     item.ordered = totalQty
-
                     item.documents = await retrieveDocuments(item.id)
+
+                    if (totalQty < item.deliveryTotal) { allDelivered = false }
 
                     item.allDelivered = allDelivered
 
