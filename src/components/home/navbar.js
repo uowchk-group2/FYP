@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Navbar, Button, Modal } from '@mantine/core';
+import { Navbar, Button, Modal, Tabs } from '@mantine/core';
 
 import { Plus } from 'tabler-icons-react';
 
@@ -9,6 +9,14 @@ import NewOrder from '../order/newOrder'
 
 const NavBar = ({ data, params }) => {
     const [addNew, setAddNew] = useState(false)
+    const [tabChosen, setTabChosen] = useState(0)
+
+    console.log(data)
+
+    const onTabChange = (active, tabKey) => {
+        console.log(tabKey)
+        setTabChosen(active)
+    }
 
 
     return (
@@ -23,10 +31,20 @@ const NavBar = ({ data, params }) => {
                 </Button>
             </Navbar.Section>
 
+
+            <Tabs position="center" active={tabChosen} onTabChange={onTabChange}>
+                <Tabs.Tab label="All" tabKey="All"></Tabs.Tab>
+                <Tabs.Tab label="Incomplete" tabKey="Incomplete"></Tabs.Tab>
+                <Tabs.Tab label="Completed" tabKey="Completed"></Tabs.Tab>
+            </Tabs>
+
             {[...data].map((item, i) => {
-                let chosen = false;
-                if (params != undefined && item.id === parseInt(params[0])) { chosen = true }
-                return <NavBarItem key={i} data={item} chosen={chosen} />
+                if (tabChosen === 0 || (tabChosen === 1 && !item.allDelivered) || (tabChosen === 2 && item.allDelivered)) {
+                    let chosen = false;
+                    if (params != undefined && item.id === parseInt(params[0])) { chosen = true }
+                    return <NavBarItem key={i} data={item} chosen={chosen} />
+
+                }
             })}
 
 
