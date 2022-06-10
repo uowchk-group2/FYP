@@ -5,7 +5,7 @@ import { DatePicker } from '@mantine/dates';
 
 import { retrieveUsersWithRole, retrieveSingleOrders } from '../../functions/order'
 import { addNewDeliveryNote } from '../../functions/delivery'
-import { setOrders, setCurrentOrder, setNewDeliveryNote } from '../../redux/order'
+import { setCurrentOrder } from '../../redux/order'
 
 
 const NewDelivery = ({ closeFunction, orderId }) => {

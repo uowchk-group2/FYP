@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from "react-redux";
 import { Table, Button, ActionIcon, Modal, Center } from '@mantine/core';
 import { ExternalLink, Trash, FileUpload } from 'tabler-icons-react';
 
@@ -8,25 +9,32 @@ import { convertToTimeString } from '../../functions/date'
 import NewDocument from '../document/newDocument'
 
 const DocumentTable = (props) => {
-    let noteId = "";
+    //Redux
+    const { currentOrder } = useSelector((state) => state.order);
+
+    let noteId = "0";
     if (props.params.length == 2) { noteId = props.params[1] }
 
-    let orderData = props.data
     let showAll = props.all
-
-    const [newFile, setNewFile] = useState(false);
-
-
     let documents = []
 
-    if (orderData.documents != undefined) {
+    //State
+    const [newFile, setNewFile] = useState(false);
 
-        for (let doc of orderData.documents) {
+    if (currentOrder.documents != undefined) {
+
+        for (let doc of currentOrder.documents) {
             if ((showAll || (parseInt(doc.deliveryNoteId) === parseInt(noteId) || (parseInt(doc.deliveryNoteId) === 0)))) {
                 documents.push(doc)
             }
         }
     }
+
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url)
+        if (newWindow) newWindow.opener = null
+    }
+
 
     return (
 
@@ -63,8 +71,12 @@ const DocumentTable = (props) => {
                                     </td>
                                     : <></>}
                                 <td >
-                                    <Button compact size="" style={{ fontSize: 13 }}>
-
+                                    <Button
+                                        compact
+                                        size=""
+                                        style={{ fontSize: 13 }}
+                                        onClick={() => openInNewTab(`https://uow-project-fyp.s3.ap-east-1.amazonaws.com/${item.filename}`)}
+                                    >
                                         <ExternalLink color="white" size={30} />View In New Tab
                                     </Button>
 
@@ -81,7 +93,7 @@ const DocumentTable = (props) => {
                 opened={newFile}
                 onClose={() => setNewFile(false)}
             >
-                <NewDocument />
+                <NewDocument closeFunction={setNewFile} noteId={noteId} />
             </Modal>
 
         </div>

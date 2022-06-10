@@ -76,9 +76,9 @@ const DeliveryDetail = (props) => {
 
                 let expected = new Date(tmpItem.arrivalExpected).getTime()
                 console.log("expected")
-                
-                if (i % 2 == 1){expected += 5000}
-                else{expected -= 5000}
+
+                if (i % 2 == 1) { expected += 5000 }
+                else { expected -= 5000 }
                 // console.log(expected)
                 console.log(new Date(expected))
 
@@ -175,7 +175,7 @@ const DeliveryDetail = (props) => {
 
                         <td style={{ verticalAlign: 'top' }} width="50%">
                             <h2 style={{ textAlign: 'center', width: '100%' }}>Documents</h2>
-                            <DocumentTable params={props.params} data={orderData} />
+                            <DocumentTable params={props.params} />
                         </td>
                     </tr>
                 </table>

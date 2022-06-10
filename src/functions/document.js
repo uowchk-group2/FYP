@@ -27,31 +27,13 @@ export const retrieveDocuments = async (orderId) => {
 
 }
 
-export const uploadDocument = async (file) => {
-    let filename = file.name;
-    let randomFileName = getRandomId() + "." + filename.split(".")[filename.split(".").length - 1]
-
-    //get Signed URL for upload
-    let uploadURL = await getUploadURL(randomFileName, file.type)
-
-    //convert file to blob
-    let objectURL = URL.createObjectURL(file);
-    console.log(objectURL)
-    console.log(file.type)
-    let blob = new Blob([file], { type: file.type })
-
-    await uploadFileToURL(uploadURL, blob)
-
-
-}
-
-export const getUploadURL = async (filename, filetype) => {
+export const saveDocToDb = async (body) => {
     let result = []
     const config = { headers: {} }
-    let body = {}
 
-    await axios.get(`https://api.johnnyip.com/s3/fyp?filename=${filename}&filetype=${filetype}`, body, config)
+    await axios.post(`https://tomcat.johnnyip.com/fyp-backend/api/doc/newDoc`, body, config)
         .then((response) => {
+            console.log(response.data)
             if (response.status == 200) {
                 result = response.data
             } else {
@@ -63,7 +45,7 @@ export const getUploadURL = async (filename, filetype) => {
                 console.log("Wrong Credential")
                 result = []
             } else {
-                console.log("Server Error")
+                console.log(err)
                 result = []
             }
         })
@@ -72,11 +54,32 @@ export const getUploadURL = async (filename, filetype) => {
 
 }
 
-export const uploadFileToURL = async (url, body) => {
+export const uploadDocument = async (file) => {
+    let filename = file.name;
+    let randomFileName = getRandomId() + "." + filename.split(".")[filename.split(".").length - 1]
+
+    //get Signed URL for upload
+    let uploadURL = await getUploadURL(randomFileName, file.type)
+
+    //turn the file into blob format*
+    let blob = new Blob([file], { type: file.type })
+
+    fetch(uploadURL,
+        {
+            method: "PUT",
+            body: blob
+        }
+    );
+
+    return randomFileName;
+}
+
+export const getUploadURL = async (filename, filetype) => {
     let result = []
     const config = { headers: {} }
+    let body = {}
 
-    await axios.put(url, body, config)
+    await axios.get(`https://api.johnnyip.com/s3/fyp?filename=${filename}&filetype=${filetype}`, body, config)
         .then((response) => {
             if (response.status == 200) {
                 result = response.data
