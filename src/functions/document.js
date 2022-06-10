@@ -75,7 +75,6 @@ export const getUploadURL = async (filename, filetype) => {
 export const uploadFileToURL = async (url, body) => {
     let result = []
     const config = { headers: {} }
-    let body = body
 
     await axios.put(url, body, config)
         .then((response) => {
