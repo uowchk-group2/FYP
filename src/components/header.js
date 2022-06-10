@@ -34,7 +34,6 @@ const Header = () => {
     useEffect(() => {
         const checkStatus = async () => {
             setBackendIsUp(await backendStatus())
-
         }
 
         if (!fetched) {

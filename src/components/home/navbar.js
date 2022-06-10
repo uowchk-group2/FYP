@@ -34,13 +34,13 @@ const NavBar = ({ data, params }) => {
             </Navbar.Section>
 
             <Input
-            style={{paddingLeft:20, paddingRight:20}}
+                style={{ paddingLeft: 20, paddingRight: 20 }}
                 placeholder="Search by id or goods name"
                 value={searchString}
                 onChange={(e) => setSearchString(e.target.value.toLowerCase())}
             />
 
-            <Tabs position="center" active={tabChosen} onTabChange={onTabChange}>
+            <Tabs grow position="center" active={tabChosen} onTabChange={onTabChange} tabPadding="md" style={{ paddingBottom: 5 }}>
                 <Tabs.Tab label="All" tabKey="All"></Tabs.Tab>
                 <Tabs.Tab label="Incomplete" tabKey="Incomplete"></Tabs.Tab>
                 <Tabs.Tab label="Completed" tabKey="Completed"></Tabs.Tab>

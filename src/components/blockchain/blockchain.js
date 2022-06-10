@@ -1,15 +1,10 @@
-import {
-    Input,
-    Select,
-    Group,
-    Button
-} from '@mantine/core';
+import { Input, Select, Group, Button } from '@mantine/core';
 
 import BlockchainTable from './blockchainTable'
 
 const Blockchain = () => {
     return (
-        <div>
+        <div style={{ paddingTop: 15, backgroundColor: '#F9F9FA', height: "100%" }}>
             <Group position="center">
                 <Select
                     style={{ width: "10%" }}
@@ -23,7 +18,7 @@ const Blockchain = () => {
                     ]}
                 />
                 <Input
-                    style={{ width:'40%' }}
+                    style={{ width: '40%' }}
                     placeholder="Searching Keywords"
                 >
                 </Input>

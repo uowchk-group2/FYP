@@ -17,7 +17,7 @@ const BlockchainTable = () => {
 
 
     return (
-        <div>
+        <div >
             <Table style={tableStyle} highlightOnHover striped>
                 <thead>
                     <tr>

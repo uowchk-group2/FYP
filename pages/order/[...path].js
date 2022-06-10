@@ -13,7 +13,7 @@ export default function Order() {
 
 
     return (
-        <>
+        <div style={{height: '100%'}}>
             <Header />
             {
                 (!signedIn) ?
@@ -25,7 +25,7 @@ export default function Order() {
                         <h1>error</h1>
             }
 
-        </>
+        </div>
     )
 
 }

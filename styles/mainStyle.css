@@ -20,6 +20,7 @@ body {
     background-color: #F6EFE1;
     margin-left: 10%;
     margin-right: 10%;
+    height: 100%;
 }
 
 .horizontalTrim {
@@ -36,9 +37,22 @@ img {
     animation: blinker 1s linear infinite;
 }
 
-
 @keyframes blinker {
     50% {
         opacity: 0;
     }
+}
+
+.mantine-1opdmpb {
+    padding-top: 0;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+#__next, 
+.mantine-Table-root{
+    height: 100%;
 }

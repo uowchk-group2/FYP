@@ -19,7 +19,8 @@ const Home = (props) => {
 
     //States
     const [ordersLoaded, setOrdersLoaded] = useState(false)
-
+    const [activeTab, setActiveTab] = useState(0);
+    console.log(activeTab)
     //Redux
     const { orders } = useSelector((state) => state.order);
     const { userId } = useSelector((state) => state.user);
@@ -39,16 +40,27 @@ const Home = (props) => {
     })
 
     return (
-        <Tabs variant="outline">
+        <Tabs active={activeTab} onTabChange={setActiveTab}
+            grow position="center" variant="outline"
+            style={{
+                backgroundColor: "#e0e0e0",
+                borderRadius: "10px 10px 0px 0px",
+            }}>
             <Tabs.Tab
                 label="Operation Centre"
                 icon={<BuildingSkyscraper size={20} />}
+                style={{
+                    color: activeTab === 0 ? "" : "",
+                    borderRadius: "10px 10px 0px 0px ",
+                    borderTop: activeTab === 0 ? "1px solid black " : "",
+                    borderLeft: activeTab === 0 ? "1px solid black " : "",
+                    borderRight: activeTab === 0 ? "1px solid black " : "",
+                }}
             >
                 <AppShell
-                    padding="md"
                     navbar={<NavBar data={orders} params={params} />}
                     styles={(theme) => ({
-                        main: { backgroundColor: theme.colors.gray[0] },
+                        main: { backgroundColor: theme.colors.gray[0], },
                     })}
                 >
                     {
@@ -62,6 +74,13 @@ const Home = (props) => {
             <Tabs.Tab
                 label="Blockchain Centre"
                 icon={<Dna size={20} />}
+                style={{
+                    borderRadius: "10px 10px 0px 0px ",
+                    borderTop: activeTab === 1 ? "1px solid black " : "",
+                    borderLeft: activeTab === 1 ? "1px solid black " : "",
+                    borderRight: activeTab === 1 ? "1px solid black " : "",
+                    borderBottomStyle: "none"
+                }}
             >
                 <Blockchain />
             </Tabs.Tab>
