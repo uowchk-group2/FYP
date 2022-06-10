@@ -5,7 +5,8 @@ const initialState = {
   signedIn: false,
   userId: 0,
   company:"",
-  role:""
+  role:"",
+  fullname:""
 }
 
 export const userSlice = createSlice({
@@ -17,13 +18,15 @@ export const userSlice = createSlice({
       state.signedIn = false
       state.userId = 0
       state.company = ""
-      state.role = ""
+      state.role = "",
+      state.username = "";
     },
     setUserInfo: (state, action) => {
       state.username = action.payload.username
       state.signedIn = action.payload.signedIn
       state.userId = action.payload.id
       state.company = action.payload.company
+      state.fullname = action.payload.fullname
       
       let role = action.payload.role.substring(5)
       state.role = role.at(0) + role.substring(1).toLowerCase()

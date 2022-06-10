@@ -36,7 +36,7 @@ const NavBar = ({ data, params }) => {
                 onClose={() => { setAddNew(false) }}
             >
 
-                <NewOrder />
+                <NewOrder closeFunction={setAddNew} />
             </Modal>
 
 

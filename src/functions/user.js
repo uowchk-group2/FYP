@@ -35,13 +35,13 @@ export const signUp = async (username, password, role, name, companyName) => {
     //Signup part
     let result = ""
     const config = { headers: {} }
-    
+
     //Translate role
-    role = "ROLE_"+role.toUpperCase()
+    role = "ROLE_" + role.toUpperCase()
 
 
     let body = {
-        id:0,
+        id: 0,
         username: username,
         password: password,
         role: role,
@@ -66,11 +66,11 @@ export const signUp = async (username, password, role, name, companyName) => {
                 result = "Server Error: Failed to connect server"
             }
         })
-        
-        //Login
-        if (result === "Done"){
-            await login(username,password)
-        }
+
+    //Login
+    if (result === "Done") {
+        await login(username, password)
+    }
 }
 
 export const fetchUserFromJWT = async () => {

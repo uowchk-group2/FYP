@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Navbar, Button, Table } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
 
 const NavBardata = ({ data, chosen }) => {
-
     const buttonStyle = {
         // width: "100%",
         height: "100%",
@@ -19,7 +18,7 @@ const NavBardata = ({ data, chosen }) => {
         fontSize: 16,
         width: 265,
         textAlign: "left",
-        color: chosen ? "white" : data.ordered === data.total ? "#A0A0A0" : "black",
+        color: data.allDelivered ? "#A0A0A0" :  chosen ? "white" : "black",
     }
 
     return (
@@ -36,18 +35,6 @@ const NavBardata = ({ data, chosen }) => {
                                 <th>Goods:</th>
                                 <th>{data.goods}</th>
                             </tr>
-                            {/* <tr>
-                                <th>Created Date:</th>
-                                <th>{data.date}</th>
-                            </tr>
-                            <tr>
-                                <th>Supplier:</th>
-                                <th>{data.supplier}</th>
-                            </tr>
-                            <tr>
-                                <th>Distributor:</th>
-                                <th>{data.distributor}</th>
-                            </tr> */}
                             <tr>
                                 <th>Created / Total</th>
                                 <th>{data.ordered} / {data.deliveryTotal} {data.deliveryUnit}</th>
