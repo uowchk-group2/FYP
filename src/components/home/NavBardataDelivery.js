@@ -25,14 +25,9 @@ const NavBardataDelivery = ({ data, chosen }) => {
 
     let itemStatus = ""
 
-    console.log("data")
-    console.log(data)
-    console.log(data.status)
 
     let lastObject = {}
     for (let statusItem of data.status) {
-        console.log("statusItem")
-        console.log(statusItem)
         if (statusItem.arrivalActual != null) {
             itemStatus = statusItem.title
         }

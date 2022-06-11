@@ -22,6 +22,9 @@ const DeliveryDetail = (props) => {
     const [finished, setFinished] = useState(true)
     const [viewFullCheckpoints, setViewFullCheckpoints] = useState(false)
 
+    const [currentNoteId, setCurrentNoteId] = useState(0)
+    const [changed, setChanged] = useState(true)
+
     let noteId = props.params[1]
     let orderData = props.data
     let noteData = props.data.notes
@@ -29,10 +32,11 @@ const DeliveryDetail = (props) => {
 
     useEffect(() => {
         //Current selected note item
-        if (noteData != undefined && Object.keys(noteItem).length === 0) {
+        if (noteData != undefined && Object.keys(noteItem).length === 0 && changed) {
             for (let note of noteData) {
                 if (note.id === parseInt(noteId)) {
                     setNoteItem(note)
+                    setChanged(false)
 
                     if (checkPoints.length === 0) {
                         setCheckPoints(note.status)
@@ -41,6 +45,16 @@ const DeliveryDetail = (props) => {
                 }
             }
         }
+
+
+        console.log("params2")
+        console.log(noteId)
+        if (currentNoteId === 0 || currentNoteId != noteId) {
+            setNoteItem({})
+            setCurrentNoteId(noteId)
+            setChanged(true)
+        }
+
 
         if (noteItem != undefined && noteItem.status != undefined) {
             if (noteItem.status.length != 0 && noteItem.status[noteItem.status.length - 1].arrivalActual != null) {

@@ -56,8 +56,6 @@ const Home = (props) => {
             setOrdersLoaded(true)
         }
 
-        console.log("orders")
-        console.log(orders)
 
     })
 

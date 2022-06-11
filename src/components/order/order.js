@@ -57,10 +57,13 @@ const OrderPage = (props) => {
 
         }
 
-        if (orders.length === 0 || !ordersLoaded) {
+        if (orders.length === 0 || !ordersLoaded ) {
             fetchOrders()
             setOrdersLoaded(true)
         }
+
+        console.log("params1")
+        console.log(params)
 
         if (url != params) {
             fetchOrders()
