@@ -53,11 +53,12 @@ const DeliveryDetail = (props) => {
             setNoteItem({})
             setCurrentNoteId(noteId)
             setChanged(true)
+            setFinished(true)
         }
 
 
         if (noteItem != undefined && noteItem.status != undefined) {
-            if (noteItem.status.length != 0 && noteItem.status[noteItem.status.length - 1].arrivalActual != null) {
+            if (noteItem.status.length != 0 && noteItem.status[noteItem.status.length - 1].arrivalActual != null || noteItem.status.length === 0) {
                 setFinished(true)
             } else if (noteItem.status.length > 0) {
                 setFinished(false)
