@@ -7,7 +7,7 @@ import { uploadDocument, saveDocToDb } from '../../functions/document'
 import { retrieveSingleOrders } from '../../functions/order'
 import { setCurrentOrder } from '../../redux/order'
 
-const NewDocument = ({ noteId, closeFunction }) => {
+const NewDocument = ({ noteId, closeFunction, showAll }) => {
     //Redux
     const { currentOrder } = useSelector((state) => state.order);
     const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const NewDocument = ({ noteId, closeFunction }) => {
             id: 0,
             description: description,
             orderId: currentOrder.id,
-            deliveryNoteId: noteId,
+            deliveryNoteId: showAll ? 0 : noteId,
             filename: filename,
             time: new Date()
         }

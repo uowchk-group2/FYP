@@ -93,7 +93,7 @@ const DocumentTable = (props) => {
                 opened={newFile}
                 onClose={() => setNewFile(false)}
             >
-                <NewDocument closeFunction={setNewFile} noteId={noteId} />
+                <NewDocument closeFunction={setNewFile} noteId={noteId} showAll={showAll}/>
             </Modal>
 
         </div>
