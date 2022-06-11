@@ -4,7 +4,7 @@ import { Navbar, Button, Table } from '@mantine/core';
 
 import { useSelector, useDispatch } from "react-redux";
 
-const NavBardata = ({ data, chosen }) => {
+const NavBardataOrder = ({ data, chosen }) => {
     const buttonStyle = {
         // width: "100%",
         height: "100%",
@@ -54,4 +54,4 @@ const NavBardata = ({ data, chosen }) => {
     )
 }
 
-export default NavBardata;
+export default NavBardataOrder;

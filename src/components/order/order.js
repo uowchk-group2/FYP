@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { ReportAnalytics, FileDescription, TruckDelivery } from 'tabler-icons-react';
 
-import { retrieveOrders } from '../../functions/order'
+import { retrieveOrders, retrieveSingleOrders } from '../../functions/order'
+import { retrieveDeliveryNotesOfDriver } from '../../functions/delivery'
 import { setOrders, setCurrentOrder } from '../../redux/order'
+import { setDeliveries } from '../../redux/delivery'
 
 //Component
 import OrderDetail from './orderDetail'
@@ -21,7 +23,7 @@ const OrderPage = (props) => {
 
     //Redux
     const { orders, currentOrder } = useSelector((state) => state.order);
-    const { userId } = useSelector((state) => state.user);
+    const { userId, role } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     let params = props.params;
@@ -33,15 +35,26 @@ const OrderPage = (props) => {
 
     useEffect(() => {
         const fetchOrders = async () => {
-            let ordersRetrieved = await retrieveOrders(userId)
-            dispatch(setOrders(ordersRetrieved))
+
+            if (role != "Driver") {
+                let ordersRetrieved = await retrieveOrders(userId)
+                dispatch(setOrders(ordersRetrieved))
 
 
-            for (let item of ordersRetrieved) {
-                if (item.id === parseInt(params)) {
-                    dispatch(setCurrentOrder(item))
+                for (let item of ordersRetrieved) {
+                    if (item.id === parseInt(params)) {
+                        dispatch(setCurrentOrder(item))
+                    }
                 }
+
+            } else {
+                let tmpDeliveries = await retrieveDeliveryNotesOfDriver(userId)
+                dispatch(setDeliveries(tmpDeliveries))
+
+                //Fetch order detail of the delivery note
+                dispatch(setCurrentOrder(await retrieveSingleOrders(parseInt(params))))
             }
+
         }
 
         if (orders.length === 0 || !ordersLoaded) {

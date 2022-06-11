@@ -11,7 +11,7 @@ export const fetch = async (dispatch, username, signedIn, userId) => {
     let data = await fetchUserFromJWT()
     if (data.username === undefined) {
         data.username = "";
-    }
+    }   
     data.signedIn = (data.username != "")
     dispatch(setUserInfo(data))
 }

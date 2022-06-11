@@ -42,7 +42,6 @@ const NewDelivery = ({ closeFunction, orderId }) => {
         }
 
         let orderResult = await addNewDeliveryNote(data)
-        console.log(await retrieveSingleOrders(orderId))
         dispatch(setCurrentOrder(await retrieveSingleOrders(orderId)));
 
         setLoading(false)
@@ -50,8 +49,6 @@ const NewDelivery = ({ closeFunction, orderId }) => {
     }
 
     const qtyOnchange = (value) => {
-        console.log(value)
-        console.log(value === undefined)
         if (value === "" || value === undefined) {
             setQuantityError(`The number should be between 1 to ${currentOrder.deliveryTotal - currentOrder.ordered}`)
             setQty(1)
@@ -75,13 +72,10 @@ const NewDelivery = ({ closeFunction, orderId }) => {
 
 
     useEffect(() => {
-        console.log("currentOrder")
-        console.log(currentOrder)
 
         setQuantityLabel(`Quantity of delivery (${currentOrder.deliveryTotal - currentOrder.ordered} / ${currentOrder.deliveryTotal} ${currentOrder.deliveryUnit} remaining to be delivered)`)
 
         const fetchUserList = async () => {
-            // console.log(await retrieveUsersWithRole("ROLE_DISTRIBUTOR"))
             setDriverList(await retrieveUsersWithRole("ROLE_DRIVER"), userId)
         }
 
@@ -147,6 +141,7 @@ const NewDelivery = ({ closeFunction, orderId }) => {
             <Select
                 label="Driver assignment"
                 placeholder="Driver"
+                searchable
                 data={driverList}
                 value={driver}
                 onChange={setDriver}

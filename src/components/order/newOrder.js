@@ -37,10 +37,9 @@ const NewOrder = ({ closeFunction }) => {
             deliveryTotal: totalQty,
             deliveryUnit: unit
         }
-        // console.log(data)
 
         let orderResult = await addNewOrder(data)
-        console.log(orderResult)
+
         let fullOrders = await retrieveOrders(userId)
         dispatch(setOrders(fullOrders));
         window.location.href = '/order/' + orderResult.id
@@ -50,8 +49,6 @@ const NewOrder = ({ closeFunction }) => {
     }
 
     const qtyOnchange = (value) => {
-        console.log(value)
-        console.log(value === undefined)
         if (value === "" || value === undefined) {
             setTotalQty(1)
         } else {
@@ -80,7 +77,6 @@ const NewOrder = ({ closeFunction }) => {
 
     useEffect(() => {
         const fetchUserList = async () => {
-            // console.log(await retrieveUsersWithRole("ROLE_DISTRIBUTOR"))
             setSupplierList(await retrieveUsersWithRole("ROLE_SUPPLIER"))
             setDistributorList(await retrieveUsersWithRole("ROLE_DISTRIBUTOR"))
         }

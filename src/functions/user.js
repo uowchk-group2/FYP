@@ -75,6 +75,8 @@ export const signUp = async (username, password, role, name, companyName) => {
 
 export const fetchUserFromJWT = async () => {
     let tokenValue = checkJWT();
+    console.log("tokenValue")
+    console.log(tokenValue)
     let result = {};
 
     if (tokenValue === "") {
@@ -86,7 +88,6 @@ export const fetchUserFromJWT = async () => {
     await axios.get('https://tomcat.johnnyip.com/fyp-backend/api/user/status')
         .then((response) => {
             let userJSON = response.data
-
             if (response.status == 200) {
                 result = userJSON;
                 console.log(result)

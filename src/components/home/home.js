@@ -3,8 +3,10 @@ import { AppShell, Tabs } from '@mantine/core';
 import { BuildingSkyscraper, Dna } from 'tabler-icons-react';
 import { useSelector, useDispatch } from "react-redux";
 
-import { retrieveOrders } from '../../functions/order'
+import { retrieveOrders, retrieveSingleOrders } from '../../functions/order'
+import { retrieveDeliveryNotesOfDriver } from '../../functions/delivery'
 import { setOrders } from '../../redux/order'
+import { setDeliveries } from '../../redux/delivery'
 
 //Components
 import NavBar from './navbar'
@@ -20,22 +22,42 @@ const Home = (props) => {
     //States
     const [ordersLoaded, setOrdersLoaded] = useState(false)
     const [activeTab, setActiveTab] = useState(0);
-    console.log(activeTab)
+
     //Redux
     const { orders } = useSelector((state) => state.order);
-    const { userId } = useSelector((state) => state.user);
+    const { deliveries } = useSelector((state) => state.delivery);
+    const { userId, role } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchOrders = async () => {
-            let ordersRetrieved = await retrieveOrders(userId)
-            dispatch(setOrders(ordersRetrieved))
+            if (role != "Driver") {
+                let ordersRetrieved = await retrieveOrders(userId)
+                dispatch(setOrders(ordersRetrieved))
+            } else {
+                let tmpDeliveries = await retrieveDeliveryNotesOfDriver(userId)
+                dispatch(setDeliveries(tmpDeliveries))
+
+                //Fetch order detail of the delivery note
+                let tmpOrders = []
+                let tmpOrderId = []
+                for (let delivery of tmpDeliveries) {
+                    if (tmpOrderId.indexOf(delivery.orderId) === -1) {
+                        tmpOrderId.push(delivery.orderId)
+                        tmpOrders.push(await retrieveSingleOrders(delivery.orderId))
+                    }
+                }
+                dispatch(setOrders(tmpOrders))
+            }
         }
 
         if (!ordersLoaded) {
             fetchOrders()
             setOrdersLoaded(true)
         }
+
+        console.log("orders")
+        console.log(orders)
 
     })
 

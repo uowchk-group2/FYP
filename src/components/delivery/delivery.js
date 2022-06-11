@@ -13,9 +13,6 @@ const Delivery = ({ orderId }) => {
     const { currentOrder } = useSelector((state) => state.order);
     let [addNew, setAddNew] = useState(false)
 
-    console.log("currentOrder")
-    console.log(currentOrder)
-
 
     const tableStyle = {
         left: 0,

@@ -55,6 +55,7 @@ const DeliveryDetail = (props) => {
     const updateStatusItem = (route) => {
         let tmpNoteItem = Object.assign({}, noteItem)
         tmpNoteItem.status = route
+
         setNoteItem(tmpNoteItem)
     }
 
@@ -62,7 +63,9 @@ const DeliveryDetail = (props) => {
         setLoading(true)
 
         let route = await getCheckpoints(noteItem.origin, noteItem.destination, noteItem.id)
+
         updateStatusItem(route)
+
         setLoading(false)
     }
 
@@ -75,12 +78,9 @@ const DeliveryDetail = (props) => {
                 let tmpItem = Object.assign({}, statuses[i])
 
                 let expected = new Date(tmpItem.arrivalExpected).getTime()
-                console.log("expected")
 
                 if (i % 2 == 1) { expected += 5000 }
                 else { expected -= 5000 }
-                // console.log(expected)
-                console.log(new Date(expected))
 
                 tmpItem.arrivalActual = new Date(expected)
 

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { login, saveJWT } from "../../functions/user"
 import { fetch } from '../../components/header'
 
-import { Button, Input, PasswordInput, InputWrapper, Badge } from "@mantine/core";
+import { Group, Button, Input, PasswordInput, InputWrapper, Badge } from "@mantine/core";
 
 
 
@@ -22,6 +22,11 @@ const LoginSection = () => {
     const onFormSubmit = (e) => {
         e.preventDefault;
         signInHandler()
+    }
+
+    const loadDemoAccount = (role) => {
+        setUsernameInput(role)
+        setPasswordInput(role)
     }
 
     const signInHandler = async () => {
@@ -48,11 +53,20 @@ const LoginSection = () => {
             <form onSubmit={onFormSubmit}>
                 <h2>Sign In</h2>
                 <InputWrapper label="Username">
-                    <Input placeholder="Username" onChange={(value) => { setUsernameInput(value.target.value) }} />
+                    <Input
+                        placeholder="Username"
+                        onChange={(value) => { setUsernameInput(value.target.value) }}
+                        value={usernameInput}
+                    />
                 </InputWrapper> <br />
 
                 <InputWrapper label="Password">
-                    <PasswordInput required placeholder="Password" onChange={(value) => { setPasswordInput(value.target.value) }} />
+                    <PasswordInput
+                        required
+                        placeholder="Password"
+                        onChange={(value) => { setPasswordInput(value.target.value) }}
+                        value={passwordInput}
+                    />
                 </InputWrapper> <br />
 
                 <br />
@@ -67,10 +81,31 @@ const LoginSection = () => {
                     : <></>
                 }
 
-                {/* <h1>Hi, {count}</h1>
-            <button onClick={() => dispatch(increment())}>Increment</button>
-            <button onClick={() => dispatch(decrement())}>Decrement</button>
-            <button onClick={() => dispatch(incrementByAmount(33))}>33</button> */}
+                {/* Sample Login account */}
+
+                <h2 className="center">Load Demo Accounts</h2>
+                <Group position="center">
+                    <Button
+                        onClick={() => loadDemoAccount("supplier")}
+                    >
+                        Supplier
+                    </Button>
+
+                    <Button
+                        onClick={() => loadDemoAccount("distributor")}
+                    >
+                        Distributor
+                    </Button>
+
+                    <Button
+                        onClick={() => loadDemoAccount("driver")}
+                    >
+                        Driver
+                    </Button>
+
+
+                </Group>
+
             </form>
         </div>
     )

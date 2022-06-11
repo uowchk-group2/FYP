@@ -27,7 +27,6 @@ const NewDocument = ({ noteId, closeFunction }) => {
         let file = document.getElementById("docUpload").files[0]
         let filename = await uploadDocument(file)
 
-        console.log(`https://uow-project-fyp.s3.ap-east-1.amazonaws.com/${filename}`)
 
         let requestBody = {
             id: 0,

@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-import { retrieveDeliveryNotes, retrieveDeliveryStatus } from './delivery'
+import { retrieveDeliveryNotes, retrieveDeliveryStatus, retrieveDeliveryNotesOfDriver } from './delivery'
 import { retrieveDocuments } from './document'
 
 export const retrieveOrders = async (userId) => {
@@ -75,8 +75,6 @@ export const retrieveSingleOrders = async (orderId) => {
 
     await axios.get(`https://tomcat.johnnyip.com/fyp-backend/api/order/${orderId}`, body, config)
         .then(async (response) => {
-            console.log("response")
-            console.log(response)
             if (response.status == 200) {
                 result = response.data
                 result.supplier = await retrieveCompanyName(result.supplierId)
@@ -98,7 +96,6 @@ export const retrieveSingleOrders = async (orderId) => {
                         totalQty += note.quantity
                         //get all status of devliery note
                         note.status = await retrieveDeliveryStatus(note.id)
-                        console.log("note.status.length: " + note.status.length)
                         if (note.status.length === 0) { allDelivered = false }
                         else {
                             for (let status of note.status) {
@@ -107,7 +104,7 @@ export const retrieveSingleOrders = async (orderId) => {
                                 }
                             }
                         }
-                    }
+                }
                 }
                 result.ordered = totalQty
                 console.log("retrieveDocuments")
@@ -134,6 +131,7 @@ export const retrieveSingleOrders = async (orderId) => {
     return result
 
 }
+
 
 
 export const retrieveCompanyName = async (userId) => {
