@@ -23,7 +23,16 @@ const DeliveryItem = (props) => {
                 <td style={{ maxWidth: "200px" }}>{data.origin}</td>
                 <td style={{ maxWidth: "200px" }}>{data.destination}</td>
                 <td>{data.quantity} {currentOrder.deliveryUnit}</td>
-                <td>{(Object.keys(lastObject).length != 0) ? lastObject.title : "Not Started"}</td>
+                <td
+                    style={{
+                        color: (lastObject.title === "Goods Delivered") ? "green" :
+                            (Object.keys(lastObject).length === 0) ? "red" : "blue"
+                    }}
+                >
+                    <b>
+                        {(Object.keys(lastObject).length != 0) ? lastObject.title : "Not Started"}
+                    </b>
+                </td>
                 <td>
                     {
                         (isDetail ?
