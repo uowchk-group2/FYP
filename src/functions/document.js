@@ -27,33 +27,6 @@ export const retrieveDocuments = async (orderId) => {
 
 }
 
-export const saveDocToDb = async (body) => {
-    let result = []
-    const config = { headers: {} }
-
-    await axios.post(`https://tomcat.johnnyip.com/fyp-backend/api/doc/newDoc`, body, config)
-        .then((response) => {
-            console.log(response.data)
-            if (response.status == 200) {
-                result = response.data
-            } else {
-                result = []
-            }
-        })
-        .catch((err) => {
-            if (err.code === "ERR_BAD_REQUEST") {
-                console.log("Wrong Credential")
-                result = []
-            } else {
-                console.log(err)
-                result = []
-            }
-        })
-
-    return result
-
-}
-
 export const uploadDocument = async (file) => {
     let result = []
     let filename = file.name;
@@ -118,4 +91,77 @@ export const getRandomId = () => {
     for (var i = 0; i < 20; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
+}
+
+
+export const saveDocToDb = async (body) => {
+    let result = []
+    const config = { headers: {} }
+
+    await axios.post(`https://tomcat.johnnyip.com/fyp-backend/api/doc/newDoc`, body, config)
+        .then((response) => {
+            console.log(response.data)
+            if (response.status == 200) {
+                result = response.data
+
+                console.log(body)
+                console.log(result)
+
+                saveToBlockchain(result.id,body)
+                
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log(err)
+                result = []
+            }
+        })
+
+    return result
+}
+
+export const saveToBlockchain = async (resultId, data) => {
+    let result = []
+    const config = { headers: {} }
+    console.log("result, data")
+    console.log(resultId)
+    console.log(data)
+    let body = {
+        id: resultId,
+        description:data.description,
+        orderId: data.orderId,
+        deliveryNoteId: data.deliveryNoteId,
+        filename: data.filename,
+        md5: data.md5,
+        createDate: new Date()
+    }
+
+    console.log(body)
+    console.log(JSON.stringify(body))
+
+
+    await axios.post(`https://tomcat.johnnyip.com/fyp-hyperledger/api/documents/newAsset`, body, config)
+        .then((response) => {
+            console.log(response.data)
+            if (response.status == 200) {
+                result = response.data
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log(err)
+                result = []
+            }
+        })
 }

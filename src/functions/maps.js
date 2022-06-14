@@ -75,6 +75,13 @@ export const saveNewCheckpoints = async (checkpoints) => {
             console.log(response.data)
             if (response.status == 200) {
                 result = response.data
+
+                console.log("result")
+                console.log(result)
+
+                if (result.length > 1) {
+                    saveToBlockchain(result[0])
+                }
             } else {
                 result = []
             }
@@ -102,6 +109,11 @@ export const saveCheckpointUpdate = async (checkpoint) => {
             console.log(response.data)
             if (response.status == 200) {
                 let result = response.data
+
+                console.log("result")
+                console.log(result)
+
+                saveToBlockchain(result)
             } else {
                 result = []
             }
@@ -118,4 +130,46 @@ export const saveCheckpointUpdate = async (checkpoint) => {
 
     return result
 
+}
+
+
+export const saveToBlockchain = async (data) => {
+    let result = []
+    const config = { headers: {} }
+    console.log("result, data")
+    console.log(data)
+    let body = {
+        id: data.id,
+        deliveryNoteId: data.deliveryNoteId,
+        lat: data.lat,
+        lng: data.lng,
+        title: data.title,
+        prevDistance: data.prevDistance,
+        arrivalActual: data.arrivalActual,
+        arrivalExpected: data.arrivalExpected,
+        createDate: new Date()
+    }
+
+    console.log(body)
+    console.log(JSON.stringify(body))
+
+
+    await axios.post(`https://tomcat.johnnyip.com/fyp-hyperledger/api/deliveryStatus/newAsset`, body, config)
+        .then((response) => {
+            console.log(response.data)
+            if (response.status == 200) {
+                result = response.data
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log(err)
+                result = []
+            }
+        })
 }

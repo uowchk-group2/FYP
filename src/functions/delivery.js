@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+import { retrieveCompanyName } from './order'
+
 export const retrieveDeliveryNotes = async (orderId) => {
     let result = []
     const config = { headers: {} }
@@ -37,13 +39,13 @@ export const retrieveDeliveryNotesOfDriver = async (driverId) => {
             if (response.status == 200) {
                 result = response.data
 
-                for (let item of result){
+                for (let item of result) {
                     let allStatus = await retrieveDeliveryStatus(item.id)
                     item.status = allStatus
                     let allDelivered = true
 
                     if (allStatus.length === 0) { allDelivered = false }
-                    for (let status of allStatus){
+                    for (let status of allStatus) {
                         if (status.arrivalActual === null) {
                             allDelivered = false
                         }
@@ -101,10 +103,14 @@ export const addNewDeliveryNote = async (data) => {
     let body = data
 
     await axios.post(`https://tomcat.johnnyip.com/fyp-backend/api/delivery/note`, body, config)
-        .then((response) => {
+        .then(async (response) => {
             console.log(response.data)
             if (response.status == 200) {
                 result = response.data
+
+                data.driver = await retrieveCompanyName(data.driverId)
+
+                saveToBlockchain(result.id, data)
             } else {
                 result = []
             }
@@ -122,3 +128,43 @@ export const addNewDeliveryNote = async (data) => {
     return result
 }
 
+export const saveToBlockchain = async (resultId, data) => {
+    let result = []
+    const config = { headers: {} }
+    console.log("result, data")
+    console.log(result)
+    console.log(data)
+    let body = {
+        id: resultId,
+        orderId: data.orderId,
+        origin: data.origin,
+        destination: data.destination,
+        quantity: data.quantity,
+        shippingDate: data.shippingDate,
+        driver: data.driver,
+        createDate: new Date()
+    }
+
+    console.log(body)
+    console.log(JSON.stringify(body))
+
+
+    await axios.post(`https://tomcat.johnnyip.com/fyp-hyperledger/api/deliveryNotes/newAsset`, body, config)
+        .then((response) => {
+            console.log(response.data)
+            if (response.status == 200) {
+                result = response.data
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log(err)
+                result = []
+            }
+        })
+}

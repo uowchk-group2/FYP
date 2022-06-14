@@ -133,8 +133,6 @@ export const retrieveSingleOrders = async (orderId) => {
 
 }
 
-
-
 export const retrieveCompanyName = async (userId) => {
     let result = []
     const config = { headers: {} }
@@ -250,10 +248,6 @@ export const saveToBlockchain = async (resultId, data) => {
 
     console.log(body)
     console.log(JSON.stringify(body))
-    // let token = axios.defaults.headers.common['Authorization']
-    // console.log(token)
-
-    // axios.defaults.headers.common['Authorization'] = ""
 
 
     await axios.post(`https://tomcat.johnnyip.com/fyp-hyperledger/api/orders/newAsset`, body, config)
@@ -274,9 +268,6 @@ export const saveToBlockchain = async (resultId, data) => {
                 result = []
             }
         })
-
-    // axios.defaults.headers.common['Authorization'] = token
-    // return response
 }
 
 
