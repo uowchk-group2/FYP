@@ -5,7 +5,7 @@ import { Button, Badge } from '@mantine/core';
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo, clearAll } from '../redux/user'
 import { fetchUserFromJWT, saveJWT } from '../functions/user'
-import { backendStatus } from '../functions/checkStatus'
+import { backendStatus, blockchainStatus } from '../functions/checkStatus'
 
 export const fetch = async (dispatch, username, signedIn, userId) => {
     let data = await fetchUserFromJWT()
@@ -34,6 +34,7 @@ const Header = () => {
     useEffect(() => {
         const checkStatus = async () => {
             setBackendIsUp(await backendStatus())
+            setBlockchainIsUp(await blockchainStatus())
         }
 
         if (!fetched) {
@@ -72,7 +73,7 @@ const Header = () => {
                                 </div>
                                 <br />
                                 <Badge color={backendIsUp ? "green" : "red"} style={{ backgroundColor: backendIsUp ? "#B6F3B8" : "#FCB2B2" }} size="xl" variant="dot">Backend Database</Badge><br />
-                                <Badge color={blockchainIsUp ? "green" : "red"} style={{ backgroundColor: blockchainIsUp ? "#B6F3B8" : "#FCB2B2" }} size="xl" variant="dot">Blockchain ( Under development )</Badge>
+                                <Badge color={blockchainIsUp ? "green" : "red"} style={{ backgroundColor: blockchainIsUp ? "#B6F3B8" : "#FCB2B2" }} size="xl" variant="dot">Blockchain</Badge>
                             </div>
 
                         </td>

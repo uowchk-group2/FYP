@@ -61,7 +61,7 @@ const BlockchainTable = () => {
                         <th>Supplier</th>
                         <th>Distributor</th>
                         <th>Order Total</th>
-                        <th>Action</th>
+                        <th>Download from Blockchain (In CSV)</th>
                     </tr>
                 </thead>
                 <tbody>

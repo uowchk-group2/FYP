@@ -20,6 +20,25 @@ export const backendStatus = async () => {
     return result
 }
 
+export const blockchainStatus = async () => {
+    let result = false;
+    await axios.get('https://tomcat.johnnyip.com/fyp-hyperledger/')
+        .then((response) => {
+            if (response.status == 200) {
+                result = true
+            } else {
+                result = false
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            result = false
+        })
+
+    return result
+}
+
+
 export const usernameStatus = async (username) => {
     let result = false;
 
