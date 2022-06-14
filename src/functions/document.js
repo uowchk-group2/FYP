@@ -55,8 +55,10 @@ export const saveDocToDb = async (body) => {
 }
 
 export const uploadDocument = async (file) => {
+    let result = []
     let filename = file.name;
     let randomFileName = getRandomId() + "." + filename.split(".")[filename.split(".").length - 1]
+    result.push(randomFileName)
 
     //get Signed URL for upload
     let uploadURL = await getUploadURL(randomFileName, file.type)
@@ -64,14 +66,23 @@ export const uploadDocument = async (file) => {
     //turn the file into blob format*
     let blob = new Blob([file], { type: file.type })
 
-    fetch(uploadURL,
+    console.log("uploadURL")
+    console.log(uploadURL)
+    await fetch(uploadURL,
         {
             method: "PUT",
             body: blob
         }
-    );
+    ).then((response) =>{
+        console.log("response")
+        console.log(response)
+        console.log(response.headers.get("etag"))
+        let md5 = response.headers.get("etag")
+        console.log(md5.substring(1, md5.length-1))
+        result.push(md5.substring(1, md5.length-1))
+    })
 
-    return randomFileName;
+    return result;
 }
 
 export const getUploadURL = async (filename, filetype) => {

@@ -6,11 +6,11 @@ const BlockchainTableItem = (props) => {
     return (
         <tr>
             <td>{data.id}</td>
-            <td>{data.good}</td>
+            <td>{data.goods}</td>
             <td>{data.date}</td>
             <td>{data.supplier}</td>
             <td>{data.distributor}</td>
-            <td>{data.delivered}/{data.total}</td>
+            <td>{data.deliveryTotal} {data.deliveryUnit} </td>
             <td>
                 <Group>
                     <Button>

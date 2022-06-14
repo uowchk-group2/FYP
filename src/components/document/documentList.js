@@ -56,6 +56,7 @@ const DocumentTable = (props) => {
                         <th>Description</th>
                         <th>Time</th>
                         {showAll ? <th>Delivery Note Id</th> : <></>}
+                        {showAll ? <th>MD5 value</th> : <></>}
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -68,6 +69,11 @@ const DocumentTable = (props) => {
                                 {showAll ?
                                     <td>
                                         {item.deliveryNoteId != 0 ? item.deliveryNoteId : "N/A"}
+                                    </td>
+                                    : <></>}
+                                {showAll ?
+                                    <td>
+                                        {item.md5 != "" ? item.md5 : "N/A"}
                                     </td>
                                     : <></>}
                                 <td >
@@ -93,7 +99,7 @@ const DocumentTable = (props) => {
                 opened={newFile}
                 onClose={() => setNewFile(false)}
             >
-                <NewDocument closeFunction={setNewFile} noteId={noteId} showAll={showAll}/>
+                <NewDocument closeFunction={setNewFile} noteId={noteId} showAll={showAll} />
             </Modal>
 
         </div>

@@ -25,7 +25,7 @@ const NewDocument = ({ noteId, closeFunction, showAll }) => {
         setLoading(true);
 
         let file = document.getElementById("docUpload").files[0]
-        let filename = await uploadDocument(file)
+        let resultArray = await uploadDocument(file)
 
 
         let requestBody = {
@@ -33,9 +33,13 @@ const NewDocument = ({ noteId, closeFunction, showAll }) => {
             description: description,
             orderId: currentOrder.id,
             deliveryNoteId: showAll ? 0 : noteId,
-            filename: filename,
-            time: new Date()
+            filename: resultArray[0],
+            time: new Date(),
+            md5: resultArray[1]
         }
+        
+        console.log(requestBody)
+
         await saveDocToDb(requestBody)
         dispatch(setCurrentOrder(await retrieveSingleOrders(currentOrder.id)));
 

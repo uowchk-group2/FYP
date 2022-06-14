@@ -42,7 +42,7 @@ const NewOrder = ({ closeFunction }) => {
 
         let fullOrders = await retrieveOrders(userId)
         dispatch(setOrders(fullOrders));
-        window.location.href = '/order/' + orderResult.id
+        // window.location.href = '/order/' + orderResult.id
 
         setLoading(false)
         closeFunction(false)

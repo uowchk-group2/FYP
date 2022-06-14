@@ -50,6 +50,7 @@ export const retrieveOrders = async (userId) => {
 
                     item.allDelivered = allDelivered
 
+                    console.log(item)
                 }
             } else {
                 result = []
@@ -104,7 +105,7 @@ export const retrieveSingleOrders = async (orderId) => {
                                 }
                             }
                         }
-                }
+                    }
                 }
                 result.ordered = totalQty
                 console.log("retrieveDocuments")
@@ -200,10 +201,96 @@ export const addNewOrder = async (data) => {
     let body = data
 
     await axios.post(`https://tomcat.johnnyip.com/fyp-backend/api/order/order`, body, config)
+        .then(async (response) => {
+            console.log(response.data)
+            if (response.status == 200) {
+                result = response.data
+                console.log("response.data")
+                console.log(response.data.id)
+
+                data.supplier = await retrieveCompanyName(data.supplierId)
+                data.distributor = await retrieveCompanyName(data.distributorId)
+
+                saveToBlockchain(response.data.id, data);
+                getFromBlockchain();
+
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log(err)
+                result = []
+            }
+        })
+
+    return result
+}
+
+export const saveToBlockchain = async (resultId, data) => {
+    let result = []
+    const config = { headers: {} }
+    console.log("result, data")
+    console.log(result)
+    console.log(data)
+    let body = {
+        id: resultId,
+        goods: data.goods,
+        date: data.date,
+        supplier: data.supplier,
+        distributor: data.distributor,
+        deliveryTotal: data.deliveryTotal,
+        deliveryUnit: data.deliveryUnit,
+        createDate: new Date()
+    }
+
+    console.log(body)
+    console.log(JSON.stringify(body))
+    // let token = axios.defaults.headers.common['Authorization']
+    // console.log(token)
+
+    // axios.defaults.headers.common['Authorization'] = ""
+
+
+    await axios.post(`https://tomcat.johnnyip.com/fyp-hyperledger/api/orders/newAsset`, body, config)
         .then((response) => {
             console.log(response.data)
             if (response.status == 200) {
                 result = response.data
+            } else {
+                result = []
+            }
+        })
+        .catch((err) => {
+            if (err.code === "ERR_BAD_REQUEST") {
+                console.log("Wrong Credential")
+                result = []
+            } else {
+                console.log(err)
+                result = []
+            }
+        })
+
+    // axios.defaults.headers.common['Authorization'] = token
+    // return response
+}
+
+
+export const getFromBlockchain = async () => {
+    let result = []
+    const config = { headers: {} }
+
+
+    await axios.get(`https://tomcat.johnnyip.com/fyp-hyperledger/api/orders/findAll`)
+        .then((response) => {
+            console.log(response.data)
+            if (response.status == 200) {
+                result = response.data
+                console.log(result)
             } else {
                 result = []
             }
