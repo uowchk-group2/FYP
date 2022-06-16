@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { Button } from '@mantine/core';
+import { Button, Group } from '@mantine/core';
 
 import { convertToTimeString } from '../../../functions/date'
 
@@ -42,6 +42,8 @@ const RouteMap = (props) => {
     const [chosenCheckpoint, setChosenCheckpoint] = useState({})
     const [chosenCheckpointIndex, setChosenCheckpointIndex] = useState(0)
     const [autoPoint, setAutoPoint] = useState({})
+
+    let mobileView = props.mobileView
 
     useEffect(() => {
         if (checkpoints != undefined && checkpoints.length !== 0) {
@@ -133,19 +135,23 @@ const RouteMap = (props) => {
                                     onClick={() => { changeInfoWindow(item) }} >
                                     {
                                         (item.title === chosenCheckpoint.title) ?
+
                                             <InfoWindow
                                                 position={{ lat: chosenCheckpoint.lat, lng: chosenCheckpoint.lng }}
                                             >
                                                 <div style={divStyle}>
-                                                    <h2>{item.arrivalActual === null ?"[Upcoming] " : "[Arrived] "} {chosenCheckpoint.title}</h2>
-                                                    <h3>Estimated Arrival time: {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
+                                                    <h2>{item.arrivalActual === null ? "[Upcoming] " : "[Arrived] "} {chosenCheckpoint.title}</h2>
+                                                    <h3>Estimated Arrival time: {mobileView ? <br /> : <></>}
+                                                        {convertToTimeString(chosenCheckpoint.arrivalExpected)}</h3>
                                                     {(item.arrivalActual != null) ?
                                                         <h3>
-                                                            <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <b>Actual Arrival Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            {mobileView ? <br /> : <></>}
                                                             {convertToTimeString(item.arrivalActual)}&nbsp;
 
                                                             <span
                                                                 style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>
+                                                                {mobileView ? <br /> : <></>}
                                                                 <b>
                                                                     ({(new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ?
                                                                         ((new Date(item.arrivalActual).getTime() - new Date(item.arrivalExpected).getTime()) / 1000) + " Seconds Late" :
@@ -156,7 +162,9 @@ const RouteMap = (props) => {
                                                         </h3>
                                                         : <></>
                                                     }
-                                                    <h3>Distance from previous checkpoint: {chosenCheckpoint.prevDistance / 1000} km</h3>
+                                                    <h3>Distance from previous checkpoint:&nbsp;
+                                                        {mobileView ? <br /> : <></>}
+                                                        {chosenCheckpoint.prevDistance / 1000} km</h3>
 
 
                                                 </div>
@@ -170,19 +178,21 @@ const RouteMap = (props) => {
 
                     </GoogleMap>
                 </LoadScript>
-                <Button
-                    onClick={() => { jumpButton("prev") }}
-                    disabled={(chosenCheckpointIndex === 0) ? true : false}
-                >
-                    Previous Checkpoint
-                </Button>
 
-                <Button
-                    onClick={() => { jumpButton("next") }}
-                    disabled={(chosenCheckpointIndex === checkpoints.length - 1) ? true : false}
-                >
-                    Next Checkpoint
-                </Button>
+                <Group grow={mobileView} style={{ padding: 5 }}>
+                    <Button
+                        onClick={() => { jumpButton("prev") }}
+                        disabled={(chosenCheckpointIndex === 0) ? true : false}
+                    >
+                        {mobileView ? "Previous" : "Previous Checkpoint"}
+                    </Button>
+                    <Button
+                        onClick={() => { jumpButton("next") }}
+                        disabled={(chosenCheckpointIndex === checkpoints.length - 1) ? true : false}
+                    >
+                        {mobileView ? "Next" : "Next Checkpoint"}
+                    </Button>
+                </Group>
             </>
         )
 

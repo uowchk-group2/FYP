@@ -75,10 +75,13 @@ html {
 .nav-body {
     width: 100%
 }
-.nav-bar {
-    max-width: 300
+
+.hide-mobile {
+    /* max-width: 300; */
+    display: none;
 }
-.nav-hide{
+
+.deliveryTable-desktop {
     display: none
 }
 
@@ -96,8 +99,16 @@ html {
         margin-right: 10%;
     }
 
-    .nav-hide{
-        display:contents
+    .hide-mobile {
+        display: block;
+    }
+
+    .deliveryTable-mobile {
+        display: none
+    }
+
+    .deliveryTable-desktop {
+        display: block;
     }
 
 }

@@ -85,7 +85,7 @@ const Home = (props) => {
                     })}
                 >
                     <div
-                        className={(path === "home")?"nav-hide":"nav-body"}
+                        className={(path === "home")?"hide-mobile":"nav-body"}
                     >
                         {
                             path === "home" ?

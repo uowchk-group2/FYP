@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Button, Table, Modal } from '@mantine/core';
+import { Button, Table, Modal, Group, Badge } from '@mantine/core';
 import { ArrowBackUp } from 'tabler-icons-react';
 
 //Function
@@ -8,13 +8,14 @@ import { getCheckpoints, saveCheckpointUpdate } from '../../../functions/maps'
 import { retrieveDeliveryStatus } from '../../../functions/delivery'
 
 //Component
-import DeliveryItem from '../deliveryItem'
+import DeliveryItemDesktop from '../deliveryItemDesktop'
+import DeliveryItemMobile from '../deliveryItemMobile'
 import DeliveryTimeline from './deliveryTimeline'
-import DocumentTable from '../../document/documentList'
+import DocumentTableDesktop from '../../document/documentListDesktop'
 import RouteMap from './map'
 
 
-const DeliveryDetail = (props) => {
+const deliveryDetailDesktop = (props) => {
     const [checkPoints, setCheckPoints] = useState([])
     const [noteItem, setNoteItem] = useState({})
     const [loading, setLoading] = useState(false)
@@ -111,7 +112,7 @@ const DeliveryDetail = (props) => {
 
     if (orderData != undefined) {
         return (
-            <div>
+            <div className="deliveryTable-desktop">
                 {/* Back button */}
                 <div>
                     <Link href={`/order/${noteItem.orderId}`} >
@@ -135,12 +136,15 @@ const DeliveryDetail = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        <DeliveryItem orderData={orderData} data={noteItem} detail={true} />
+                        <DeliveryItemDesktop orderData={orderData} data={noteItem} detail={true} />
                     </tbody>
                 </Table>
                 <hr />
 
                 <div>
+                    <Group grow>
+                        <Badge id="anchor_map" color="dark" size="xl" radius="sm">Map</Badge>
+                    </Group>
                     <RouteMap data={noteItem.status}></RouteMap>
                 </div>
 
@@ -151,7 +155,11 @@ const DeliveryDetail = (props) => {
                         <td width="50%">
                             {(noteItem.status != undefined) ?
                                 <>
-                                    <h2 style={{ textAlign: 'center' }}>Status</h2>
+                                    <br />
+                                    <Group grow>
+                                        <Badge color="dark" size="xl" radius="sm">Status</Badge>
+                                    </Group>
+
                                     <Button
                                         style={{ textAlign: 'center' }}
                                         onClick={() => { startDelivery() }}
@@ -187,8 +195,11 @@ const DeliveryDetail = (props) => {
                         </td>
 
                         <td style={{ verticalAlign: 'top' }} width="50%">
-                            <h2 style={{ textAlign: 'center', width: '100%' }}>Documents</h2>
-                            <DocumentTable params={props.params} />
+                            <br />
+                            <Group grow>
+                                <Badge color="dark" size="xl" radius="sm">Documents</Badge>
+                            </Group>
+                            <DocumentTableDesktop params={props.params} />
                         </td>
                     </tr>
                 </table>
@@ -211,4 +222,4 @@ const DeliveryDetail = (props) => {
     }
 }
 
-export default DeliveryDetail
+export default deliveryDetailDesktop

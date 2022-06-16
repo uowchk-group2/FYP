@@ -26,9 +26,9 @@ const NavBar = ({ params }) => {
 
 
     return (
-        <Navbar 
-        width={{ base: 300 }}
-        className={(params === undefined) ? "nav-bar":"nav-hide"}
+        <Navbar
+            width={{ base: 300 }}
+            className={(params === undefined) ? "" : "hide-mobile"}
         >
             <Navbar.Section style={{ padding: 10, textAlign: "center" }}>
                 {/* Allow add new if not driver */}
@@ -56,7 +56,6 @@ const NavBar = ({ params }) => {
             </Tabs>
 
             <div
-                className="nav-option"
             >
                 {
                     (role != "Driver") ?

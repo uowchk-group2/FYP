@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Link from 'next/link'
 import { Button, Modal } from '@mantine/core';
 
-const DeliveryItem = (props) => {
+const DeliveryItemDesktop = (props) => {
     //Redux
     const { currentOrder } = useSelector((state) => state.order);
 
@@ -17,7 +17,9 @@ const DeliveryItem = (props) => {
             }
         }
         return (
-            <tr>
+            <tr
+            // className="deliveryTable-desktop"
+            >
                 <td>{data.id}</td>
                 <td>{data.shippingDate}</td>
                 <td style={{ maxWidth: "200px" }}>{data.origin}</td>
@@ -55,4 +57,4 @@ const DeliveryItem = (props) => {
     }
 }
 
-export default DeliveryItem;
+export default DeliveryItemDesktop;

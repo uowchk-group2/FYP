@@ -7,6 +7,7 @@ import { convertToTimeString } from '../../../functions/date'
 const DeliveryTimeline = (props) => {
     let record = props.data
     let showAll = props.showAll
+    let mobileView = props.mobileView
 
     if (record != undefined) {
 
@@ -34,7 +35,9 @@ const DeliveryTimeline = (props) => {
                                 key={i}
                                 title={
                                     <Text size="xl" weight={700}>
-                                        {((item.arrivalActual === null) ?  "[Upcoming] " : "[Arrived] ")}{item.title}
+                                        {((item.arrivalActual === null) ? "[Upcoming] " : "[Arrived] ")}
+                                        {mobileView ? <br /> : <></>}
+                                        {item.title}
                                     </Text>
                                 }
                             >
@@ -46,13 +49,18 @@ const DeliveryTimeline = (props) => {
                                             <></>
                                     }
 
-                                    <b>Estimated:</b> {convertToTimeString(item.arrivalExpected)}<br />
+                                    <b>Estimated:</b>
+                                    {mobileView ? <br /> : <></>}
+                                    {convertToTimeString(item.arrivalExpected)}<br />
 
 
                                     {(item.arrivalActual != null) ?
                                         <>
                                             <b>Actual:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {mobileView ? <br /> : <></>}
                                             {convertToTimeString(item.arrivalActual)}&nbsp;
+
+                                            {mobileView ? <br /> : <></>}
 
                                             <span
                                                 style={{ color: (new Date(item.arrivalActual).getTime() > new Date(item.arrivalExpected).getTime()) ? "red" : "green" }}>

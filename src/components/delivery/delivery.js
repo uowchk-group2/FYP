@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { Button, Table, Modal } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 
-import DeliveryItem from './deliveryItem'
+import DeliveryItemDesktop from './deliveryItemDesktop'
+import DeliveryItemMobile from './deliveryItemMobile'
 import NewDelivery from './newDelivery'
 
 const Delivery = ({ orderId }) => {
@@ -41,7 +42,11 @@ const Delivery = ({ orderId }) => {
                 <br /><br />
 
 
-                <Table style={tableStyle} highlightOnHover striped >
+                <Table
+                    style={tableStyle}
+                    highlightOnHover striped
+                    className="deliveryTable-desktop"
+                >
                     <thead>
                         <tr>
                             <th>Delivery Note Id</th>
@@ -52,18 +57,37 @@ const Delivery = ({ orderId }) => {
                             <th>Status</th>
                         </tr>
                     </thead>
+
                     <tbody>
 
                         {
                             (currentOrder.notes != undefined) ?
                                 [...currentOrder.notes].map((item, i) => {
-                                    return <DeliveryItem key={i} data={item} detail={false} />
+                                    return <DeliveryItemDesktop key={i} data={item} detail={false} />
                                 })
                                 : <></>
                         }
 
 
                     </tbody>
+                </Table>
+
+
+                <Table
+                    style={tableStyle}
+                    highlightOnHover striped
+                    className="deliveryTable-mobile"
+                >
+
+                    {
+                        (currentOrder.notes != undefined) ?
+                            [...currentOrder.notes].map((item, i) => {
+                                return <DeliveryItemMobile key={i} data={item} detail={false} />
+                            })
+                            : <></>
+                    }
+
+
                 </Table>
 
                 <Modal

@@ -12,8 +12,10 @@ import { setDeliveries } from '../../redux/delivery'
 //Component
 import OrderDetail from './orderDetail'
 import Delivery from '../delivery/delivery'
-import DeliveryDetail from '../delivery/detail/deliveryDetail'
-import DocumentList from '../document/documentList'
+import DeliveryDetailDesktop from '../delivery/detail/deliveryDetailDesktop'
+import DeliveryDetailMobile from '../delivery/detail/deliveryDetailMobile'
+import DocumentTableDesktop from '../document/documentListDesktop'
+import DocumentTableMobile from '../document/documentListMobile'
 
 const OrderPage = (props) => {
 
@@ -57,7 +59,7 @@ const OrderPage = (props) => {
 
         }
 
-        if (orders.length === 0 || !ordersLoaded ) {
+        if (orders.length === 0 || !ordersLoaded) {
             fetchOrders()
             setOrdersLoaded(true)
         }
@@ -85,9 +87,13 @@ const OrderPage = (props) => {
                         label="Delivery Notes"
                         icon={<TruckDelivery size={20} />}
                     >
-                        {(orders.length === 0) ? <></> : (params.length == 2) ?
-                            <DeliveryDetail data={currentOrder} params={params} /> :
-                            <Delivery orderId={params} />
+                        {(orders.length === 0) ?
+                            <></> : (params.length == 2) ?
+                                <>
+                                    <DeliveryDetailDesktop data={currentOrder} params={params} />
+                                    <DeliveryDetailMobile data={currentOrder} params={params} />
+                                </>
+                                : <Delivery orderId={params} />
                         }
 
                     </Tabs.Tab>
@@ -96,7 +102,8 @@ const OrderPage = (props) => {
                         label="Documents"
                         icon={<FileDescription size={20} />}
                     >
-                        <DocumentList params={params} data={currentOrder} all={true} />
+                        <DocumentTableDesktop params={params} data={currentOrder} all={true} />
+                        <DocumentTableMobile params={params} data={currentOrder} all={true} />
                     </Tabs.Tab>
 
 
