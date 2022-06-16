@@ -5,9 +5,6 @@ const BlockchainTableItem = (props) => {
     const { orders } = useSelector((state) => state.order);
 
     let data = props.data;
-    console.log("data");
-    console.log(data);
-    console.log(orders);
 
     let deliveryNoteIds = ""
     for (let order of orders) {
@@ -25,7 +22,6 @@ const BlockchainTableItem = (props) => {
         }
     }
 
-    console.log(deliveryNoteIds);
 
 
     return (

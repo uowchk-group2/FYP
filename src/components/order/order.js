@@ -62,8 +62,6 @@ const OrderPage = (props) => {
             setOrdersLoaded(true)
         }
 
-        console.log("params1")
-        console.log(params)
 
         if (url != params) {
             fetchOrders()

@@ -38,8 +38,6 @@ const NewDocument = ({ noteId, closeFunction, showAll }) => {
             md5: resultArray[1]
         }
         
-        console.log(requestBody)
-
         await saveDocToDb(requestBody)
         dispatch(setCurrentOrder(await retrieveSingleOrders(currentOrder.id)));
 

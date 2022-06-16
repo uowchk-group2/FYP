@@ -20,9 +20,6 @@ const Delivery = ({ orderId }) => {
         padding: 15,
     }
 
-    console.log("orderId")
-    console.log(orderId)
-
     if (currentOrder != undefined) {
         return (
             <div>

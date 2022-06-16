@@ -47,8 +47,6 @@ const DeliveryDetail = (props) => {
         }
 
 
-        console.log("params2")
-        console.log(noteId)
         if (currentNoteId === 0 || currentNoteId != noteId) {
             setNoteItem({})
             setCurrentNoteId(noteId)
