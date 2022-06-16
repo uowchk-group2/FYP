@@ -16,8 +16,6 @@ const DocumentTableDesktop = (props) => {
     if (props.params.length == 2) { noteId = props.params[1] }
 
     let showAll = props.all
-    let mobileView = props.mobileView
-    if (mobileView === undefined) { mobileView = false }
     let documents = []
 
     //State
@@ -56,8 +54,8 @@ const DocumentTableDesktop = (props) => {
                     <tr>
                         <th>Description</th>
                         <th>Time</th>
-                        {showAll && !mobileView ? <th>Delivery Note Id</th> : <></>}
-                        {showAll && !mobileView ? <th>MD5 value</th> : <></>}
+                        {showAll ? <th>Delivery Note Id</th> : <></>}
+                        {showAll ? <th>MD5 value</th> : <></>}
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -85,7 +83,7 @@ const DocumentTableDesktop = (props) => {
                                         onClick={() => openInNewTab(`https://uow-project-fyp.s3.ap-east-1.amazonaws.com/${item.filename}`)}
                                     >
                                         <ExternalLink color="white" size={30} />
-                                        {(mobileView != undefined) ? "" : "View In New Tab"}
+                                        View In New Tab
                                     </Button>
 
                                 </td>

@@ -45,6 +45,7 @@ const LoginSection = () => {
         } else {
             saveJWT(returnedMessage)
             fetch(dispatch)
+            window.location.href = "/"
         }
     }
 

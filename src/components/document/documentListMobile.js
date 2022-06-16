@@ -16,8 +16,6 @@ const DocumentTableMobile = (props) => {
     if (props.params.length == 2) { noteId = props.params[1] }
 
     let showAll = props.all
-    let mobileView = props.mobileView
-    if (mobileView === undefined) { mobileView = false }
     let documents = []
 
     //State

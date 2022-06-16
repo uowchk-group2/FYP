@@ -11,7 +11,7 @@ import { retrieveDeliveryStatus } from '../../../functions/delivery'
 
 import DeliveryItemMobile from '../deliveryItemMobile'
 import DeliveryTimeline from './deliveryTimeline'
-import DocumentTableDesktop from '../../document/documentListDesktop'
+import DocumentTableMobile from '../../document/documentListMobile'
 import RouteMap from './map'
 
 
@@ -211,7 +211,7 @@ const deliveryDetailMobile = (props) => {
                     <Badge id="anchor_doc" color="dark" size="xl" radius="sm">Documents</Badge>
                 </Group>
                 <br />
-                <DocumentTableDesktop mobileView={true} params={props.params} />
+                <DocumentTableMobile params={props.params} />
 
 
                 <Modal

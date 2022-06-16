@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 
 import { getFromBlockchain } from '../../functions/order'
-import BlockchainTableItem from './blockchainTableItem';
+import BlockchainTableItemDesktop from './blockchainTableItemDesktop';
+import BlockchainTableItemMobile from './blockchainTableItemMobile';
 
 
 const Blockchain = () => {
@@ -59,7 +60,7 @@ const Blockchain = () => {
             <hr />
             <h3 style={{ textAlign: 'center' }}>Search Result</h3>
 
-            <div >
+            <div className="deliveryTable-desktop">
                 <Table style={tableStyle} highlightOnHover striped>
                     <thead>
                         <tr>
@@ -81,11 +82,33 @@ const Blockchain = () => {
                                 || item.goods.toLowerCase().includes(searchString) || 
                                 item.supplier.toLowerCase().includes(searchString) ||
                                 item.distributor.toLowerCase().includes(searchString) ))) {
-                                return <BlockchainTableItem key={i} data={item} />
+                                return <BlockchainTableItemDesktop key={i} data={item} />
                             }
                         })}
 
                     </tbody>
+                </Table>
+            </div>
+
+            <div className="deliveryTable-mobile">
+                <Table style={tableStyle} highlightOnHover striped>
+                    <thead>
+                        <tr>
+                            <th colSpan="2">Detail</th>
+                            <th>Download from Blockchain (In CSV)</th>
+                        </tr>
+                    </thead>
+
+                        {[...blockchainOrders].map((item, i) => {
+                            // if (keyword)
+                            if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString)
+                                || item.goods.toLowerCase().includes(searchString) || 
+                                item.supplier.toLowerCase().includes(searchString) ||
+                                item.distributor.toLowerCase().includes(searchString) ))) {
+                                return <BlockchainTableItemMobile key={i} data={item} />
+                            }
+                        })}
+
                 </Table>
             </div>
 
