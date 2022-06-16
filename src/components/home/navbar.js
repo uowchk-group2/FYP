@@ -24,8 +24,12 @@ const NavBar = ({ params }) => {
         setTabChosen(active)
     }
 
+
     return (
-        <Navbar width={{ base: 300 }} >
+        <Navbar 
+        width={{ base: 300 }}
+        className={(params === undefined) ? "nav-bar":"nav-hide"}
+        >
             <Navbar.Section style={{ padding: 10, textAlign: "center" }}>
                 {/* Allow add new if not driver */}
                 {(role != "Driver") ? <Button
@@ -51,34 +55,38 @@ const NavBar = ({ params }) => {
                 <Tabs.Tab label="Completed" tabKey="Completed"></Tabs.Tab>
             </Tabs>
 
-            {
-                (role != "Driver") ?
+            <div
+                className="nav-option"
+            >
+                {
+                    (role != "Driver") ?
 
-                    [...orders].map((item, i) => {
-                        if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || item.goods.toLowerCase().includes(searchString)))) {
+                        [...orders].map((item, i) => {
+                            if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || item.goods.toLowerCase().includes(searchString)))) {
 
-                            if (tabChosen === 0 || (tabChosen === 1 && !item.allDelivered) || (tabChosen === 2 && item.allDelivered)) {
-                                let chosen = false;
-                                if (params != undefined && item.id === parseInt(params[0])) { chosen = true }
-                                return <NavBardataOrder key={i} data={item} chosen={chosen} />
+                                if (tabChosen === 0 || (tabChosen === 1 && !item.allDelivered) || (tabChosen === 2 && item.allDelivered)) {
+                                    let chosen = false;
+                                    if (params != undefined && item.id === parseInt(params[0])) { chosen = true }
+                                    return <NavBardataOrder key={i} data={item} chosen={chosen} />
+                                }
                             }
-                        }
-                    })
-                    :
-                    [...deliveries].map((item, i) => {
-                        if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || item.goods.toLowerCase().includes(searchString)))) {
+                        })
+                        :
+                        [...deliveries].map((item, i) => {
+                            if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || item.goods.toLowerCase().includes(searchString)))) {
 
-                            if (tabChosen === 0 || (tabChosen === 1 && !item.allDelivered) || (tabChosen === 2 && item.allDelivered)) {
-                                let chosen = false;
-                                if (params != undefined && item.id === parseInt(params[1])) { chosen = true }
-                                return <NavBardataDelivery key={i} data={item} chosen={chosen} />
+                                if (tabChosen === 0 || (tabChosen === 1 && !item.allDelivered) || (tabChosen === 2 && item.allDelivered)) {
+                                    let chosen = false;
+                                    if (params != undefined && item.id === parseInt(params[1])) { chosen = true }
+                                    return <NavBardataDelivery key={i} data={item} chosen={chosen} />
+                                }
                             }
-                        }
-                    })
+                        })
 
 
-            }
+                }
 
+            </div>
             <Modal
                 size="xl"
                 opened={addNew}

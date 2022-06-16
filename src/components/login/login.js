@@ -21,15 +21,18 @@ const Login = () => {
         <div>
             {
                 (backendIsUp) ?
-                    <SimpleGrid cols={2} spacing={100}>
+                    // <SimpleGrid cols={2} spacing={100}>
+                    <div>
                         <LoginSection />
                         <SignupSection />
-                    </SimpleGrid> :
-                    <div style={{ textAlign: 'center' }}>
-                        <br/><br/><br/><br/><br/><br/>
-                        <h1>Sorry, backend server is not available at this moment.</h1>
-                        <h1>Please try again later.</h1>
-                    </div>
+                    </div>:<></>
+                    // </SimpleGrid> 
+                    // :
+                    // <div style={{ textAlign: 'center' }}>
+                    //     <br /><br /><br /><br /><br /><br />
+                    //     <h1>Sorry, backend server is not available at this moment.</h1>
+                    //     <h1>Please try again later.</h1>
+                    // </div>
 
             }        </div>
     )

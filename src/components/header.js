@@ -54,7 +54,7 @@ const Header = () => {
                 <tbody>
                     <tr>
                         {/* Logo */}
-                        <td>
+                        <td className="headerItem">
                             <div>
                                 <Link href="/">
                                     <a>
@@ -66,7 +66,7 @@ const Header = () => {
                         </td>
 
                         {/* Server status */}
-                        <td style={{ width: '30%', borderRadius: 20 }}>
+                        <td style={{ borderRadius: 20, textAlign: "center" }} className="headerItem">
                             <div style={{ fontSize: 22, display: "inline-block", alignSelf: "flex-end", paddingLeft: 50, paddingRight: 50 }}>
                                 <div style={{ textAlign: "center" }} s>
                                     <Badge color="gray" size="xl" radius="sm" variant="filled" >Server Status</Badge>
@@ -79,7 +79,7 @@ const Header = () => {
                         </td>
 
                         {/* Login status */}
-                        <td style={{ width: '30%' }}>
+                        <td className="headerItem">
                             {
                                 (signedIn) ?
                                     <div style={{ fontSize: 20, textAlign: 'right' }}>

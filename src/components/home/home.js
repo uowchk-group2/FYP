@@ -69,6 +69,7 @@ const Home = (props) => {
             <Tabs.Tab
                 label="Operation Centre"
                 icon={<BuildingSkyscraper size={20} />}
+                className="nav-option"
                 style={{
                     color: activeTab === 0 ? "" : "",
                     borderRadius: "10px 10px 0px 0px ",
@@ -83,17 +84,23 @@ const Home = (props) => {
                         main: { backgroundColor: theme.colors.gray[0], },
                     })}
                 >
-                    {
-                        path === "home" ?
-                            <HomeContent params={params} /> :
-                            <OrderPage params={params} />
-                    }
+                    <div
+                        className={(path === "home")?"nav-hide":"nav-body"}
+                    >
+                        {
+                            path === "home" ?
+                                <HomeContent params={params} /> :
+                                <OrderPage params={params} />
+                        }
+
+                    </div>
                 </AppShell>
             </Tabs.Tab>
 
             <Tabs.Tab
                 label="Blockchain Centre"
                 icon={<Dna size={20} />}
+                className="nav-option"
                 style={{
                     borderRadius: "10px 10px 0px 0px ",
                     borderTop: activeTab === 1 ? "1px solid black " : "",

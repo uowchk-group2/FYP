@@ -49,7 +49,7 @@ const LoginSection = () => {
     }
 
     return (
-        <div>
+        <div className="signin">
             <form onSubmit={onFormSubmit}>
                 <h2>Sign In</h2>
                 <InputWrapper label="Username">
@@ -84,7 +84,7 @@ const LoginSection = () => {
                 {/* Sample Login account */}
 
                 <h2 className="center">Load Demo Accounts</h2>
-                <Group position="center">
+                <div style={{textAlign: 'center'}}>
                     <Button
                         onClick={() => loadDemoAccount("supplier")}
                     >
@@ -104,9 +104,11 @@ const LoginSection = () => {
                     </Button>
 
 
-                </Group>
+                </div>
 
             </form>
+            <hr style={{marginBottom:30}}/>
+
         </div>
     )
 };

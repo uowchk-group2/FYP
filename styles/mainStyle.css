@@ -18,8 +18,8 @@
 
 body {
     background-color: #F6EFE1;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
     height: 100%;
 }
 
@@ -52,7 +52,52 @@ html {
     height: 100%;
 }
 
-#__next, 
-.mantine-Table-root{
+#__next,
+.mantine-Table-root {
     height: 100%;
+}
+
+[class*="headerItem"] {
+    float: left;
+    width: 100%;
+}
+
+.signin {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.nav-option {
+    width: 100%;
+}
+
+.nav-body {
+    width: 100%
+}
+.nav-bar {
+    max-width: 300
+}
+.nav-hide{
+    display: none
+}
+
+@media only screen and (min-width: 1024px) {
+    .headerItem {
+        width: 33%;
+    }
+
+    .signin {
+        width: 50%
+    }
+
+    body {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .nav-hide{
+        display:contents
+    }
+
 }
