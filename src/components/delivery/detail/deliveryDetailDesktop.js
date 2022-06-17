@@ -142,7 +142,7 @@ const deliveryDetailDesktop = (props) => {
                 <hr />
 
                 <div>
-                    {(noteItem.status.length != 0) ?
+                    {(noteItem.status != undefined && noteItem.status.length != 0) ?
                         <>
                             <Group grow>
                                 <Badge id="anchor_map" color="dark" size="xl" radius="sm">Map</Badge>
