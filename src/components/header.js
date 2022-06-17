@@ -46,8 +46,12 @@ const Header = () => {
     })
 
     return (
-        <header style={{ width: '100%' }}>
-
+       <>
+        <head>
+            <title>UOW FYP</title>
+        </head>
+                <header style={{ width: '100%' }}>
+            
 
             <table style={{ width: '100%' }}>
                 <thead></thead>
@@ -99,6 +103,9 @@ const Header = () => {
             </table>
             <hr />
         </header>
+
+        </>
+        
     )
 }
 
