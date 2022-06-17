@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Table, Group, Badge } from '@mantine/core';
 import { useSelector } from "react-redux";
 
 
@@ -10,7 +10,9 @@ const OrderDetail = () => {
 
         return (
             <div className="horizontalTrim">
-                <h2 className="center">Order Detail</h2>
+            <Group grow>
+                <Badge color="dark" size="xl" radius="sm">Order Detail</Badge>
+            </Group>
                 <div style={{ textAlign: 'right' }}>
                 </div>
                 <Table verticalSpacing="lg" fontSize="md" >

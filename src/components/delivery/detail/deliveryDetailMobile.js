@@ -132,11 +132,6 @@ const deliveryDetailMobile = (props) => {
                 <hr />
 
                 <h2 style={{ textAlign: 'center' }}>Jump to section</h2>
-                <Group grow style={{ padding: 5 }}>
-                    <Button onClick={() => { window.location.hash = "#anchor_map" }}>
-                        Map
-                    </Button>
-                </Group>
 
                 <Group grow style={{ padding: 5 }}>
                     <Button onClick={() => { window.location.hash = "#anchor_checkpoint" }}>
@@ -152,11 +147,15 @@ const deliveryDetailMobile = (props) => {
                 <br /><br />
 
                 <div>
-                    <Group grow>
-                        <Badge id="anchor_map" color="dark" size="xl" radius="sm">Map</Badge>
-                    </Group>
+                    {(noteItem.status.length != 0) ?
+                        <>
+                            <Group grow>
+                                <Badge id="anchor_map" color="dark" size="xl" radius="sm">Map</Badge>
+                            </Group>
+                            <RouteMap mobileView={true} data={noteItem.status}></RouteMap>
+                        </>
+                        : <></>}
 
-                    <RouteMap mobileView={true} data={noteItem.status}></RouteMap>
                 </div>
 
                 {

@@ -142,10 +142,14 @@ const deliveryDetailDesktop = (props) => {
                 <hr />
 
                 <div>
-                    <Group grow>
-                        <Badge id="anchor_map" color="dark" size="xl" radius="sm">Map</Badge>
-                    </Group>
-                    <RouteMap data={noteItem.status}></RouteMap>
+                    {(noteItem.status.length != 0) ?
+                        <>
+                            <Group grow>
+                                <Badge id="anchor_map" color="dark" size="xl" radius="sm">Map</Badge>
+                            </Group>
+                            <RouteMap data={noteItem.status}></RouteMap>
+                        </>
+                        : <></>}
                 </div>
 
                 <table width="100%" >

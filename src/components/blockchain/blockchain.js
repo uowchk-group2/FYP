@@ -1,4 +1,4 @@
-import { Table, Input, Group, Button } from '@mantine/core';
+import { Table, Input, Group, Button, Badge } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 
@@ -57,8 +57,10 @@ const Blockchain = () => {
             </Group>
 
 
-            <hr />
-            <h3 style={{ textAlign: 'center' }}>Search Result</h3>
+            <hr /><br/>
+            <Group grow style={{ paddingLeft: 50, paddingRight:50}}>
+                <Badge color="dark" size="xl" radius="sm">Search Result</Badge>
+            </Group>
 
             <div className="deliveryTable-desktop">
                 <Table style={tableStyle} highlightOnHover striped>
@@ -76,12 +78,11 @@ const Blockchain = () => {
                     <tbody>
 
                         {[...blockchainOrders].map((item, i) => {
-                            console.log("item")
                             // if (keyword)
                             if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString)
-                                || item.goods.toLowerCase().includes(searchString) || 
+                                || item.goods.toLowerCase().includes(searchString) ||
                                 item.supplier.toLowerCase().includes(searchString) ||
-                                item.distributor.toLowerCase().includes(searchString) ))) {
+                                item.distributor.toLowerCase().includes(searchString)))) {
                                 return <BlockchainTableItemDesktop key={i} data={item} />
                             }
                         })}
@@ -99,15 +100,15 @@ const Blockchain = () => {
                         </tr>
                     </thead>
 
-                        {[...blockchainOrders].map((item, i) => {
-                            // if (keyword)
-                            if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString)
-                                || item.goods.toLowerCase().includes(searchString) || 
-                                item.supplier.toLowerCase().includes(searchString) ||
-                                item.distributor.toLowerCase().includes(searchString) ))) {
-                                return <BlockchainTableItemMobile key={i} data={item} />
-                            }
-                        })}
+                    {[...blockchainOrders].map((item, i) => {
+                        // if (keyword)
+                        if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString)
+                            || item.goods.toLowerCase().includes(searchString) ||
+                            item.supplier.toLowerCase().includes(searchString) ||
+                            item.distributor.toLowerCase().includes(searchString)))) {
+                            return <BlockchainTableItemMobile key={i} data={item} />
+                        }
+                    })}
 
                 </Table>
             </div>

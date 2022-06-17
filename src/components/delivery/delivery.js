@@ -21,6 +21,9 @@ const Delivery = ({ orderId }) => {
         padding: 15,
     }
 
+    console.log("currentOrder.notes")
+    console.log(currentOrder.notes.length)
+
     if (currentOrder != undefined) {
         return (
             <div>
@@ -42,21 +45,25 @@ const Delivery = ({ orderId }) => {
                 <br /><br />
 
 
+
                 <Table
                     style={tableStyle}
                     highlightOnHover striped
                     className="deliveryTable-desktop"
                 >
-                    <thead>
-                        <tr>
-                            <th>Delivery Note Id</th>
-                            <th>Shipping Date</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
+                    {
+                        (currentOrder.notes.length != 0) ?
+                            <thead>
+                                <tr>
+                                    <th>Delivery Note Id</th>
+                                    <th>Shipping Date</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead> : <></>
+                    }
 
                     <tbody>
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Input, InputWrapper } from '@mantine/core';
+import { Button, Input, InputWrapper, Group } from '@mantine/core';
 
 import { uploadDocument, saveDocToDb } from '../../functions/document'
 
@@ -20,6 +20,8 @@ const NewDocument = ({ noteId, closeFunction, showAll }) => {
     const [description, setDescription] = useState("");
     const [selectedFile, setSelectedFile] = useState(null)
 
+    let suggestions_order = ["Order Contract", "Clearing Paper", "Permission Paper", "Official Receipt"]
+    let suggestions_delivery = ["Delivery Note", "Weight Paper", "Validation Paper", "Recipient Signature"]
 
     const upload = async () => {
         setLoading(true);
@@ -37,7 +39,7 @@ const NewDocument = ({ noteId, closeFunction, showAll }) => {
             time: new Date(),
             md5: resultArray[1]
         }
-        
+
         await saveDocToDb(requestBody)
         dispatch(setCurrentOrder(await retrieveSingleOrders(currentOrder.id)));
 
@@ -82,7 +84,31 @@ const NewDocument = ({ noteId, closeFunction, showAll }) => {
                     value={description}
                     onChange={(e) => { setDescription(e.target.value); }}
                 />
-            </InputWrapper><br />
+            </InputWrapper>
+            <br />
+            Suggestions:<br /><br />
+            
+            Order:
+            <Group spacing="xs">
+                {[...suggestions_order].map((value, i) => {
+                    return (
+                        <Button compact variant="light" onClick={() => setDescription(value)}>{value}</Button>
+                    )
+                })}
+            </Group><br />
+
+            Delivery:
+            <Group spacing="xs">
+                {[...suggestions_delivery].map((value, i) => {
+                    return (
+                        <Button compact variant="light" onClick={() => setDescription(value)}>{value}</Button>
+                    )
+                })}
+
+
+            </Group>
+
+            <br />
 
             <div className="center">
                 <Button

@@ -51,8 +51,10 @@ const LoginSection = () => {
 
     return (
         <div className="signin">
-            <form onSubmit={onFormSubmit}>
-                <h2>Sign In</h2>
+            <form onSubmit={onFormSubmit} style={{ textAlign: 'left' }}>
+                <Group grow>
+                    <Badge color="dark" size="xl" radius="sm">Login</Badge>
+                </Group>
                 <InputWrapper label="Username">
                     <Input
                         placeholder="Username"
@@ -85,6 +87,7 @@ const LoginSection = () => {
                 {/* Sample Login account */}
 
                 <h2 className="center">Load Demo Accounts</h2>
+
                 <Group position="center">
                     <Button
                         onClick={() => loadDemoAccount("supplier")}
@@ -108,7 +111,7 @@ const LoginSection = () => {
                 </Group>
 
             </form>
-            <hr style={{marginBottom:30}}/>
+            <hr style={{ marginBottom: 30 }} />
 
         </div>
     )

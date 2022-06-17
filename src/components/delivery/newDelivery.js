@@ -142,6 +142,7 @@ const NewDelivery = ({ closeFunction, orderId }) => {
                 label="Driver assignment"
                 placeholder="Driver"
                 searchable
+                required
                 data={driverList}
                 value={driver}
                 onChange={setDriver}

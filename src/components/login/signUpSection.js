@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Input, PasswordInput, InputWrapper, Select } from "@mantine/core";
+import { Button, Input, PasswordInput, InputWrapper, Select, Group, Badge } from "@mantine/core";
 import { useDispatch } from "react-redux";
 
 
@@ -115,8 +115,10 @@ const SignupSection = () => {
 
     return (
         <div className="signin">
-            <form onSubmit={onFormSubmit} style={{paddingLeft:20}}>
-                <h2>Sign Up</h2>
+            <form onSubmit={onFormSubmit} style={{textAlign: 'left',paddingLeft:20}}>
+            <Group grow>
+                    <Badge color="dark" size="xl" radius="sm">SignUp</Badge>
+                </Group>
                 <InputWrapper
                     required
                     error={invUsername ? username === "" ? "Password must not be empty" : `Username ${username} already exist.` : ""}
