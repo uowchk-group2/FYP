@@ -85,7 +85,7 @@ const LoginSection = () => {
                 {/* Sample Login account */}
 
                 <h2 className="center">Load Demo Accounts</h2>
-                <div style={{textAlign: 'center'}}>
+                <Group position="center">
                     <Button
                         onClick={() => loadDemoAccount("supplier")}
                     >
@@ -105,7 +105,7 @@ const LoginSection = () => {
                     </Button>
 
 
-                </div>
+                </Group>
 
             </form>
             <hr style={{marginBottom:30}}/>
