@@ -72,7 +72,7 @@ const Header = () => {
                             {/* Server status */}
                             <td style={{ borderRadius: 20, textAlign: "center" }} className="headerItem">
                                 <div style={{ fontSize: 22, display: "inline-block", alignSelf: "flex-end", paddingLeft: 50, paddingRight: 50 }}>
-                                    <div style={{ textAlign: "center" }} s>
+                                    <div style={{ textAlign: "center" }} >
                                         <Badge color="gray" size="xl" radius="sm" variant="filled" >Server Status</Badge>
                                     </div>
                                     <br />
