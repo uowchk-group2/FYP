@@ -149,7 +149,7 @@ const NewOrder = ({ closeFunction }) => {
                 label="Order creation date"
                 required
                 value={orderDate}
-                onChange={(e) => setOrderDate(e.target.value)}
+                onChange={setOrderDate}
             /> <br />
 
             <InputWrapper

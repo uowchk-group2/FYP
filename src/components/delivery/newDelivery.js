@@ -136,6 +136,7 @@ const NewDelivery = ({ closeFunction, orderId }) => {
                 placeholder="Estimated shipping date"
                 label="Estimated shipping date"
                 value={shippingDate}
+                onChange={setShippingDate}
             /> <br />
 
             <Select
