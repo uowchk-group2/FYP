@@ -24,6 +24,9 @@ const NavBar = ({ params }) => {
         setTabChosen(active)
     }
 
+    console.log("deliveries")
+    console.log(deliveries)
+
 
     return (
         <Navbar
@@ -44,7 +47,7 @@ const NavBar = ({ params }) => {
 
             <Input
                 style={{ paddingLeft: 20, paddingRight: 20 }}
-                placeholder={(role != "Driver") ? "Search by id or goods name" : "Search by id"}
+                placeholder={(role != "Driver") ? "Search by id or goods name" : "Search by id, origin or destination"}
                 value={searchString}
                 onChange={(e) => setSearchString(e.target.value.toLowerCase())}
             />
@@ -59,7 +62,6 @@ const NavBar = ({ params }) => {
             >
                 {
                     (role != "Driver") ?
-
                         [...orders].map((item, i) => {
                             if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || item.goods.toLowerCase().includes(searchString)))) {
 
@@ -72,7 +74,9 @@ const NavBar = ({ params }) => {
                         })
                         :
                         [...deliveries].map((item, i) => {
-                            if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || item.goods.toLowerCase().includes(searchString)))) {
+                            if (searchString === "" || (searchString != "" && (item.id.toString().includes(searchString) || 
+                                                                               item.destination.toLowerCase().includes(searchString) ||
+                                                                               item.origin.toString().includes(searchString)))) {
 
                                 if (tabChosen === 0 || (tabChosen === 1 && !item.allDelivered) || (tabChosen === 2 && item.allDelivered)) {
                                     let chosen = false;
