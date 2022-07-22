@@ -14,16 +14,16 @@ https://fyp-front.johnnyip.com/
 
 
 ## Table of Content (Click and jump to section)
-- [Frontend](https://github.com/uowchk-group2/fyp#frontend)
+- [**Frontend**](https://github.com/uowchk-group2/fyp#frontend)
   - [How to start test env](https://github.com/uowchk-group2/fyp#frontend)
   - [CI/CD Pipeline](https://github.com/uowchk-group2/fyp#cicd-pipeline)
   - [Library Used](https://github.com/uowchk-group2/fyp#library-used)
-- [Backend - Operation Center](https://github.com/uowchk-group2/fyp#backend-operation)
-  - [Endpoint URL]()
-  - [Main Features]()
-  - [CI/CD Pipeline]()
-- [Backend - Blockchain Center](https://github.com/uowchk-group2/fyp#backend-blockchain)
-  - [CI/CD Pipeline](https://github.com/uowchk-group2/fyp#cicd-pipeline)
+- [**Backend - Operation Center**](https://github.com/uowchk-group2/fyp#backend-operation)
+  - [Endpoint URL](https://github.com/uowchk-group2/fyp#endpoint-url)
+  - [Main Features](https://github.com/uowchk-group2/fyp#main-features)
+  - [CI/CD Pipeline](https://github.com/uowchk-group2/fyp#cicd-pipeline-1)
+- [**Backend - Blockchain Center**](https://github.com/uowchk-group2/fyp#backend-blockchain)
+  - [CI/CD Pipeline](https://github.com/uowchk-group2/fyp#cicd-pipeline-2)
   - [1. Setting up test Hyperledger Fabric network with bash scripts](https://github.com/uowchk-group2/fyp#1-setting-up-test-hyperledger-fabric-network-with-bash-scripts)
     - [a. Setup](https://github.com/uowchk-group2/fyp#a-setup)
     - [b. Creating Channels](https://github.com/uowchk-group2/fyp#b-creating-channels)
@@ -130,7 +130,7 @@ _Prerequisite:_
 
 ```
 #Change directory into scripts folder
-cd hyperledger-fabric-scripts/scripts
+cd backend-blockchain/hyperledger-fabric-scripts/scripts
 
 #Add 'execute' right to all users, prevent "Permission denied"
 chmod +x network.sh 
