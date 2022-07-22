@@ -96,3 +96,5 @@ backend-blockchain/build/
 
 ### VS Code ###
 backend-blockchain/.vscode/
+.DS_Store
+backend-operation/.DS_Store
