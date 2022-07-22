@@ -1,17 +1,18 @@
 FYP Project Introduction Website: https://fyp.johnnyip.com
 
-Developed with React.js
 
 ### URL to demonstration
 https://fyp-front.johnnyip.com/
 
 
 ## Table of Content (Click and jump to section)
-- [How to start test env](https://github.com/uowchk-group2/fyp-frontend/edit/master/README.md#how-to-start-test-env)
-- [CI/CD Pipeline](https://github.com/uowchk-group2/fyp-hyperledger-api#cicd-pipeline)
-- [Library Used](https://github.com/uowchk-group2/fyp-frontend/edit/master/README.md#library-used)
+[Frontend]()
+- [How to start test env](https://github.com/uowchk-group2/fyp#frontend)
+- [CI/CD Pipeline](https://github.com/uowchk-group2/fyp#cicd-pipeline)
+- [Library Used](https://github.com/uowchk-group2/fyp#library-used)
 
-
+# Frontend
+Developed with React.js
 
 ## How to start test env
 ```
