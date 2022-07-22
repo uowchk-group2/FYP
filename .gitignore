@@ -1,27 +1,98 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
 
 # next.js
-/.next/
-/out/
+frontend/.next/**
+frontend/out/
 
 # testing
-/coverage
+frontend/coverage
 
 # production
-/build
+frontend/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+
+backend-operation/HELP.md
+backend-operation/target/
+!backend-operation/.mvn/wrapper/maven-wrapper.jar
+!backend-operation/**/src/main/**/target/
+!backend-operation/**/src/test/**/target/
+
+### STS ###
+backend-operation/.apt_generated
+backend-operation/.classpath
+backend-operation/.factorypath
+backend-operation/.project
+backend-operation/.settings
+backend-operation/.springBeans
+backend-operation/.sts4-cache
+
+### IntelliJ IDEA ###
+backend-operation/.idea
+backend-operation/*.iws
+backend-operation/*.iml
+backend-operation/*.ipr
+
+### NetBeans ###
+backend-operation/nbproject/private/
+backend-operation/nbbuild/
+backend-operation/dist/
+backend-operation/nbdist/
+backend-operation/.nb-gradle/
+backend-operationbuild/
+!backend-operation/**/src/main/**/build/
+!backend-operation/**/src/test/**/build/
+
+### VS Code ###
+backend-operation/.vscode/
+
+
+backend-blockchain/HELP.md
+backend-blockchain/.DS_Store
+backend-blockchain/target/
+!backend-blockchain/.mvn/wrapper/maven-wrapper.jar
+!backend-blockchain/**/src/main/**/target/
+!backend-blockchain/**/src/test/**/target/
+
+### STS ###
+backend-blockchain/.apt_generated
+backend-blockchain/.classpath
+backend-blockchain/.factorypath
+backend-blockchain/.project
+backend-blockchain/.settings
+backend-blockchain/.springBeans
+backend-blockchain/.sts4-cache
+
+### IntelliJ IDEA ###
+backend-blockchain/.idea
+backend-blockchain/*.iws
+backend-blockchain/*.iml
+backend-blockchain/*.ipr
+
+### NetBeans ###
+backend-blockchain/nbproject/private/
+backend-blockchain/nbbuild/
+backend-blockchain/dist/
+backend-blockchain/nbdist/
+backend-blockchain/.nb-gradle/
+backend-blockchain/build/
+!backend-blockchain/**/src/main/**/build/
+!backend-blockchain/**/src/test/**/build/
+
+### VS Code ###
+backend-blockchain/.vscode/
