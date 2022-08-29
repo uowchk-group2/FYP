@@ -47,9 +47,7 @@ const Header = () => {
 
     return (
         <>
-            <head>
-                <title>UOW FYP</title>
-            </head>
+            <title>UOW FYP</title>
             <header style={{ width: '100%' }}>
 
 

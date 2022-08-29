@@ -115,8 +115,8 @@ const SignupSection = () => {
 
     return (
         <div className="signin">
-            <form onSubmit={onFormSubmit} style={{textAlign: 'left',paddingLeft:20}}>
-            <Group grow>
+            <form onSubmit={onFormSubmit} style={{ textAlign: 'left', paddingLeft: 20 }}>
+                <Group grow>
                     <Badge color="dark" size="xl" radius="sm">SignUp</Badge>
                 </Group>
                 <InputWrapper
@@ -127,7 +127,7 @@ const SignupSection = () => {
                         placeholder="Username"
                         value={username}
                         onChange={(e) => { setUsername(e.target.value) }}
-                        invalid={(invUsername)}
+                        invalid={(invUsername) ? "invalid" : ""}
                     />
                 </InputWrapper> <br />
 
@@ -152,7 +152,7 @@ const SignupSection = () => {
                         placeholder="Re-enter password"
                         value={passwordConfirm}
                         onChange={(e) => setPasswordConfirm(e.target.value)}
-                        invalid={invPasswordConfirm}
+                        invalid={invPasswordConfirm ? "invalid" : ""}
 
                     />
                 </InputWrapper> <br />
@@ -164,7 +164,7 @@ const SignupSection = () => {
                     onChange={setRole}
                     required
                     data={['Supplier', 'Distributor', 'Driver']}
-                    invalid={invRole}
+                    invalid={invRole ? "invalid" : ""}
                 /><br />
 
                 <InputWrapper
@@ -177,7 +177,7 @@ const SignupSection = () => {
                         placeholder="Company Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        invalid={invName}
+                        invalid={invName ? "invalid" : ""}
                     />
                 </InputWrapper> <br />
 
@@ -190,7 +190,7 @@ const SignupSection = () => {
                     <Input
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
-                        invalid={invCompanyName}
+                        invalid={invCompanyName ? "invalid" : ""}
                         placeholder="Company Name"
                     />
                 </InputWrapper> <br />
