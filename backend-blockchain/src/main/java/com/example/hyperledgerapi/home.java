@@ -18,6 +18,6 @@ public class home {
     public String test() throws CommitException, GatewayException, CertificateException, IOException, InvalidKeyException, InterruptedException {
         OrdersController ordersController = new OrdersController();
 //        return ordersController.getAll();
-        return "Hi";
+        return "Hi.";
     }
 }
