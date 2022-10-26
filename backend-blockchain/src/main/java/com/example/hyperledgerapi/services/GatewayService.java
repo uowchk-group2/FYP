@@ -24,8 +24,8 @@ public class GatewayService {
     private static final String mspID = "Org1MSP";
 
     //    // Path to crypto materials.
-    private static final Path cryptoPath = Paths.get("src", "main", "resources", "static", "certs");  //For local development
-//        private static final Path cryptoPath = Paths.get("/bitnami","certs");   //For tomcat deployment
+//    private static final Path cryptoPath = Paths.get("src", "main", "resources", "static", "certs");  //For local development
+        private static final Path cryptoPath = Paths.get("/bitnami","certs");   //For tomcat deployment
     // Path to user certificate.
     private static final Path certPath = cryptoPath.resolve(Paths.get("User1@org1.example.com-cert.pem"));
     // Path to user private key directory.
