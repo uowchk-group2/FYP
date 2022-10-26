@@ -26,7 +26,7 @@ import static com.example.hyperledgerapi.services.CsvExportService.writeOrderToC
 @RequestMapping("/api/orders")
 public class OrdersController {
     private static final String channelName = "fyp";
-    private static final String chaincodeName = "orders2";
+    private static final String chaincodeName = "orders";
 
 
     private Contract contract;

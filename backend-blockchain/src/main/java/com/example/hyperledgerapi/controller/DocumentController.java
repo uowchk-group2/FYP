@@ -31,7 +31,7 @@ import static com.example.hyperledgerapi.services.CsvExportService.writeDocument
 @RequestMapping("/api/documents")
 public class DocumentController {
     private static final String channelName = "fyp";
-    private static final String chaincodeName = "documents3";
+    private static final String chaincodeName = "documents";
 
 
     private Contract contract;

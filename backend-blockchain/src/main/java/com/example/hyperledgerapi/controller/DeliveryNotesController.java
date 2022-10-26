@@ -27,7 +27,7 @@ import static com.example.hyperledgerapi.services.CsvExportService.writeDelivery
 @RequestMapping("/api/deliveryNotes")
 public class DeliveryNotesController {
     private static final String channelName = "fyp";
-    private static final String chaincodeName = "deliveryNotes3";
+    private static final String chaincodeName = "deliveryNotes";
 
 
     private Contract contract;
