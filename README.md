@@ -127,7 +127,7 @@ Setting up a experimental blockchain network, with **2 peer nodes** in a **singl
 _Prerequisite:_
 - Docker installed on Linux machine
 - Folder **hyperledger-fabric-scripts** is placed inside Linux
-- Install dependencies (Docker, git ... ) [here](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
+- Install dependencies (Docker, git ... ) [here](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html) and [here](https://hyperledger-fabric.readthedocs.io/en/latest/install.html)
 
 ```
 #Change directory into scripts folder
