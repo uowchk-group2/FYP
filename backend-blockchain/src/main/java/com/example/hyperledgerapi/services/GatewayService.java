@@ -34,7 +34,7 @@ public class GatewayService {
     private static final Path tlsCertPath = cryptoPath.resolve(Paths.get("ca.crt"));
 
 
-    private static final String peerEndpoint = "192.168.0.241:7051";
+    private static final String peerEndpoint = "192.168.0.201:7051";
     private static final String overrideAuth = "peer0.org1.example.com";
 
     private Gateway gateway;
