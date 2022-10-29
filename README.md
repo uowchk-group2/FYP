@@ -1,4 +1,4 @@
-##[!Important] Blockchain part may not work due to the API changes in new version of Hyperledger Fabric
+### [Important] Blockchain part may not work due to the API changes in new version of Hyperledger Fabric
 
 FYP Project Introduction Website: https://fyp.johnnyip.com
 
