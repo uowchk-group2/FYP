@@ -69,6 +69,9 @@ const Header = () => {
 
                             {/* Server status */}
                             <td style={{ borderRadius: 20, textAlign: "center" }} className="headerItem">
+                                <Button style={{ margin: 10 }} onClick={() => { window.open('https://fyp.johnnyip.com', '_blank'); }}>
+                                    Project Introduction Website
+                                </Button><br />
                                 <div style={{ fontSize: 22, display: "inline-block", alignSelf: "flex-end", paddingLeft: 50, paddingRight: 50 }}>
                                     <div style={{ textAlign: "center" }} >
                                         <Badge color="gray" size="xl" radius="sm" variant="filled" >Server Status</Badge>
