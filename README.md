@@ -1,3 +1,4 @@
+### (!!) Some part of the code (shell scripts) may not work since it is developed quite a long time ago.
 
 FYP Project Introduction Website: https://fyp.johnnyip.com
 
