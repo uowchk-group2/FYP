@@ -49,8 +49,7 @@ const Header = () => {
         <>
             <title>UOW FYP</title>
             <header style={{ width: '100%' }}>
-                <script async defer data-website-id="8e185d48-7f34-4a6f-9d39-b197cab3ded1" src="https://analytics.johnnyip.com/umami.js"></script>
-
+                <script async src="https://analytics.johnnyip.com/script.js" data-website-id="8e185d48-7f34-4a6f-9d39-b197cab3ded1"></script>
 
                 <table style={{ width: '100%' }}>
                     <thead></thead>
